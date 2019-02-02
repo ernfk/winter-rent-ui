@@ -1,20 +1,16 @@
-import React, {Component} from "react";
-import ReactDOM from "react-dom";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import AppMenu from '../components/AppMenu.jsx';
+import logo from '../../images/logo.jpg';
+import styles from './overview.style';
 
-class Overview extends Component {
-    constructor() {
-        super();
-        this.state = {
-            title: "Overview"
-        };
-    }
-    render() {
-        return (
-           <div>Title: {this.state.title}</div>
-        );
-    }
-}
+const Overview = () => (
+  <div style={styles.overview}>
+    <img src={logo} style={styles.logo}/>
+    <AppMenu/>
+  </div>
+);
 
 export default Overview;
 
-ReactDOM.render(<Overview />, document.getElementById("overview"));
+ReactDOM.render(<Overview/>, document.getElementById('overview'));
