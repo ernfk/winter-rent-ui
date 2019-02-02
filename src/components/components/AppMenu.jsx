@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
@@ -6,6 +7,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/es/IconButton/IconButton';
 import AccountCircle from '@material-ui/icons/AccountCircle';
+import Settings from '@material-ui/icons/Settings';
 import Menu from '@material-ui/core/es/Menu/Menu';
 import MenuItem from '@material-ui/core/es/MenuItem/MenuItem';
 
@@ -32,6 +34,10 @@ class AppMenu extends Component {
       this.setState({ anchorEl: null });
     };
 
+    handleOpenAdminPanel = () => {
+      console.warn('Open admin panel');
+    };
+
     render() {
       const { anchorEl } = this.state;
       const { classes } = this.props;
@@ -54,17 +60,29 @@ class AppMenu extends Component {
             <div className={classes.root}>
                 <AppBar position="static" color="default">
                     <Toolbar style={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <Typography variant="h6" color="inherit">
-                            Winter rent
-                        </Typography>
-                        <IconButton
-                            aria-owns={isMenuOpen ? 'material-appbar' : undefined}
-                            aria-haspopup="true"
-                            onClick={this.handleProfileMenuOpen}
-                            color="inherit"
-                        >
-                            <AccountCircle/>
-                        </IconButton>
+                        <div>
+                            <Typography variant="h6" color="inherit" style={{ fontFamily: 'Yanone Kaffeesatz', fontSize: '30px' }}>
+                                Winter rent
+                            </Typography>
+                        </div>
+                        <div>
+                            <IconButton
+                                aria-owns={isMenuOpen ? 'material-appbar' : undefined}
+                                aria-haspopup="true"
+                                onClick={this.handleProfileMenuOpen}
+                                color="inherit"
+                            >
+                                <AccountCircle/>
+                            </IconButton>
+                            <IconButton
+                                aria-owns={isMenuOpen ? 'material-appbar' : undefined}
+                                aria-haspopup="true"
+                                onClick={this.handleOpenAdminPanel}
+                                color="inherit"
+                            >
+                                <Settings/>
+                            </IconButton>
+                        </div>
                     </Toolbar>
                 </AppBar>
                 {renderMenu}
