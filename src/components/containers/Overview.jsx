@@ -12,5 +12,3 @@ const Overview = () => (
 );
 
 export default Overview;
-
-ReactDOM.render(<Overview/>, document.getElementById('overview'));
