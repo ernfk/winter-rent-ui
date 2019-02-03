@@ -28,13 +28,9 @@ class AppMenu extends Component {
     };
   }
 
-    handleProfileMenuOpen = (event) => {
-      this.setState({ anchorEl: event.currentTarget });
-    };
+    handleProfileMenuOpen = event => this.setState({ anchorEl: event.currentTarget });
 
-    handleMenuClose = () => {
-      this.setState({ anchorEl: null });
-    };
+    handleMenuClose = () => this.setState({ anchorEl: null });
 
     handleOpenAdminPanel = () => {
       const { history } = this.props;
@@ -75,6 +71,7 @@ class AppMenu extends Component {
                                 aria-haspopup="true"
                                 onClick={this.handleProfileMenuOpen}
                                 color="inherit"
+                                disabled
                             >
                                 <AccountCircle/>
                             </IconButton>
@@ -96,6 +93,7 @@ class AppMenu extends Component {
 }
 
 AppMenu.propTypes = {
+  classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(withRouter(AppMenu));
