@@ -10,6 +10,7 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import Settings from '@material-ui/icons/Settings';
 import Menu from '@material-ui/core/es/Menu/Menu';
 import MenuItem from '@material-ui/core/es/MenuItem/MenuItem';
+import { withRouter } from 'react-router-dom';
 
 const styles = {
   root: {
@@ -35,7 +36,8 @@ class AppMenu extends Component {
     };
 
     handleOpenAdminPanel = () => {
-      console.warn('Open admin panel');
+      const { history } = this.props;
+      history.push('/admin');
     };
 
     render() {
@@ -94,4 +96,4 @@ class AppMenu extends Component {
 AppMenu.propTypes = {
 };
 
-export default withStyles(styles)(AppMenu);
+export default withStyles(styles)(withRouter(AppMenu));

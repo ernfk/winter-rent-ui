@@ -1,7 +1,6 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import AppMenu from '../components/AppMenu.jsx';
-import logo from '../../images/logo.jpg';
+import AppMenu from '../AppMenu.jsx';
+import logo from '../../../images/logo.jpg';
 import styles from './overview.style';
 
 const Overview = () => (
