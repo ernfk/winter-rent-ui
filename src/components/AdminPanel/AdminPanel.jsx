@@ -50,29 +50,29 @@ class AdminPanel extends React.PureComponent {
     };
   }
 
-    handleBackToApp = () => {
-      const { history } = this.props;
-      history.push('/');
-    };
+  handleBackToApp = () => {
+    const { history } = this.props;
+    history.push('/');
+  };
 
-    handleOpenContent = (value) => {
-      this.setState({ currentOpenContent: value });
-    };
+  handleOpenContent = (value) => {
+    this.setState({ currentOpenContent: value });
+  };
 
-    getContent = () => {
-      const { currentOpenContent } = this.state;
-      if (currentOpenContent === 'addItem') {
-        return <AddItem/>;
-      } if (currentOpenContent === 'showAllItems') {
-        return <Typography> List of items </Typography>;
-      }
-      return <Typography>Welcome to Admin Panel</Typography>;
-    };
+  getContent = () => {
+    const { currentOpenContent } = this.state;
+    if (currentOpenContent === 'addItem') {
+      return <AddItem/>;
+    } if (currentOpenContent === 'showAllItems') {
+      return <Typography> List of items </Typography>;
+    }
+    return <Typography>Welcome to Admin Panel</Typography>;
+  };
 
-    render() {
-      const { classes } = this.props;
+  render() {
+    const { classes } = this.props;
 
-      return (
+    return (
        <div className={classes.root}>
            <CssBaseline />
            <AppBar position="fixed" className={classes.appBar}>
@@ -114,8 +114,8 @@ class AdminPanel extends React.PureComponent {
                    {this.getContent()}
            </main>
        </div>
-      );
-    }
+    );
+  }
 }
 
 AdminPanel.propTypes = {

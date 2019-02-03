@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
@@ -5,6 +6,9 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
+import { connect } from 'react-redux';
+import { getItemTypes } from '../../selectors/items';
+import { fetchItemsData } from '../../actions/items';
 
 const styles = theme => ({
   formControl: {
@@ -21,8 +25,19 @@ class AddItem extends React.PureComponent {
     };
   }
 
+  componentDidMount = () => {
+    const { fetchItemsData } = this.props;
+    fetchItemsData();
+  };
+
   handleSelectItemType = (event) => {
     this.setState({ itemType: event.target.value });
+  };
+
+  getItemTypesMenuItems = () => {
+    const { itemTypes } = this.props;
+    return itemTypes
+      .map((itemType, index) => <MenuItem value={index} key={itemType}>{itemType}</MenuItem>);
   };
 
   render() {
@@ -37,13 +52,9 @@ class AddItem extends React.PureComponent {
                 <Select
                     value={itemType}
                     onChange={this.handleSelectItemType}
-                    inputProps={{
-                      name: 'itemType',
-                      id: 'itemType',
-                    }}
+                    inputProps={{ name: 'itemType', id: 'itemType' }}
                 >
-                    <MenuItem value={'SKI'}>SKI</MenuItem>
-                    <MenuItem value={'BOARD'}>BOARD</MenuItem>
+                    {this.getItemTypesMenuItems()}
                 </Select>
             </FormControl>
         </div>
@@ -51,4 +62,14 @@ class AddItem extends React.PureComponent {
   }
 }
 
-export default withStyles(styles)(AddItem);
+const mapStateToProps = state => ({
+  itemTypes: getItemTypes(state),
+});
+
+const mapDispatchToProps = dispatch => ({
+  fetchItemsData: () => {
+    dispatch(fetchItemsData());
+  },
+});
+
+export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(AddItem));

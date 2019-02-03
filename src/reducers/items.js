@@ -1,12 +1,14 @@
+import { FETCHED_ITEM_TYPES } from '../actions/items';
+
 export const initialState = {
   itemTypes: [],
 };
 
 export const items = (state = initialState, action) => {
   switch (action.type) {
-    // case SET_START_SEARCH_CITY: {
-    //     return {...state, city: action.payload};
-    // }
+    case FETCHED_ITEM_TYPES: {
+      return { ...state, itemTypes: action.itemTypes };
+    }
     default: {
       return state;
     }

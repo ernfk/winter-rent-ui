@@ -11,7 +11,7 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import Settings from '@material-ui/icons/Settings';
 import Menu from '@material-ui/core/es/Menu/Menu';
 import MenuItem from '@material-ui/core/es/MenuItem/MenuItem';
-import Logo from '../images/logo.png';
+import Logo from '../../images/logo.png';
 
 const styles = {
   root: {
@@ -28,21 +28,21 @@ class AppMenu extends Component {
     };
   }
 
-    handleProfileMenuOpen = event => this.setState({ anchorEl: event.currentTarget });
+   handleProfileMenuOpen = event => this.setState({ anchorEl: event.currentTarget });
 
-    handleMenuClose = () => this.setState({ anchorEl: null });
+   handleMenuClose = () => this.setState({ anchorEl: null });
 
-    handleOpenAdminPanel = () => {
-      const { history } = this.props;
-      history.push('/admin');
-    };
+   handleOpenAdminPanel = () => {
+     const { history } = this.props;
+     history.push('/admin');
+   };
 
-    render() {
-      const { anchorEl } = this.state;
-      const { classes } = this.props;
-      const isMenuOpen = Boolean(anchorEl);
+   render() {
+     const { anchorEl } = this.state;
+     const { classes } = this.props;
+     const isMenuOpen = Boolean(anchorEl);
 
-      const renderMenu = (
+     const renderMenu = (
             <Menu
                 anchorEl={anchorEl}
                 anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
@@ -53,9 +53,9 @@ class AppMenu extends Component {
                 <MenuItem onClick={this.handleMenuClose}>Profile</MenuItem>
                 <MenuItem onClick={this.handleMenuClose}>Logout</MenuItem>
             </Menu>
-      );
+     );
 
-      return (
+     return (
             <div className={classes.root}>
                 <AppBar position="static" color="default">
                     <Toolbar style={{ display: 'flex', justifyContent: 'space-between', paddingLeft: '10px' }}>
@@ -88,8 +88,8 @@ class AppMenu extends Component {
                 </AppBar>
                 {renderMenu}
             </div>
-      );
-    }
+     );
+   }
 }
 
 AppMenu.propTypes = {
