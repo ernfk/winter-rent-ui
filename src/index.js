@@ -2,8 +2,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Overview from './components/components/Overview/Overview.jsx';
-import AdminPanel from "./components/components/AdminPanel/AdminPanel.jsx";
+import Overview from './components/Overview/Overview.jsx';
+import AdminPanel from "./components/AdminPanel/AdminPanel.jsx";
 
 
 const routing = (

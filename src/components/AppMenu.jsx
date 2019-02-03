@@ -11,7 +11,7 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import Settings from '@material-ui/icons/Settings';
 import Menu from '@material-ui/core/es/Menu/Menu';
 import MenuItem from '@material-ui/core/es/MenuItem/MenuItem';
-import Logo from '../../images/logo.png';
+import Logo from '../images/logo.png';
 
 const styles = {
   root: {

@@ -15,6 +15,7 @@ import ExitIcon from '@material-ui/icons/ExitToApp';
 import ViewList from '@material-ui/icons/ViewList';
 import IconButton from '@material-ui/core/es/IconButton/IconButton';
 import { withRouter } from 'react-router-dom';
+import AddItem from './AddItem.jsx';
 
 const drawerWidth = 240;
 
@@ -44,11 +45,28 @@ const styles = theme => ({
 class AdminPanel extends React.PureComponent {
   constructor(props) {
     super(props);
+    this.state = {
+      currentOpenContent: 'addItem',
+    };
   }
 
     handleBackToApp = () => {
       const { history } = this.props;
       history.push('/');
+    };
+
+    handleOpenContent = (value) => {
+      this.setState({ currentOpenContent: value });
+    };
+
+    getContent = () => {
+      const { currentOpenContent } = this.state;
+      if (currentOpenContent === 'addItem') {
+        return <AddItem/>;
+      } if (currentOpenContent === 'showAllItems') {
+        return <Typography> List of items </Typography>;
+      }
+      return <Typography>Welcome to Admin Panel</Typography>;
     };
 
     render() {
@@ -73,19 +91,17 @@ class AdminPanel extends React.PureComponent {
            <Drawer
                className={classes.drawer}
                variant="permanent"
-               classes={{
-                 paper: classes.drawerPaper,
-               }}
+               classes={{ paper: classes.drawerPaper }}
            >
                <div className={classes.toolbar} />
                <List>
-                       <ListItem button>
+                       <ListItem button onClick={() => this.handleOpenContent('addItem')}>
                            <ListItemText primary={'Add new item'} />
                            <ListItemIcon>
                                <AddIcon />
                            </ListItemIcon>
                        </ListItem>
-                   <ListItem button disabled>
+                   <ListItem button disabled onClick={() => this.handleOpenContent('showAllItems')}>
                        <ListItemText primary={'Show all items'} />
                        <ListItemIcon>
                            <ViewList />
@@ -95,9 +111,7 @@ class AdminPanel extends React.PureComponent {
            </Drawer>
            <main className={classes.content}>
                <div className={classes.toolbar} />
-               <Typography paragraph>
-                   Welcome to Admin Panel
-               </Typography>
+                   {this.getContent()}
            </main>
        </div>
       );
