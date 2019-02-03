@@ -4,15 +4,28 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Overview from './components/Overview/Overview.jsx';
 import AdminPanel from "./components/AdminPanel/AdminPanel.jsx";
+import {createStore, applyMiddleware, compose} from "redux";
+import {Provider} from "react-redux";
+import thunk from 'redux-thunk';
+import {rootReducer} from "./reducers/root-reducer";
 
+const store = createStore(
+    rootReducer,
+    compose(
+        applyMiddleware(thunk),
+        window.devToolsExtension ? window.devToolsExtension() : f => f
+    )
+);
 
 const routing = (
-    <Router>
-        <Switch>
-            <Route exact path="/" component={Overview} />
-            <Route exact path="/admin" component={AdminPanel} />
-        </Switch>
-    </Router>
+    <Provider store={store}>
+        <Router>
+            <Switch>
+                <Route exact path="/" component={Overview} />
+                <Route exact path="/admin" component={AdminPanel} />
+            </Switch>
+        </Router>
+    </Provider>
 );
 
 ReactDOM.render(routing, document.getElementById('overview'));
