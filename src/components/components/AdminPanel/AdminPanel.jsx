@@ -59,10 +59,7 @@ class AdminPanel extends React.PureComponent {
            <CssBaseline />
            <AppBar position="fixed" className={classes.appBar}>
                <Toolbar style={{ display: 'flex', justifyContent: 'space-between' }}>
-                   <Typography variant="h6" color="inherit" noWrap style={{
-                     fontFamily: 'Yanone Kaffeesatz',
-                     fontSize: '30px',
-                   }}>
+                   <Typography variant="h6" color="inherit" noWrap >
                        Admin Panel
                    </Typography>
                    <IconButton
