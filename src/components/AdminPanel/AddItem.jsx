@@ -25,7 +25,7 @@ class AddItem extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      itemType: '',
+      selectedItemType: '',
       itemPropertyDefinitionsFieldsOpen: false,
       labelWidth: 0,
     };
@@ -38,7 +38,10 @@ class AddItem extends React.PureComponent {
   };
 
   handleSelectItemType = (event) => {
-    this.setState({ itemType: event.target.value, itemPropertyDefinitionsFieldsOpen: true });
+    this.setState({
+      selectedItemType: event.target.value,
+      itemPropertyDefinitionsFieldsOpen: true,
+    });
   };
 
   getItemTypesMenuItems = () => {
@@ -49,7 +52,7 @@ class AddItem extends React.PureComponent {
 
   render() {
     const { classes, itemPropertyDefinitions } = this.props;
-    const { itemType, itemPropertyDefinitionsFieldsOpen, labelWidth } = this.state;
+    const { selectedItemType, itemPropertyDefinitionsFieldsOpen, labelWidth } = this.state;
 
     return (
         <div>
@@ -63,7 +66,7 @@ class AddItem extends React.PureComponent {
                     Item type
                 </InputLabel>
                 <Select
-                    value={itemType}
+                    value={selectedItemType}
                     onChange={this.handleSelectItemType}
                     input={
                         <OutlinedInput
@@ -79,7 +82,7 @@ class AddItem extends React.PureComponent {
             {itemPropertyDefinitionsFieldsOpen
             && <ItemPropertyDefinitionsFields
                 itemPropertyDefinitions={itemPropertyDefinitions}
-                itemType={itemType}
+                selectedItemType={selectedItemType}
             />}
         </div>
     );
