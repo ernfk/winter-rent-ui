@@ -12,5 +12,5 @@ const fetchedItemPropertyDefinitions = makeActionCreator(FETCHED_ITEM_DEFINITION
 
 export const fetchItemsData = () => dispatch => itemsService.getItemTypes()
   .then(response => dispatch(fetchedItemTypes(response.data)))
-  .then(() => itemsService.getItemPropertyDefinitions())
+  .then(itemsService.getItemPropertyDefinitions)
   .then(response => dispatch(fetchedItemPropertyDefinitions(response.data)));

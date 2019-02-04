@@ -1,5 +1,7 @@
 /* eslint-disable no-shadow */
 import React from 'react';
+import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import FormControl from '@material-ui/core/FormControl';
@@ -7,7 +9,9 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
 import { connect } from 'react-redux';
-import { getItemTypes } from '../../selectors/items';
+import OutlinedInput from '@material-ui/core/OutlinedInput';
+import ItemPropertyDefinitionsFields from './ItemPropertyDefinitionsFields.jsx';
+import * as ItemSelectors from '../../selectors/items';
 import { fetchItemsData } from '../../actions/items';
 
 const styles = theme => ({
@@ -22,48 +26,75 @@ class AddItem extends React.PureComponent {
     super(props);
     this.state = {
       itemType: '',
+      itemPropertyDefinitionsFieldsOpen: false,
+      labelWidth: 0,
     };
   }
 
   componentDidMount = () => {
+    this.setState({ labelWidth: ReactDOM.findDOMNode(this.InputLabelRef).offsetWidth });
     const { fetchItemsData } = this.props;
     fetchItemsData();
   };
 
   handleSelectItemType = (event) => {
-    this.setState({ itemType: event.target.value });
+    this.setState({ itemType: event.target.value, itemPropertyDefinitionsFieldsOpen: true });
   };
 
   getItemTypesMenuItems = () => {
     const { itemTypes } = this.props;
     return itemTypes
-      .map((itemType, index) => <MenuItem value={index} key={itemType}>{itemType}</MenuItem>);
+      .map(itemType => <MenuItem value={itemType} key={itemType}>{itemType}</MenuItem>);
   };
 
   render() {
-    const { classes } = this.props;
-    const { itemType } = this.state;
+    const { classes, itemPropertyDefinitions } = this.props;
+    const { itemType, itemPropertyDefinitionsFieldsOpen, labelWidth } = this.state;
 
     return (
         <div>
-            <Typography style={{ paddingLeft: '9px', fontSize: '18px' }}> Add new item </Typography>
-            <FormControl className={classes.formControl}>
-                <InputLabel htmlFor="itemType">Item type</InputLabel>
+            <Typography style={{ padding: '0 0 5px 9px', fontSize: '18px' }}> Add new item </Typography>
+            <FormControl variant="outlined" className={classes.formControl}>
+                <InputLabel htmlFor="outlined-itemType-simple"
+                            ref={(ref) => {
+                              this.InputLabelRef = ref;
+                            }}
+                >
+                    Item type
+                </InputLabel>
                 <Select
                     value={itemType}
                     onChange={this.handleSelectItemType}
-                    inputProps={{ name: 'itemType', id: 'itemType' }}
+                    input={
+                        <OutlinedInput
+                            name="itemType"
+                            labelWidth={labelWidth}
+                            id="outlined-itemType-simple"
+                        />
+                    }
                 >
                     {this.getItemTypesMenuItems()}
                 </Select>
             </FormControl>
+            {itemPropertyDefinitionsFieldsOpen
+            && <ItemPropertyDefinitionsFields
+                itemPropertyDefinitions={itemPropertyDefinitions}
+                itemType={itemType}
+            />}
         </div>
     );
   }
 }
 
+AddItem.propTypes = {
+  classes: PropTypes.object.isRequired,
+  itemTypes: PropTypes.array.isRequired,
+  itemPropertyDefinitions: PropTypes.array.isRequired,
+};
+
 const mapStateToProps = state => ({
-  itemTypes: getItemTypes(state),
+  itemTypes: ItemSelectors.getItemTypes(state),
+  itemPropertyDefinitions: ItemSelectors.getItemPropertyDefinitions(state),
 });
 
 const mapDispatchToProps = dispatch => ({
