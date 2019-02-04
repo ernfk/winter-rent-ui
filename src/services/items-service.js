@@ -12,6 +12,11 @@ class ItemsService extends BaseService {
     const path = `${this.basePath}/itemTypes`;
     return axios.get(path);
   };
+
+  getItemPropertyDefinitions = () => {
+    const path = `${this.basePath}/itemPropertyDefinitions`;
+    return axios.get(path);
+  };
 }
 
 export default ItemsService;

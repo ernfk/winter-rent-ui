@@ -46,7 +46,7 @@ class AddItem extends React.PureComponent {
 
     return (
         <div>
-            <Typography> Add new item </Typography>
+            <Typography style={{ paddingLeft: '9px', fontSize: '18px' }}> Add new item </Typography>
             <FormControl className={classes.formControl}>
                 <InputLabel htmlFor="itemType">Item type</InputLabel>
                 <Select
