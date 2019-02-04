@@ -1,6 +1,6 @@
 1. Eslint does not complain propTypes, configure
-2. Styles
-3. Admin only for admins
-font-family: 'Open Sans', sans-serif;
-font-family: 'Roboto', sans-serif;
-font-family: 'Yanone Kaffeesatz', sans-serif;
+2. Styles extract
+3. Add item common components (more selects)
+4. Columns
+5. Refactor Add item - more dynamic
+6. Admin only for admins
