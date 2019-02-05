@@ -10,9 +10,24 @@ FIELDS.set('PRODUCER', { stateRef: 'producer', fieldType: 'select', menuItems: [
 FIELDS.set('COLOR', { stateRef: 'color', fieldType: 'select', menuItems: ['RED', 'GREEN', 'BLUE'] });
 FIELDS.set('SECOND COLOR', { stateRef: 'secondColor', fieldType: 'select', menuItems: ['RED', 'GREEN', 'BLUE'] });
 FIELDS.set('SIZE', { stateRef: 'size', fieldType: 'select', menuItems: ['S', 'M', 'L', 'XL'] });
-FIELDS.set('MODEL', { stateRef: 'model', fieldType: 'textfield', adornment: { value: '', position: '' } });
-FIELDS.set('LENGTH', { stateRef: 'length', fieldType: 'textfield', adornment: { value: 'CM', positions: 'end' } });
-FIELDS.set('PRICE', { stateRef: 'price', fieldType: 'textfield', adornment: { value: 'PLN', position: 'end' } });
+FIELDS.set('MODEL', {
+  stateRef: 'model',
+  fieldType: 'textfield',
+  adornment: { value: '', position: '' },
+  sortNo: 1,
+});
+FIELDS.set('PRICE', {
+  stateRef: 'price',
+  fieldType: 'textfield',
+  adornment: { value: 'PLN', position: 'end' },
+  sortNo: 2,
+});
+FIELDS.set('LENGTH', {
+  stateRef: 'length',
+  fieldType: 'textfield',
+  adornment: { value: 'CM', positions: 'end' },
+  sortNo: 3,
+});
 
 const itemsService = new ItemsService();
 

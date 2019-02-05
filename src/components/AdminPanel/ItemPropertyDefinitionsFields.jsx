@@ -46,15 +46,14 @@ class ItemPropertyDefinitionsFields extends React.PureComponent {
 
   getInputProps = (itemPropertyDefinition) => {
     const { adornment } = itemPropertyDefinition.fieldProperties;
+    const inputProps = {};
     if (adornment.value !== '') {
-      return {
-        endAdornment: <InputAdornment
+      inputProps.endAdornment = <InputAdornment
               position={adornment.position}>
               {adornment.value}
-          </InputAdornment>,
-      };
+          </InputAdornment>;
     }
-    return {};
+    return inputProps;
   };
 
   getTextFields = () => {
@@ -62,15 +61,16 @@ class ItemPropertyDefinitionsFields extends React.PureComponent {
 
     return itemPropertyDefinitions
       .filter(ipd => ipd.fieldProperties.fieldType === 'textfield' && selectedItemType === ipd.itemType)
+      .sort((a, b) => a.fieldProperties.sortNo - b.fieldProperties.sortNo)
       .map((ipd, index) => {
-        const propertyName = ipd.fieldProperties.stateRef;
+        const { stateRef } = ipd.fieldProperties;
         return <TextField
-              id={`${propertyName}-textfield`}
+              id={`${stateRef}-textfield`}
               className={classNames(classes.formControl)}
               label={ipd.propertyName}
               InputProps={this.getInputProps(ipd)}
               key={index}
-              onChange={this.handleChange(propertyName)}
+              onChange={this.handleChange(stateRef)}
           />;
       });
   };
@@ -84,18 +84,18 @@ class ItemPropertyDefinitionsFields extends React.PureComponent {
     return itemPropertyDefinitions
       .filter(ipd => ipd.fieldProperties.fieldType === 'select' && selectedItemType === ipd.itemType)
       .map((ipd, index) => {
-        const propertyName = ipd.fieldProperties.stateRef;
+        const { stateRef } = ipd.fieldProperties;
         return <FormControl className={classes.formControl} key={index}>
-                    <InputLabel htmlFor={`select-${propertyName}`}>
+                    <InputLabel htmlFor={`select-${stateRef}`}>
                         {ipd.propertyName}
                     </InputLabel>
                     <Select
-                        value={this.state[propertyName]}
-                        onChange={this.handleChange(propertyName)}
+                        value={this.state[stateRef]}
+                        onChange={this.handleChange(stateRef)}
                         input={
                             <Input
-                                name={`select-${propertyName}`}
-                                id={`select-${propertyName}`}
+                                name={`select-${stateRef}`}
+                                id={`select-${stateRef}`}
                             />
                         }
                     >
@@ -107,7 +107,7 @@ class ItemPropertyDefinitionsFields extends React.PureComponent {
 
   render() {
     return (
-          <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <div style={{ display: 'grid', gridColumnGap: '40px', gridTemplateColumns: '200px 200px' }}>
               {this.getTextFields()}
               {this.getSelectFields()}
           </div>
