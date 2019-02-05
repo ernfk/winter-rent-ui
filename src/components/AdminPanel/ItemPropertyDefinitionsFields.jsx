@@ -9,6 +9,8 @@ import classNames from 'classnames';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Input from '@material-ui/core/Input';
+import SaveIcon from '@material-ui/icons/Save';
+import Button from '@material-ui/core/Button';
 
 const styles = theme => ({
   root: {
@@ -18,6 +20,12 @@ const styles = theme => ({
   formControl: {
     margin: theme.spacing.unit,
     width: '200px',
+  },
+  button: {
+    margin: theme.spacing.unit,
+  },
+  leftIcon: {
+    marginRight: theme.spacing.unit,
   },
 });
 
@@ -105,12 +113,24 @@ class ItemPropertyDefinitionsFields extends React.PureComponent {
       });
   };
 
+  getButtons = () => {
+    const { classes } = this.props;
+
+    return <Button variant="contained" className={classes.button} disabled>
+            <SaveIcon className={classes.leftIcon} />
+            Save
+        </Button>;
+  };
+
   render() {
     return (
+        <div>
           <div style={{ display: 'grid', gridColumnGap: '40px', gridTemplateColumns: '200px 200px' }}>
               {this.getTextFields()}
               {this.getSelectFields()}
           </div>
+            {this.getButtons()}
+        </div>
     );
   }
 }
