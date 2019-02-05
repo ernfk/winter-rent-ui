@@ -62,6 +62,35 @@ class ItemPropertyDefinitionsFields extends React.PureComponent {
     });
   };
 
+    getInputProps = (itemPropertyDefinition) => {
+      const adornment = itemPropertyDefinition.fieldProperties.adornment;
+      if (adornment.value !== '') {
+        return {
+          endAdornment: <InputAdornment
+              position={adornment.position}>
+              {adornment.value}
+          </InputAdornment>,
+        };
+      }
+      return {};
+    };
+
+    getTextFields = () => {
+      const { itemPropertyDefinitions, classes, selectedItemType } = this.props;
+      return itemPropertyDefinitions.map((ipd, index) => {
+        if (ipd.fieldProperties.fieldType === 'textfield' && selectedItemType === ipd.itemType) {
+          return <TextField
+              id="length-textfield"
+              className={classNames(classes.margin)}
+              variant="outlined"
+              label={ipd.propertyName}
+              InputProps={this.getInputProps(ipd)}
+              key={index}
+          />;
+        }
+      });
+    };
+
   getColors = () => {
     const { firstColor, secondColor } = this.state;
     return COLORS
@@ -263,28 +292,8 @@ class ItemPropertyDefinitionsFields extends React.PureComponent {
                       {this.getColors()}
                   </Select>
               </FormControl>
-
-              <TextField
-                  id="length-textfield"
-                  className={classNames(classes.margin)}
-                  variant="outlined"
-                  label={'Length'}
-                  InputProps={{
-                    endAdornment: <InputAdornment position="end">CM</InputAdornment>,
-                  }}
-              />
-
-              <TextField
-                  id="price-textfield"
-                  className={classNames(classes.margin)}
-                  variant="outlined"
-                  label={'Price'}
-                  InputProps={{
-                    endAdornment: <InputAdornment position="end">PLN</InputAdornment>,
-                  }}
-              />
+              {this.getTextFields()}
           </div>
-
     );
   }
 }
