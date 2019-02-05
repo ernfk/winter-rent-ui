@@ -30,7 +30,7 @@ const COLORS = ['RED', 'GREEN', 'BLUE'];
 const GENDERS = ['MALE', 'WOMEN', 'JUNIOR', 'UNISEX'];
 const PRODUCERS = ['ATOMIC', 'FISCHER', 'HEAD', 'ROSSIGNOLE', 'ELAN', 'BLIZZARD'];
 const RACE_STYLES = ['ALL MOUNTAIN', 'ALL ROUND', 'RACE', 'CROSS', 'DOWNHILL'];
-
+const SEASONS = ['2015/2016', '2016/2017', '2018/2019', 'NEW'];
 
 class ItemPropertyDefinitionsFields extends React.PureComponent {
   constructor(props) {
@@ -41,11 +41,13 @@ class ItemPropertyDefinitionsFields extends React.PureComponent {
       genderWidth: 0,
       producerWidth: 0,
       raceStyleWidth: 0,
+      seasonWidth: 0,
       firstColor: '',
       secondColor: '',
       gender: '',
       producer: '',
       raceStyle: '',
+      season: '',
     };
   }
 
@@ -56,6 +58,7 @@ class ItemPropertyDefinitionsFields extends React.PureComponent {
       genderWidth: ReactDOM.findDOMNode(this.inputGenderLabel).offsetWidth,
       producerWidth: ReactDOM.findDOMNode(this.inputProducerLabel).offsetWidth,
       raceStyleWidth: ReactDOM.findDOMNode(this.inputRaceStyleLabel).offsetWidth,
+      seasonWidth: ReactDOM.findDOMNode(this.inputSeasonLabel).offsetWidth,
     });
   };
 
@@ -72,6 +75,8 @@ class ItemPropertyDefinitionsFields extends React.PureComponent {
 
   getRaceStyles = () => RACE_STYLES.map(raceStyle => <MenuItem value={raceStyle} key={raceStyle}>{raceStyle}</MenuItem>);
 
+  getSeasons = () => SEASONS.map(season => <MenuItem value={season} key={season}>{season}</MenuItem>);
+
   handleSelectFirstColor = event => this.setState({ firstColor: event.target.value });
 
   handleSelectSecondColor = event => this.setState({ secondColor: event.target.value });
@@ -80,24 +85,28 @@ class ItemPropertyDefinitionsFields extends React.PureComponent {
 
   handleSelectProducer = event => this.setState({ producer: event.target.value });
 
-    handleSelectRaceStyle = event => this.setState({ raceStyle: event.target.value });
+  handleSelectRaceStyle = event => this.setState({ raceStyle: event.target.value });
 
-    render() {
-      const { classes, itemPropertyDefinitions, selectedItemType } = this.props;
-      const {
-        firstColorWidth,
-        secondColorWidth,
-        genderWidth,
-        producerWidth,
-        raceStyleWidth,
-        firstColor,
-        secondColor,
-        gender,
-        producer,
-        raceStyle,
-      } = this.state;
+  handleSelectSeason = event => this.setState({ season: event.target.value });
 
-      return (
+  render() {
+    const { classes, itemPropertyDefinitions, selectedItemType } = this.props;
+    const {
+      firstColorWidth,
+      secondColorWidth,
+      genderWidth,
+      producerWidth,
+      raceStyleWidth,
+      seasonWidth,
+      firstColor,
+      secondColor,
+      gender,
+      producer,
+      raceStyle,
+      season,
+    } = this.state;
+
+    return (
           <div style={{ display: 'flex', flexDirection: 'column' }}>
               {itemPropertyDefinitions
                 .filter(propertyDefinition => propertyDefinition.itemType === selectedItemType)
@@ -107,7 +116,8 @@ class ItemPropertyDefinitionsFields extends React.PureComponent {
                     && propertyDefinition.propertyName !== 'Length'
                     && propertyDefinition.propertyName !== 'Gender'
                     && propertyDefinition.propertyName !== 'Producer'
-                    && propertyDefinition.propertyName !== 'Race style')
+                    && propertyDefinition.propertyName !== 'Race style'
+                    && propertyDefinition.propertyName !== 'Season')
                 .map((propertyDefinition, index) => <TextField
                   id="outlined-simple-start-adornment"
                   className={classNames(classes.margin)}
@@ -136,6 +146,29 @@ class ItemPropertyDefinitionsFields extends React.PureComponent {
                       }
                   >
                       {this.getRaceStyles()}
+                  </Select>
+              </FormControl>
+
+              <FormControl variant="outlined" className={classes.formControl}>
+                  <InputLabel htmlFor="outlined-season-style-simple"
+                              ref={(ref) => {
+                                this.inputSeasonLabel = ref;
+                              }}
+                  >
+                     Season
+                  </InputLabel>
+                  <Select
+                      value={season}
+                      onChange={this.handleSelectSeason}
+                      input={
+                          <OutlinedInput
+                              name="season"
+                              labelWidth={seasonWidth}
+                              id="outlined-season-simple"
+                          />
+                      }
+                  >
+                      {this.getSeasons()}
                   </Select>
               </FormControl>
 
@@ -252,8 +285,8 @@ class ItemPropertyDefinitionsFields extends React.PureComponent {
               />
           </div>
 
-      );
-    }
+    );
+  }
 }
 
 ItemPropertyDefinitionsFields.propTypes = {
