@@ -11,8 +11,8 @@ FIELDS.set('COLOR', { fieldType: 'select', menuItems: ['RED', 'GREEN', 'BLUE'] }
 FIELDS.set('SECOND COLOR', { fieldType: 'select', menuItems: ['RED', 'GREEN', 'BLUE'] });
 FIELDS.set('SIZE', { fieldType: 'select', menuItems: ['S', 'M', 'L', 'XL'] });
 FIELDS.set('MODEL', { fieldType: 'textfield', adornment: { value: '', position: '' } });
-FIELDS.set('PRICE', { fieldType: 'textfield', adornment: { value: 'PLN', position: 'end' } });
 FIELDS.set('LENGTH', { fieldType: 'textfield', adornment: { value: 'CM', positions: 'end' } });
+FIELDS.set('PRICE', { fieldType: 'textfield', adornment: { value: 'PLN', position: 'end' } });
 
 const itemsService = new ItemsService();
 

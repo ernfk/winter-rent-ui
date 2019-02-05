@@ -62,34 +62,42 @@ class ItemPropertyDefinitionsFields extends React.PureComponent {
     });
   };
 
-    getInputProps = (itemPropertyDefinition) => {
-      const adornment = itemPropertyDefinition.fieldProperties.adornment;
-      if (adornment.value !== '') {
-        return {
-          endAdornment: <InputAdornment
+  handleChange = name => (event) => {
+    this.setState({
+      [name]: event.target.value,
+    });
+  };
+
+  getInputProps = (itemPropertyDefinition) => {
+    const { adornment } = itemPropertyDefinition.fieldProperties;
+    if (adornment.value !== '') {
+      return {
+        endAdornment: <InputAdornment
               position={adornment.position}>
               {adornment.value}
           </InputAdornment>,
-        };
-      }
-      return {};
-    };
+      };
+    }
+    return {};
+  };
 
-    getTextFields = () => {
-      const { itemPropertyDefinitions, classes, selectedItemType } = this.props;
-      return itemPropertyDefinitions.map((ipd, index) => {
-        if (ipd.fieldProperties.fieldType === 'textfield' && selectedItemType === ipd.itemType) {
-          return <TextField
-              id="length-textfield"
+  getTextFields = () => {
+    const { itemPropertyDefinitions, classes, selectedItemType } = this.props;
+
+    return itemPropertyDefinitions.map((ipd, index) => {
+      if (ipd.fieldProperties.fieldType === 'textfield' && selectedItemType === ipd.itemType) {
+        return <TextField
+              id={`${ipd.propertyName.toLowerCase()}-textfield`}
               className={classNames(classes.margin)}
               variant="outlined"
               label={ipd.propertyName}
               InputProps={this.getInputProps(ipd)}
               key={index}
+              onChange={this.handleChange(ipd.propertyName.toLowerCase())}
           />;
-        }
-      });
-    };
+      }
+    });
+  };
 
   getColors = () => {
     const { firstColor, secondColor } = this.state;
@@ -137,24 +145,6 @@ class ItemPropertyDefinitionsFields extends React.PureComponent {
 
     return (
           <div style={{ display: 'flex', flexDirection: 'column' }}>
-              {itemPropertyDefinitions
-                .filter(propertyDefinition => propertyDefinition.itemType === selectedItemType)
-                .filter(propertyDefinition => propertyDefinition.propertyName !== 'Color'
-                    && propertyDefinition.propertyName !== 'Second color'
-                    && propertyDefinition.propertyName !== 'Price'
-                    && propertyDefinition.propertyName !== 'Length'
-                    && propertyDefinition.propertyName !== 'Gender'
-                    && propertyDefinition.propertyName !== 'Producer'
-                    && propertyDefinition.propertyName !== 'Race style'
-                    && propertyDefinition.propertyName !== 'Season')
-                .map((propertyDefinition, index) => <TextField
-                  id="outlined-simple-start-adornment"
-                  className={classNames(classes.margin)}
-                  variant="outlined"
-                  label={propertyDefinition.propertyName}
-                  key={index}
-              />)}
-
               <FormControl variant="outlined" className={classes.formControl}>
                   <InputLabel htmlFor="outlined-race-style-simple"
                               ref={(ref) => {
