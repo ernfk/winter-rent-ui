@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
-import AppMenu from './AppMenu.jsx';
+import AppMenu from './app-menu.jsx';
 
 const Overview = () => <AppMenu/>;
 

@@ -15,32 +15,9 @@ import ExitIcon from '@material-ui/icons/ExitToApp';
 import ViewList from '@material-ui/icons/ViewList';
 import IconButton from '@material-ui/core/es/IconButton/IconButton';
 import { withRouter } from 'react-router-dom';
-import AddItem from './AddItem.jsx';
+import AddItem from './add-item.jsx';
+import styles from './admin-panel.style';
 
-const drawerWidth = 240;
-
-const styles = theme => ({
-  root: {
-    display: 'flex',
-  },
-  appBar: {
-    zIndex: theme.zIndex.drawer + 1,
-    backgroundColor: '#f5f5f5',
-    color: '#000000',
-  },
-  drawer: {
-    width: drawerWidth,
-    flexShrink: 0,
-  },
-  drawerPaper: {
-    width: drawerWidth,
-  },
-  content: {
-    flexGrow: 1,
-    padding: theme.spacing.unit * 3,
-  },
-  toolbar: theme.mixins.toolbar,
-});
 
 class AdminPanel extends React.PureComponent {
   constructor(props) {
@@ -76,7 +53,7 @@ class AdminPanel extends React.PureComponent {
        <div className={classes.root}>
            <CssBaseline />
            <AppBar position="fixed" className={classes.appBar}>
-               <Toolbar style={{ display: 'flex', justifyContent: 'space-between' }}>
+               <Toolbar className={classes.adminPanelToolbar}>
                    <Typography variant="h6" color="inherit" noWrap >
                        Admin Panel
                    </Typography>
@@ -120,6 +97,7 @@ class AdminPanel extends React.PureComponent {
 
 AdminPanel.propTypes = {
   classes: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
 };
 
 

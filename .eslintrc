@@ -4,5 +4,5 @@
     "linebreak-style": 0,
     "no-param-reassign": 0
   },
-  "extends": ["airbnb-base"]
+  "extends": ["airbnb-base", "plugin:react/recommended"]
 }

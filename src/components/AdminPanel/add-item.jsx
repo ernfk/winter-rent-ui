@@ -10,16 +10,11 @@ import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
 import { connect } from 'react-redux';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
-import ItemPropertyDefinitionsFields from './ItemPropertyDefinitionsFields.jsx';
+import ItemPropertyDefinitionsFields from './item-property-definitions-fields.jsx';
 import * as ItemSelectors from '../../selectors/items';
 import { fetchItemsData } from '../../actions/items';
+import styles from './add-item.style';
 
-const styles = theme => ({
-  formControl: {
-    margin: theme.spacing.unit,
-    minWidth: 150,
-  },
-});
 
 class AddItem extends React.PureComponent {
   constructor(props) {
@@ -56,7 +51,7 @@ class AddItem extends React.PureComponent {
 
     return (
         <div>
-            <Typography style={{ padding: '0 0 5px 9px', fontSize: '18px' }}> Add new item </Typography>
+            <Typography style={styles.addItemTypography}> Add new item </Typography>
             <FormControl variant="outlined" className={classes.formControl}>
                 <InputLabel htmlFor="outlined-itemType-simple"
                             ref={(ref) => {

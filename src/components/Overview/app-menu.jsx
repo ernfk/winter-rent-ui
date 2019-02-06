@@ -12,13 +12,8 @@ import Settings from '@material-ui/icons/Settings';
 import Menu from '@material-ui/core/es/Menu/Menu';
 import MenuItem from '@material-ui/core/es/MenuItem/MenuItem';
 import Logo from '../../images/logo.png';
+import styles from './app-menu.style';
 
-const styles = {
-  root: {
-    flexGrow: 1,
-    paddingRight: '5px',
-  },
-};
 
 class AppMenu extends Component {
   constructor(props) {
@@ -45,8 +40,8 @@ class AppMenu extends Component {
      const renderMenu = (
             <Menu
                 anchorEl={anchorEl}
-                anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-                transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+                anchorOrigin={styles.menu}
+                transformOrigin={styles.menu}
                 open={isMenuOpen}
                 onClose={this.handleMenuClose}
             >
@@ -58,10 +53,10 @@ class AppMenu extends Component {
      return (
             <div className={classes.root}>
                 <AppBar position="static" color="default">
-                    <Toolbar style={{ display: 'flex', justifyContent: 'space-between', paddingLeft: '10px' }}>
-                        <div style={{ display: 'flex' }}>
-                            <img src={Logo} style={{ height: '50px', paddingRight: '10px' }}/>
-                            <Typography variant="h6" color="inherit" style={{ fontFamily: 'ZCOOL KuaiLe', fontSize: '30px' }}>
+                    <Toolbar style={styles.toolbar}>
+                        <div style={styles.logoContainer}>
+                            <img src={Logo} style={styles.logo}/>
+                            <Typography variant="h6" color="inherit" style={styles.appBarHeader}>
                                 Winter rent
                             </Typography>
                         </div>
@@ -94,6 +89,7 @@ class AppMenu extends Component {
 
 AppMenu.propTypes = {
   classes: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(withRouter(AppMenu));

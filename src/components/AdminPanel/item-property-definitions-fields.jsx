@@ -11,23 +11,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Input from '@material-ui/core/Input';
 import SaveIcon from '@material-ui/icons/Save';
 import Button from '@material-ui/core/Button';
-
-const styles = theme => ({
-  root: {
-    display: 'flex',
-    flexWrap: 'wrap',
-  },
-  formControl: {
-    margin: theme.spacing.unit,
-    width: '200px',
-  },
-  button: {
-    margin: theme.spacing.unit,
-  },
-  leftIcon: {
-    marginRight: theme.spacing.unit,
-  },
-});
+import styles from './item-property-definitions-fields.style';
 
 class ItemPropertyDefinitionsFields extends React.PureComponent {
   constructor(props) {
@@ -123,9 +107,11 @@ class ItemPropertyDefinitionsFields extends React.PureComponent {
   };
 
   render() {
+    const { classes } = this.props;
+
     return (
         <div>
-          <div style={{ display: 'grid', gridColumnGap: '40px', gridTemplateColumns: '200px 200px' }}>
+          <div className={classes.fieldsGrid}>
               {this.getTextFields()}
               {this.getSelectFields()}
           </div>
@@ -137,6 +123,8 @@ class ItemPropertyDefinitionsFields extends React.PureComponent {
 
 ItemPropertyDefinitionsFields.propTypes = {
   classes: PropTypes.object.isRequired,
+  itemPropertyDefinitions: PropTypes.array,
+  selectedItemType: PropTypes.string,
 };
 
 export default withStyles(styles)(ItemPropertyDefinitionsFields);
