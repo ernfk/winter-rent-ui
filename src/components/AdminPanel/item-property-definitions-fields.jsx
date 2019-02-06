@@ -10,30 +10,37 @@ import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Input from '@material-ui/core/Input';
 import SaveIcon from '@material-ui/icons/Save';
+import ClearIcon from '@material-ui/icons/Clear';
 import Button from '@material-ui/core/Button';
 import styles from './item-property-definitions-fields.style';
+
+const initialState = {
+  color: '',
+  gender: '',
+  length: '',
+  model: '',
+  price: '',
+  producer: '',
+  raceStyle: '',
+  season: '',
+  secondColor: '',
+  size: '',
+};
 
 class ItemPropertyDefinitionsFields extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.state = {
-      color: '',
-      gender: '',
-      length: '',
-      model: '',
-      price: '',
-      producer: '',
-      raceStyle: '',
-      season: '',
-      secondColor: '',
-      size: '',
-    };
+    this.state = initialState;
   }
 
   handleChange = name => (event) => {
     this.setState({
       [name]: event.target.value,
     });
+  };
+
+  handleClearFields = () => {
+    this.setState(initialState);
   };
 
   getInputProps = (itemPropertyDefinition) => {
@@ -63,6 +70,7 @@ class ItemPropertyDefinitionsFields extends React.PureComponent {
               InputProps={this.getInputProps(ipd)}
               key={index}
               onChange={this.handleChange(stateRef)}
+              value={this.state[stateRef]}
           />;
       });
   };
@@ -100,15 +108,23 @@ class ItemPropertyDefinitionsFields extends React.PureComponent {
   getButtons = () => {
     const { classes } = this.props;
 
-    return <Button variant="contained" className={classes.button} disabled>
+    return (
+        <div>
+        <Button variant="contained" className={classes.button} disabled>
             <SaveIcon className={classes.leftIcon} />
             Save
-        </Button>;
+        </Button>
+        <Button variant="outlined" className={classes.clearButton} onClick={this.handleClearFields}>
+            <ClearIcon className={classes.leftIcon} />
+            Clear
+        </Button>
+        </div>
+    );
   };
 
   render() {
     const { classes } = this.props;
-
+    console.log(this.state);
     return (
         <div>
           <div className={classes.fieldsGrid}>
