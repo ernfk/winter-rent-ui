@@ -13,7 +13,7 @@ FIELDS.set('SIZE', { stateRef: 'size', fieldType: 'select', menuItems: ['S', 'M'
 FIELDS.set('MODEL', {
   stateRef: 'model',
   fieldType: 'textfield',
-  adornment: { value: '', position: '' },
+  adornment: { value: '', position: 'end' },
   sortNo: 1,
 });
 FIELDS.set('PRICE', {
