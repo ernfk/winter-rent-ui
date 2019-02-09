@@ -24,6 +24,9 @@ const styles = theme => ({
     gridColumnGap: '40px',
     gridTemplateColumns: '200px 200px',
   },
+  errorLabel: {
+    color: 'red',
+  },
 });
 
 export default styles;

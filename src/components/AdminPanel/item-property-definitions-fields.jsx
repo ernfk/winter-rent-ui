@@ -53,15 +53,14 @@ class ItemPropertyDefinitionsFields extends React.PureComponent {
     };
 
     handleAddItem = () => {
-      const { selectedItemType } = this.props;
-      this.validateForm(this.state, selectedItemType);
+      this.validateForm(this.state);
     };
 
     handleClearFields = () => {
       this.setState(initialState);
     };
 
-    validateForm = (fields, selectedItemType) => {
+    validateForm = (fields) => {
       const errors = { ...this.state.errors };
 
       Object.keys(fields).forEach((field) => {
@@ -69,7 +68,7 @@ class ItemPropertyDefinitionsFields extends React.PureComponent {
           errors[field] = 'Field can not be empty';
         } else if (field === 'length' || field === 'price') {
           const value = Number(this.state[field]);
-          if (isNaN(value)) {
+          if (Number.isNaN(value)) {
             errors[field] = 'Must be number';
           } else {
             errors[field] = '';
@@ -109,7 +108,9 @@ class ItemPropertyDefinitionsFields extends React.PureComponent {
                     />
 
                     <FormHelperText id="component-error-text"
-                                    style={{ color: 'red' }}>{this.state.errors[stateRef]}</FormHelperText>
+                                    className={classes.errorLabel}>
+                        {this.state.errors[stateRef]}
+                    </FormHelperText>
                 </FormControl>;
         });
     };
@@ -140,6 +141,10 @@ class ItemPropertyDefinitionsFields extends React.PureComponent {
                     >
                         {this.getMenuItems(ipd)}
                     </Select>
+                <FormHelperText id="component-error-text"
+                                className={classes.errorLabel}>
+                    {this.state.errors[stateRef]}
+                </FormHelperText>
                 </FormControl>;
         });
     };
@@ -163,7 +168,7 @@ class ItemPropertyDefinitionsFields extends React.PureComponent {
 
     render() {
       const { classes } = this.props;
-      console.log(this.state);
+
       return (
             <div>
                 <div className={classes.fieldsGrid}>
