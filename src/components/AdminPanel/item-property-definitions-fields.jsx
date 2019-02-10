@@ -1,12 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
-import classNames from 'classnames';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Input from '@material-ui/core/Input';
@@ -14,6 +12,7 @@ import SaveIcon from '@material-ui/icons/Save';
 import ClearIcon from '@material-ui/icons/Clear';
 import Button from '@material-ui/core/Button';
 import styles from './item-property-definitions-fields.style';
+import { addItem } from '../../actions/items';
 
 const initialState = {
   color: '',
@@ -46,58 +45,120 @@ class ItemPropertyDefinitionsFields extends React.PureComponent {
     this.state = initialState;
   }
 
-    handleChange = name => (event) => {
-      this.setState({
-        [name]: event.target.value,
-      });
-    };
+  handleChange = name => (event) => {
+    this.setState({
+      [name]: event.target.value,
+    });
+  };
 
-    handleAddItem = () => {
-      this.validateForm(this.state);
-    };
+  handleAddItem = () => {
+    const isFormReady = this.validateForm();
+    if (isFormReady) {
+      const itemDTO = this.getItemDTO();
+      addItem(itemDTO);
+    }
+  };
 
-    handleClearFields = () => {
-      this.setState(initialState);
-    };
+  handleClearFields = () => {
+    this.setState(initialState);
+  };
 
-    validateForm = (fields) => {
-      const errors = { ...this.state.errors };
+  validateForm = () => {
+    const errors = { ...this.state.errors };
+    const fieldsToCheck = this.getFieldsForSelectedItemType();
 
-      Object.keys(fields).forEach((field) => {
-        if (this.state[field] === '') {
-          errors[field] = 'Field can not be empty';
-        } else if (field === 'length' || field === 'price') {
-          const value = Number(this.state[field]);
-          if (Number.isNaN(value)) {
-            errors[field] = 'Must be number';
-          } else {
-            errors[field] = '';
-          }
+    fieldsToCheck.forEach((field) => {
+      if (this.state[field] === '') {
+        errors[field] = 'Field can not be empty';
+      } else if (field === 'length' || field === 'price') {
+        const value = Number(this.state[field]);
+        if (Number.isNaN(value)) {
+          errors[field] = 'Must be number';
         } else {
           errors[field] = '';
         }
-      });
+      } else {
+        errors[field] = '';
+      }
+    });
 
-      this.setState({ errors });
+    this.setState({ errors });
+
+    return this.isFormErrorFree(errors);
+  };
+
+  getFieldsForSelectedItemType = () => {
+    const { itemPropertyDefinitions, selectedItemType } = this.props;
+
+    return itemPropertyDefinitions
+      .filter(ipd => ipd.itemType === selectedItemType)
+      .map(ipd => ipd.fieldProperties.stateRef);
+  };
+
+  isFormErrorFree = (errors) => {
+    const errorsToCheck = this.getFieldsForSelectedItemType();
+
+    const numberOfErrors = Object.entries(errors)
+      .filter((error) => {
+        if (errorsToCheck.includes(error[0])) {
+          return error[1] !== '';
+        }
+      }).length;
+
+    return numberOfErrors === 0;
+  };
+
+  getItemDTO = () => {
+    const { selectedItemType } = this.props;
+
+    return {
+      id: null,
+      itemType: selectedItemType,
+      itemProperties: this.getItemProperties(),
     };
+  };
 
-    getInputProps = (itemPropertyDefinition) => {
-      const { adornment } = itemPropertyDefinition.fieldProperties;
-      return <InputAdornment
+  getItemProperties = () => {
+    const { selectedItemType, itemPropertyDefinitions } = this.props;
+    const itemProperties = this.getFieldsForSelectedItemType();
+
+    const itemPropertiesForDTO = itemProperties.map((ip) => {
+      const value = this.state[ip];
+      const itemPropertyDefinitionForDTO = itemPropertyDefinitions
+        .find(ipd => ipd.fieldProperties.stateRef === ip && ipd.itemType === selectedItemType);
+
+      return {
+        id: null,
+        itemPropertyDefinition: {
+          id: itemPropertyDefinitionForDTO.id,
+          propertyName: itemPropertyDefinitionForDTO.propertyName,
+          itemType: selectedItemType,
+        },
+        itemType: selectedItemType,
+        value,
+      };
+    });
+
+    return itemPropertiesForDTO;
+  };
+
+  getInputProps = (itemPropertyDefinition) => {
+    const { adornment } = itemPropertyDefinition.fieldProperties;
+    return <InputAdornment
             position={adornment.position}>
             {adornment.value}
         </InputAdornment>;
-    };
+  };
 
-    getTextFields = () => {
-      const { itemPropertyDefinitions, classes, selectedItemType } = this.props;
+  getTextFields = () => {
+    const { itemPropertyDefinitions, classes, selectedItemType } = this.props;
 
-      return itemPropertyDefinitions
-        .filter(ipd => ipd.fieldProperties.fieldType === 'textfield' && selectedItemType === ipd.itemType)
-        .sort((a, b) => a.fieldProperties.sortNo - b.fieldProperties.sortNo)
-        .map((ipd, index) => {
-          const { stateRef } = ipd.fieldProperties;
-          return <FormControl className={classes.formControl} key={index}>
+    return itemPropertyDefinitions
+      .filter(ipd => ipd.fieldProperties.fieldType === 'textfield' && selectedItemType === ipd.itemType)
+      .sort((a, b) => a.fieldProperties.sortNo - b.fieldProperties.sortNo)
+      .map((ipd, index) => {
+        const { stateRef } = ipd.fieldProperties;
+        return <FormControl className={classes.formControl} key={index}>
                     <InputLabel htmlFor={`${stateRef}-textfield`}>{ipd.propertyName}</InputLabel>
                     <Input
                         id={`${stateRef}-textfield`}
@@ -112,8 +173,8 @@ class ItemPropertyDefinitionsFields extends React.PureComponent {
                         {this.state.errors[stateRef]}
                     </FormHelperText>
                 </FormControl>;
-        });
-    };
+      });
+  };
 
     getMenuItems = itemPropertyDefinition => itemPropertyDefinition.fieldProperties.menuItems
       .map(item => <MenuItem value={item} key={item}>{item}</MenuItem>);
@@ -158,7 +219,7 @@ class ItemPropertyDefinitionsFields extends React.PureComponent {
                     <SaveIcon className={classes.leftIcon}/>
                     Save
                 </Button>
-                <Button variant="outlined" className={classes.clearButton} onClick={this.handleClearFields}>
+                <Button variant="contained" className={classes.clearButton} onClick={this.handleClearFields}>
                     <ClearIcon className={classes.leftIcon}/>
                     Clear
                 </Button>

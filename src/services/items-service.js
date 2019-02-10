@@ -17,6 +17,11 @@ class ItemsService extends BaseService {
     const path = `${this.basePath}/itemPropertyDefinitions`;
     return axios.get(path);
   };
+
+  addItem = (item) => {
+    const path = `${this.basePath}/items`;
+    return axios.post(path, item);
+  }
 }
 
 export default ItemsService;

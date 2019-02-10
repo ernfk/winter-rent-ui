@@ -17,7 +17,7 @@ const styles = theme => ({
     },
   },
   leftIcon: {
-    marginRight: theme.spacing.unit,
+    marginRight: '10px',
   },
   fieldsGrid: {
     display: 'grid',

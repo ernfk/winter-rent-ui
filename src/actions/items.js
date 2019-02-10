@@ -53,3 +53,5 @@ export const fetchItemsData = () => dispatch => itemsService.getItemTypes()
     const itemPropertyDefinitions = adjustItemPropertyDefinitionsToFields(response.data);
     return dispatch(fetchedItemPropertyDefinitions(itemPropertyDefinitions));
   });
+
+export const addItem = item => itemsService.addItem(item).then(() => console.log('X'));
