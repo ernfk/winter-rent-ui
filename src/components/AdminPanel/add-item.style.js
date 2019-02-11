@@ -6,6 +6,12 @@ const style = {
   formControl: {
     minWidth: 150,
   },
+  snackbarSuccess: {
+    backgroundColor: 'green',
+  },
+  snackbarError: {
+    backgroundColor: 'red',
+  },
 };
 
 export default style;

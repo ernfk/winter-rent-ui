@@ -12,7 +12,6 @@ import SaveIcon from '@material-ui/icons/Save';
 import ClearIcon from '@material-ui/icons/Clear';
 import Button from '@material-ui/core/Button';
 import styles from './item-property-definitions-fields.style';
-import { addItem } from '../../actions/items';
 
 const initialState = {
   color: '',
@@ -52,10 +51,12 @@ class ItemPropertyDefinitionsFields extends React.PureComponent {
   };
 
   handleAddItem = () => {
+    const { addItem } = this.props;
     const isFormReady = this.validateForm();
     if (isFormReady) {
       const itemDTO = this.getItemDTO();
       addItem(itemDTO);
+      this.handleClearFields();
     }
   };
 
@@ -246,6 +247,7 @@ ItemPropertyDefinitionsFields.propTypes = {
   classes: PropTypes.object.isRequired,
   itemPropertyDefinitions: PropTypes.array,
   selectedItemType: PropTypes.string,
+  addItem: PropTypes.func,
 };
 
 export default withStyles(styles)(ItemPropertyDefinitionsFields);

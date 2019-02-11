@@ -1,4 +1,3 @@
-/* eslint-disable import/prefer-default-export */
 import ItemsService from '../services/items-service';
 import makeActionCreator from './action-creator';
 
@@ -54,4 +53,13 @@ export const fetchItemsData = () => dispatch => itemsService.getItemTypes()
     return dispatch(fetchedItemPropertyDefinitions(itemPropertyDefinitions));
   });
 
-export const addItem = item => itemsService.addItem(item).then(() => console.log('X'));
+
+export const SHOW_SNACK_BAR = 'SHOW_SNACK_BAR';
+export const showSnackbar = makeActionCreator(SHOW_SNACK_BAR, 'typeMessage', 'message');
+
+export const CLOSE_SNACK_BAR = 'CLOSE_SNACK_BAR';
+export const closeSnackbar = makeActionCreator(CLOSE_SNACK_BAR);
+
+export const addItem = item => dispatch => itemsService.addItem(item)
+  .then(() => dispatch(showSnackbar('info', 'Successfully added!')))
+  .catch(() => dispatch(showSnackbar('error', 'Something went wrong...')));
