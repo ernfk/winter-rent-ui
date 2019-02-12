@@ -11,6 +11,7 @@ import ItemPropertyDefinitionsFields from './item-property-definitions-fields.js
 import * as ItemSelectors from '../../selectors/items';
 import * as ItemActions from '../../actions/items';
 import styles from './add-item.style';
+import * as SnackbarStatus from '../commons/snackbar-statuses';
 
 
 class AddItem extends React.PureComponent {
@@ -94,7 +95,7 @@ class AddItem extends React.PureComponent {
                 onClose={this.handleCloseSnackbar}
             >
                 <SnackbarContent
-                    classes={{ root: snackbarInfoType === 'info' ? classes.snackbarSuccess : classes.snackbarError }}
+                    classes={{ root: snackbarInfoType === SnackbarStatus.INFO ? classes.snackbarSuccess : classes.snackbarError }}
                     message={<span>{snackbarMessage}</span>}
                 />
             </Snackbar>
