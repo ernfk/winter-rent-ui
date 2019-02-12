@@ -1,20 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
-import AppBar from '@material-ui/core/AppBar';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
-import Typography from '@material-ui/core/Typography';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import AddIcon from '@material-ui/icons/AddBox';
-import ExitIcon from '@material-ui/icons/ExitToApp';
-import ViewList from '@material-ui/icons/ViewList';
-import IconButton from '@material-ui/core/es/IconButton/IconButton';
 import { withRouter } from 'react-router-dom';
+import {
+  Drawer, AppBar, CssBaseline, Toolbar, List, Typography,
+  ListItem, ListItemIcon, ListItemText, IconButton, withStyles,
+} from '@material-ui/core';
+import { AddBox as AddIcon, ExitToApp as ExitIcon, ViewList } from '@material-ui/icons';
 import AddItem from './add-item.jsx';
 import styles from './admin-panel.style';
 

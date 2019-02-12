@@ -2,19 +2,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import InputLabel from '@material-ui/core/InputLabel';
 import { connect } from 'react-redux';
-import OutlinedInput from '@material-ui/core/OutlinedInput';
-import Snackbar from '@material-ui/core/Snackbar';
-import SnackbarContent from '@material-ui/core/SnackbarContent';
+import {
+  Typography, FormControl, Select, MenuItem, InputLabel,
+  OutlinedInput, Snackbar, SnackbarContent, withStyles,
+} from '@material-ui/core';
 import ItemPropertyDefinitionsFields from './item-property-definitions-fields.jsx';
 import * as ItemSelectors from '../../selectors/items';
-import { addItem, closeSnackbar, fetchItemsData } from '../../actions/items';
+import * as ItemActions from '../../actions/items';
 import styles from './add-item.style';
 
 
@@ -130,13 +125,13 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   fetchItemsData: () => {
-    dispatch(fetchItemsData());
+    dispatch(ItemActions.fetchItemsData());
   },
   addItem: (item) => {
-    dispatch(addItem(item));
+    dispatch(ItemActions.addItem(item));
   },
   closeSnackbar: () => {
-    dispatch(closeSnackbar());
+    dispatch(ItemActions.closeSnackbar());
   },
 });
 

@@ -2,15 +2,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
-import { withStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/es/IconButton/IconButton';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import Settings from '@material-ui/icons/Settings';
-import Menu from '@material-ui/core/es/Menu/Menu';
-import MenuItem from '@material-ui/core/es/MenuItem/MenuItem';
+import {
+  AppBar, Toolbar, Typography, IconButton, Menu, MenuItem, withStyles,
+} from '@material-ui/core';
+import { AccountCircle, Settings } from '@material-ui/icons';
 import Logo from '../../images/logo.png';
 import styles from './app-menu.style';
 

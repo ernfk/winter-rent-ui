@@ -1,17 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormControl from '@material-ui/core/FormControl';
-import Input from '@material-ui/core/Input';
-import SaveIcon from '@material-ui/icons/Save';
-import ClearIcon from '@material-ui/icons/Clear';
-import Button from '@material-ui/core/Button';
+import { Save as SaveIcon, Clear as ClearIcon } from '@material-ui/icons';
+import {
+  FormHelperText, InputAdornment, Select, MenuItem,
+  InputLabel, FormControl, Input, Button, withStyles,
+} from '@material-ui/core';
 import styles from './item-property-definitions-fields.style';
+
 
 const initialState = {
   color: '',
