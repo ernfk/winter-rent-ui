@@ -1,5 +1,5 @@
 import ItemsService from '../services/items-service';
-import makeActionCreator from './action-creator';
+import makeActionCreator from '../utils/action-creator';
 
 const FIELDS = new Map();
 FIELDS.set('RACE STYLE', { stateRef: 'raceStyle', fieldType: 'select', menuItems: ['ALL MOUNTAIN', 'ALL ROUND', 'RACE', 'CROSS', 'DOWNHILL'] });

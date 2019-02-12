@@ -1,9 +1,6 @@
-import {
-  CLOSE_SNACK_BAR,
-  FETCHED_ITEM_DEFINITIONS,
-  FETCHED_ITEM_TYPES,
-  SHOW_SNACK_BAR,
-} from '../actions/items';
+import * as ItemsActionsTypes from '../actions/items';
+import createReducer from '../utils/create-reducer';
+
 
 export const initialState = {
   itemTypes: [],
@@ -13,32 +10,25 @@ export const initialState = {
   snackbarOpenStatus: false,
 };
 
-export const items = (state = initialState, action) => {
-  switch (action.type) {
-    case FETCHED_ITEM_TYPES: {
-      return { ...state, itemTypes: action.itemTypes };
-    }
-    case FETCHED_ITEM_DEFINITIONS: {
-      return { ...state, itemPropertyDefinitions: action.itemPropertyDefinitions };
-    }
-    case SHOW_SNACK_BAR: {
-      return {
-        ...state,
-        snackbarInfoType: action.typeMessage,
-        snackbarMessage: action.message,
-        snackbarOpenStatus: true,
-      };
-    }
-    case CLOSE_SNACK_BAR: {
-      return {
-        ...state,
-        snackbarInfoType: '',
-        snackbarMessage: '',
-        snackbarOpenStatus: false,
-      };
-    }
-    default: {
-      return state;
-    }
-  }
-};
+const setCloseSnackBar = state => ({
+  ...state, snackbarInfoType: '', snackbarMessage: '', snackbarOpenStatus: false,
+});
+
+const setFetchedItemDefinitions = (state, action) => ({ ...state, itemPropertyDefinitions: action.itemPropertyDefinitions });
+
+const setFetchedItemTypes = (state, action) => ({ ...state, itemTypes: action.itemTypes });
+
+const setShowSnackBar = (state, action) => ({
+  ...state,
+  snackbarInfoType: action.typeMessage,
+  snackbarMessage: action.message,
+  snackbarOpenStatus: true,
+});
+
+
+export const items = createReducer(initialState, {
+  [ItemsActionsTypes.CLOSE_SNACK_BAR]: setCloseSnackBar,
+  [ItemsActionsTypes.FETCHED_ITEM_DEFINITIONS]: setFetchedItemDefinitions,
+  [ItemsActionsTypes.FETCHED_ITEM_TYPES]: setFetchedItemTypes,
+  [ItemsActionsTypes.SHOW_SNACK_BAR]: setShowSnackBar,
+});
