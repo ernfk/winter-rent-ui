@@ -6,15 +6,16 @@ import {
   ListItem, ListItemIcon, ListItemText, IconButton, withStyles,
 } from '@material-ui/core';
 import { AddBox as AddIcon, ExitToApp as ExitIcon, ViewList } from '@material-ui/icons';
-import AddItem from './add-item.jsx';
+import AddItem from './add-item/add-item.jsx';
 import styles from './admin-panel.style';
+import ItemList from './item-list/item-list.jsx';
 
 
 class AdminPanel extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      currentOpenContent: 'addItem',
+      currentOpenContent: '',
     };
   }
 
@@ -32,7 +33,7 @@ class AdminPanel extends React.PureComponent {
     if (currentOpenContent === 'addItem') {
       return <AddItem/>;
     } if (currentOpenContent === 'showAllItems') {
-      return <Typography> List of items </Typography>;
+      return <ItemList />;
     }
     return <Typography>Welcome to Admin Panel</Typography>;
   };
@@ -69,7 +70,7 @@ class AdminPanel extends React.PureComponent {
                                <AddIcon />
                            </ListItemIcon>
                        </ListItem>
-                   <ListItem button disabled onClick={() => this.handleOpenContent('showAllItems')}>
+                   <ListItem button onClick={() => this.handleOpenContent('showAllItems')}>
                        <ListItemText primary={'Show all items'} />
                        <ListItemIcon>
                            <ViewList />

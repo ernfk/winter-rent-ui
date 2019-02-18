@@ -4,3 +4,4 @@ export const getItemPropertyDefinitions = state => state.items.itemPropertyDefin
 export const getSnackbarInfoType = state => state.items.snackbarInfoType;
 export const getSnackbarMessage = state => state.items.snackbarMessage;
 export const getSnackbarOpenStatus = state => state.items.snackbarOpenStatus;
+export const getItems = state => state.items.items;

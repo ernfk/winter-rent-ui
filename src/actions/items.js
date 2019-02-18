@@ -39,3 +39,23 @@ export const closeSnackbar = makeActionCreator(CLOSE_SNACK_BAR);
 export const addItem = item => dispatch => itemsService.addItem(item)
   .then(() => dispatch(showSnackbar(SnackbarStatus.INFO, 'Successfully added!')))
   .catch(() => dispatch(showSnackbar(SnackbarStatus.ERROR, 'Something went wrong...')));
+
+export const FETCHED_ITEMS = 'FETCHED_ITEMS';
+const fetchedItems = makeActionCreator(FETCHED_ITEMS, 'items');
+
+const flatTheItems = items => items
+  .map((item) => {
+    const flattedItem = {};
+    flattedItem.id = item.id;
+    flattedItem.type = item.itemType;
+
+    return item.itemProperties
+      .map(ip => ({ property: ip.itemPropertyDefinition.propertyName, value: ip.value }))
+      .reduce((r, e) => {
+        r[e.property.toLowerCase()] = e.value;
+        return r;
+      }, flattedItem);
+  });
+
+export const fetchItems = () => dispatch => itemsService.getItems()
+  .then(response => dispatch(fetchedItems(flatTheItems(response.data))));

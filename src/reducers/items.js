@@ -8,6 +8,7 @@ export const initialState = {
   snackbarInfoType: '',
   snackbarMessage: '',
   snackbarOpenStatus: false,
+  items: [],
 };
 
 const setCloseSnackBar = state => ({
@@ -25,10 +26,12 @@ const setShowSnackBar = (state, action) => ({
   snackbarOpenStatus: true,
 });
 
+const setFetchedItems = (state, action) => ({ ...state, items: action.items });
 
 export const items = createReducer(initialState, {
   [ItemsActionsTypes.CLOSE_SNACK_BAR]: setCloseSnackBar,
   [ItemsActionsTypes.FETCHED_ITEM_DEFINITIONS]: setFetchedItemDefinitions,
   [ItemsActionsTypes.FETCHED_ITEM_TYPES]: setFetchedItemTypes,
   [ItemsActionsTypes.SHOW_SNACK_BAR]: setShowSnackBar,
+  [ItemsActionsTypes.FETCHED_ITEMS]: setFetchedItems,
 });

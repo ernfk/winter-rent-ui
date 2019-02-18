@@ -8,10 +8,10 @@ import {
   OutlinedInput, Snackbar, SnackbarContent, withStyles,
 } from '@material-ui/core';
 import ItemPropertyDefinitionsFields from './item-property-definitions-fields.jsx';
-import * as ItemSelectors from '../../selectors/items';
-import * as ItemActions from '../../actions/items';
+import * as ItemSelectors from '../../../selectors/items';
+import * as ItemActions from '../../../actions/items';
 import styles from './add-item.style';
-import * as SnackbarStatus from '../commons/snackbar-statuses';
+import * as SnackbarStatus from '../../commons/snackbar-statuses';
 
 
 class AddItem extends React.PureComponent {
