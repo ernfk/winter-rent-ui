@@ -1,9 +1,10 @@
 import React from 'react';
 import {
-  Typography, withStyles, Paper, Table, TableBody, TableHead, TableRow, TableCell,
+  Typography, withStyles, Paper, Table, TableBody, TableHead, TableRow, TableCell, IconButton,
 } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Delete, Edit } from '@material-ui/icons/';
 import styles from './item-list.style';
 import * as ItemSelectors from '../../../selectors/items';
 import * as ItemActions from '../../../actions/items';
@@ -30,9 +31,10 @@ class ItemList extends React.PureComponent {
                     <Table>
                         <TableHead>
                             <TableRow>
-                                <TableCell>Type</TableCell>
-                                <TableCell align="right">Model</TableCell>
-                                <TableCell align="right">Price</TableCell>
+                                <TableCell className={classes.tableHeaderType}>Type</TableCell>
+                                <TableCell align="right" className={classes.tableHeaderModel}>Model</TableCell>
+                                <TableCell align="right" className={classes.tableHeaderPrice}>Price</TableCell>
+                                <TableCell align="right" className={classes.tableHeaderActions}/>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -43,6 +45,16 @@ class ItemList extends React.PureComponent {
                                     </TableCell>
                                     <TableCell align="right">{item.model}</TableCell>
                                     <TableCell align="right">{item.price}</TableCell>
+                                    <TableCell align="right">
+                                        <div className={classes.buttonsContainer}>
+                                            <IconButton color="primary" aria-label="Delete item" className={classes.button}>
+                                                <Delete/>
+                                            </IconButton>
+                                            <IconButton color="primary" aria-label="Edit item" className={classes.button}>
+                                                <Edit/>
+                                            </IconButton>
+                                        </div>
+                                    </TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>
