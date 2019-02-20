@@ -1,6 +1,7 @@
 import React from 'react';
 import {
-  Typography, withStyles, Paper, Table, TableBody, TableHead, TableRow, TableCell, IconButton,
+  Typography, withStyles, Paper, Table,
+  TableBody, TableHead, TableRow, TableCell, IconButton,
 } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -19,6 +20,11 @@ class ItemList extends React.PureComponent {
     const { fetchItems } = this.props;
     fetchItems();
   }
+
+  handleDeleteItem = (itemId) => {
+    const { deleteItem } = this.props;
+    deleteItem(itemId);
+  };
 
   render() {
     const { classes, items } = this.props;
@@ -47,7 +53,12 @@ class ItemList extends React.PureComponent {
                                     <TableCell align="right">{item.price}</TableCell>
                                     <TableCell align="right">
                                         <div className={classes.buttonsContainer}>
-                                            <IconButton color="primary" aria-label="Delete item" className={classes.button}>
+                                            <IconButton
+                                                color="primary"
+                                                aria-label="Delete item"
+                                                className={classes.button}
+                                                onClick={() => this.handleDeleteItem(item.id)}
+                                            >
                                                 <Delete/>
                                             </IconButton>
                                             <IconButton color="primary" aria-label="Edit item" className={classes.button}>
@@ -68,6 +79,7 @@ class ItemList extends React.PureComponent {
 ItemList.propTypes = {
   classes: PropTypes.shape({}),
   fetchItems: PropTypes.func,
+  deleteItem: PropTypes.func,
   items: PropTypes.array,
 };
 
@@ -75,6 +87,7 @@ ItemList.defaultProps = {
   classes: {},
   items: [],
   fetchItems: () => {},
+  deleteItem: () => {},
 };
 
 const mapStateToProps = state => ({
@@ -84,6 +97,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   fetchItems: () => {
     dispatch(ItemActions.fetchItems());
+  },
+  deleteItem: (itemId) => {
+    dispatch(ItemActions.deleteItem(itemId));
   },
 });
 

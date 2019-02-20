@@ -27,6 +27,11 @@ class ItemsService extends BaseService {
     const path = `${this.basePath}/items`;
     return axios.get(path);
   };
+
+  deleteItem =(itemId) => {
+    const path = `${this.basePath}/items/`;
+    return axios.delete(path + itemId);
+  }
 }
 
 export default ItemsService;

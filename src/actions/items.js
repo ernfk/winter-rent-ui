@@ -59,3 +59,8 @@ const flatTheItems = items => items
 
 export const fetchItems = () => dispatch => itemsService.getItems()
   .then(response => dispatch(fetchedItems(flatTheItems(response.data))));
+
+export const deleteItem = itemId => dispatch => itemsService.deleteItem(itemId)
+  .then(() => dispatch(showSnackbar(SnackbarStatus.INFO, 'Deleted item successfully')))
+  .then(() => dispatch(fetchItems()))
+  .catch(() => dispatch(showSnackbar(SnackbarStatus.ERROR, 'Delete unsuccessfully...')));
