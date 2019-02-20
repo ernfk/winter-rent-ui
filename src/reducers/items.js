@@ -12,7 +12,7 @@ export const initialState = {
 };
 
 const setCloseSnackBar = state => ({
-  ...state, snackbarInfoType: '', snackbarMessage: '', snackbarOpenStatus: false,
+  ...state, snackbarMessage: '', snackbarOpenStatus: false,
 });
 
 const setFetchedItemDefinitions = (state, action) => ({ ...state, itemPropertyDefinitions: action.itemPropertyDefinitions });

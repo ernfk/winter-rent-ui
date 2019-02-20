@@ -16,7 +16,9 @@ import {
   Typography,
   withStyles,
 } from '@material-ui/core';
-import { AddBox as AddIcon, ExitToApp as ExitIcon, ViewList } from '@material-ui/icons';
+import {
+  AddBox as AddIcon, ExitToApp as ExitIcon, ViewList, BuildOutlined,
+} from '@material-ui/icons';
 import { connect } from 'react-redux';
 import AddItem from './add-item/add-item.jsx';
 import styles from './admin-panel.style';
@@ -50,7 +52,7 @@ class AdminPanel extends React.PureComponent {
     } if (currentOpenContent === 'showAllItems') {
       return <ItemList />;
     }
-    return <Typography>Welcome to Admin Panel</Typography>;
+    return <Typography variant="h5">Welcome to Admin Panel</Typography>;
   };
 
     handleCloseSnackbar = () => {
@@ -68,14 +70,17 @@ class AdminPanel extends React.PureComponent {
            <CssBaseline />
            <AppBar position="fixed" className={classes.appBar}>
                <Toolbar className={classes.adminPanelToolbar}>
-                   <Typography variant="h6" color="inherit" noWrap >
-                       Admin Panel
-                   </Typography>
+                   <div className={classes.adminPanelTitleContainer}>
+                       <BuildOutlined classes={{ root: classes.buildIcon }}/>
+                       <Typography variant="h6" className={classes.adminPanelTitle}>
+                           Admin Panel
+                       </Typography>
+                   </div>
                    <IconButton
                        onClick={this.handleBackToApp}
                        color="inherit"
                    >
-                       <ExitIcon/>
+                       <ExitIcon classes={{ root: classes.exitIcon }}/>
                    </IconButton>
                </Toolbar>
            </AppBar>

@@ -24,10 +24,23 @@ const styles = theme => ({
   },
   toolbar: theme.mixins.toolbar,
   snackbarSuccess: {
-    backgroundColor: 'green',
+    backgroundColor: '#1a600d',
   },
   snackbarError: {
-    backgroundColor: 'red',
+    backgroundColor: '#a83434',
+  },
+  buildIcon: {
+    color: '#36383a',
+    margin: '3px 7px 0px 0px',
+  },
+  adminPanelTitleContainer: {
+    display: 'flex',
+  },
+  adminPanelTitle: {
+    color: '#36383a',
+  },
+  exitIcon: {
+    color: '#36383a',
   },
 });
 

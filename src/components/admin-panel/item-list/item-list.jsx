@@ -1,7 +1,14 @@
 import React from 'react';
 import {
-  Typography, withStyles, Paper, Table,
-  TableBody, TableHead, TableRow, TableCell, IconButton,
+  IconButton,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+  Tooltip,
+  Typography,
+  withStyles,
 } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -33,14 +40,13 @@ class ItemList extends React.PureComponent {
     return (
             <div>
                 <Typography className={classes.listItemsTypography}> List of items </Typography>
-                <Paper className={classes.paperRoot}>
-                    <Table>
+                    <Table className={classes.table}>
                         <TableHead>
-                            <TableRow>
-                                <TableCell className={classes.tableHeaderType}>Type</TableCell>
-                                <TableCell align="right" className={classes.tableHeaderModel}>Model</TableCell>
-                                <TableCell align="right" className={classes.tableHeaderPrice}>Price</TableCell>
-                                <TableCell align="right" className={classes.tableHeaderActions}/>
+                            <TableRow className={classes.row}>
+                                <TableCell className={classes.headerCell}>Type</TableCell>
+                                <TableCell className={classes.headerCell}>Model</TableCell>
+                                <TableCell className={classes.headerCell}>Price</TableCell>
+                                <TableCell className={classes.headerCell}/>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -53,24 +59,28 @@ class ItemList extends React.PureComponent {
                                     <TableCell align="right">{item.price}</TableCell>
                                     <TableCell align="right">
                                         <div className={classes.buttonsContainer}>
-                                            <IconButton
-                                                color="primary"
-                                                aria-label="Delete item"
-                                                className={classes.button}
-                                                onClick={() => this.handleDeleteItem(item.id)}
-                                            >
-                                                <Delete/>
-                                            </IconButton>
-                                            <IconButton color="primary" aria-label="Edit item" className={classes.button}>
-                                                <Edit/>
-                                            </IconButton>
+                                            <Tooltip title="Delete" placement="top">
+                                                <IconButton
+                                                    color="primary"
+                                                    className={classes.buttonDelete}
+                                                    onClick={() => this.handleDeleteItem(item.id)}
+                                                >
+                                                    <Delete/>
+                                                </IconButton>
+                                            </Tooltip>
+                                            <Tooltip title="Edit" placement="top">
+                                                <IconButton color="primary"
+                                                            className={classes.button}
+                                                >
+                                                    <Edit/>
+                                                </IconButton>
+                                            </Tooltip>
                                         </div>
                                     </TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>
                     </Table>
-                </Paper>
             </div>
     );
   }

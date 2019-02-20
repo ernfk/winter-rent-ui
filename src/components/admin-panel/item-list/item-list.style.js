@@ -2,27 +2,25 @@ const styles = {
   button: {
     color: '#000000',
   },
+  buttonDelete: {
+    color: '#a83434',
+  },
   buttonsContainer: {
     display: 'flex',
   },
-  tableHeaderType: {
-    width: '30px',
+  table: {
+    width: '500px',
   },
-  tableHeaderModel: {
-    width: '50px',
+  row: {
+    height: '42px',
   },
-  tableHeaderPrice: {
-    width: '30px',
-  },
-  tableHeaderActions: {
-    width: '80px',
+  headerCell: {
+    fontWeight: 'bold',
+    color: '#545659',
   },
   listItemsTypography: {
     padding: '0 0 5px 9px',
     fontSize: '18px',
-  },
-  paperRoot: {
-    width: '500px',
   },
 };
 
