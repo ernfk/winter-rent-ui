@@ -23,6 +23,12 @@ const styles = theme => ({
     padding: theme.spacing.unit * 3,
   },
   toolbar: theme.mixins.toolbar,
+  snackbarSuccess: {
+    backgroundColor: 'green',
+  },
+  snackbarError: {
+    backgroundColor: 'red',
+  },
 });
 
 export default styles;

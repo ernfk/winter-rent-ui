@@ -4,14 +4,12 @@ import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
-  Typography, FormControl, Select, MenuItem, InputLabel,
-  OutlinedInput, Snackbar, SnackbarContent, withStyles,
+  FormControl, InputLabel, MenuItem, OutlinedInput, Select, Typography, withStyles,
 } from '@material-ui/core';
 import ItemPropertyDefinitionsFields from './item-property-definitions-fields.jsx';
 import * as ItemSelectors from '../../../selectors/items';
 import * as ItemActions from '../../../actions/items';
 import styles from './add-item.style';
-import * as SnackbarStatus from '../../commons/snackbar-statuses';
 
 
 class AddItem extends React.PureComponent {
@@ -43,15 +41,9 @@ class AddItem extends React.PureComponent {
       .map(itemType => <MenuItem value={itemType} key={itemType}>{itemType}</MenuItem>);
   };
 
-  handleCloseSnackbar = () => {
-    const { closeSnackbar } = this.props;
-    closeSnackbar();
-  };
 
   render() {
-    const {
-      classes, itemPropertyDefinitions, snackbarOpenStatus, snackbarMessage, addItem, snackbarInfoType,
-    } = this.props;
+    const { classes, itemPropertyDefinitions, addItem } = this.props;
     const { selectedItemType, itemPropertyDefinitionsFieldsOpen, labelWidth } = this.state;
 
     return (
@@ -85,20 +77,6 @@ class AddItem extends React.PureComponent {
                 selectedItemType={selectedItemType}
                 addItem={addItem}
             />}
-            <Snackbar
-                anchorOrigin={{
-                  vertical: 'bottom',
-                  horizontal: 'center',
-                }}
-                open={snackbarOpenStatus}
-                autoHideDuration={3000}
-                onClose={this.handleCloseSnackbar}
-            >
-                <SnackbarContent
-                    classes={{ root: snackbarInfoType === SnackbarStatus.INFO ? classes.snackbarSuccess : classes.snackbarError }}
-                    message={<span>{snackbarMessage}</span>}
-                />
-            </Snackbar>
         </div>
     );
   }
@@ -110,18 +88,11 @@ AddItem.propTypes = {
   itemPropertyDefinitions: PropTypes.array.isRequired,
   fetchItemsData: PropTypes.func,
   addItem: PropTypes.func,
-  closeSnackbar: PropTypes.func,
-  snackbarInfoType: PropTypes.string,
-  snackbarMessage: PropTypes.string,
-  snackbarOpenStatus: PropTypes.bool,
 };
 
 const mapStateToProps = state => ({
   itemTypes: ItemSelectors.getItemTypes(state),
   itemPropertyDefinitions: ItemSelectors.getItemPropertyDefinitions(state),
-  snackbarInfoType: ItemSelectors.getSnackbarInfoType(state),
-  snackbarMessage: ItemSelectors.getSnackbarMessage(state),
-  snackbarOpenStatus: ItemSelectors.getSnackbarOpenStatus(state),
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -130,9 +101,6 @@ const mapDispatchToProps = dispatch => ({
   },
   addItem: (item) => {
     dispatch(ItemActions.addItem(item));
-  },
-  closeSnackbar: () => {
-    dispatch(ItemActions.closeSnackbar());
   },
 });
 

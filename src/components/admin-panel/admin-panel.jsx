@@ -2,13 +2,28 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import {
-  Drawer, AppBar, CssBaseline, Toolbar, List, Typography,
-  ListItem, ListItemIcon, ListItemText, IconButton, withStyles,
+  AppBar,
+  CssBaseline,
+  Drawer,
+  IconButton,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  Snackbar,
+  SnackbarContent,
+  Toolbar,
+  Typography,
+  withStyles,
 } from '@material-ui/core';
 import { AddBox as AddIcon, ExitToApp as ExitIcon, ViewList } from '@material-ui/icons';
+import { connect } from 'react-redux';
 import AddItem from './add-item/add-item.jsx';
 import styles from './admin-panel.style';
 import ItemList from './item-list/item-list.jsx';
+import * as SnackbarStatus from '../commons/snackbar-statuses';
+import * as ItemActions from '../../actions/items';
+import * as ItemSelectors from '../../selectors/items';
 
 
 class AdminPanel extends React.PureComponent {
@@ -38,10 +53,17 @@ class AdminPanel extends React.PureComponent {
     return <Typography>Welcome to Admin Panel</Typography>;
   };
 
-  render() {
-    const { classes } = this.props;
+    handleCloseSnackbar = () => {
+      const { closeSnackbar } = this.props;
+      closeSnackbar();
+    };
 
-    return (
+    render() {
+      const {
+        classes, snackbarOpenStatus, snackbarMessage, snackbarInfoType,
+      } = this.props;
+
+      return (
        <div className={classes.root}>
            <CssBaseline />
            <AppBar position="fixed" className={classes.appBar}>
@@ -82,15 +104,45 @@ class AdminPanel extends React.PureComponent {
                <div className={classes.toolbar} />
                    {this.getContent()}
            </main>
+           <Snackbar
+               anchorOrigin={{
+                 vertical: 'bottom',
+                 horizontal: 'center',
+               }}
+               open={snackbarOpenStatus}
+               autoHideDuration={3000}
+               onClose={this.handleCloseSnackbar}
+           >
+               <SnackbarContent
+                   classes={{ root: snackbarInfoType === SnackbarStatus.INFO ? classes.snackbarSuccess : classes.snackbarError }}
+                   message={<span>{snackbarMessage}</span>}
+               />
+           </Snackbar>
        </div>
-    );
-  }
+      );
+    }
 }
 
 AdminPanel.propTypes = {
   classes: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
+  closeSnackbar: PropTypes.func,
+  snackbarInfoType: PropTypes.string,
+  snackbarMessage: PropTypes.string,
+  snackbarOpenStatus: PropTypes.bool,
 };
 
+const mapStateToProps = state => ({
+  snackbarInfoType: ItemSelectors.getSnackbarInfoType(state),
+  snackbarMessage: ItemSelectors.getSnackbarMessage(state),
+  snackbarOpenStatus: ItemSelectors.getSnackbarOpenStatus(state),
+});
 
-export default withStyles(styles)(withRouter(AdminPanel));
+const mapDispatchToProps = dispatch => ({
+  closeSnackbar: () => {
+    dispatch(ItemActions.closeSnackbar());
+  },
+});
+
+
+export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(withRouter(AdminPanel)));
