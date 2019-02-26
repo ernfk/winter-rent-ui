@@ -48,6 +48,7 @@ const flatTheItems = items => items
     const flattedItem = {};
     flattedItem.id = item.id;
     flattedItem.type = item.itemType;
+    flattedItem.modelNo = item.modelNo;
 
     return item.itemProperties
       .map(ip => ({ property: ip.itemPropertyDefinition.propertyName, value: ip.value }))

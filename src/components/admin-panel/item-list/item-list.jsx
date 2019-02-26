@@ -46,6 +46,7 @@ class ItemList extends React.PureComponent {
                                 <TableCell className={classes.headerCell}>Type</TableCell>
                                 <TableCell className={classes.headerCell}>Model</TableCell>
                                 <TableCell className={classes.headerCell}>Price</TableCell>
+                                <TableCell className={classes.headerCell}>Model no.</TableCell>
                                 <TableCell className={classes.headerCell}/>
                             </TableRow>
                         </TableHead>
@@ -57,6 +58,7 @@ class ItemList extends React.PureComponent {
                                     </TableCell>
                                     <TableCell align="right">{item.model}</TableCell>
                                     <TableCell align="right">{item.price}</TableCell>
+                                    <TableCell align="right">{item.modelNo}</TableCell>
                                     <TableCell align="right">
                                         <div className={classes.buttonsContainer}>
                                             <Tooltip title="Delete" placement="top">
