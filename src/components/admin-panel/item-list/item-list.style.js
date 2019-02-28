@@ -9,7 +9,7 @@ const styles = {
     display: 'flex',
   },
   table: {
-    width: '500px',
+    width: '300px',
   },
   row: {
     height: '42px',
@@ -17,6 +17,22 @@ const styles = {
   headerCell: {
     fontWeight: 'bold',
     color: '#545659',
+    width: '50px',
+    minWidth: '50px',
+    maxWidth: '50px',
+    padding: '0 0 0 5px',
+  },
+  tableCell: {
+    width: '50px',
+    minWidth: '50px',
+    maxWidth: '50px',
+    paddingLeft: '5px',
+  },
+  tableActionCell: {
+    width: '90px',
+    minWidth: '90px',
+    maxWidth: '90px',
+    paddingLeft: '5px',
   },
   listItemsTypography: {
     padding: '0 0 5px 9px',

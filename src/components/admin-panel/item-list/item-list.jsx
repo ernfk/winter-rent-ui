@@ -53,13 +53,13 @@ class ItemList extends React.PureComponent {
                         <TableBody>
                             {items.map(item => (
                                 <TableRow key={item.id}>
-                                    <TableCell component="th" scope="item">
+                                    <TableCell className={classes.tableCell}>
                                         {item.type}
                                     </TableCell>
-                                    <TableCell align="right">{item.model}</TableCell>
-                                    <TableCell align="right">{item.price}</TableCell>
-                                    <TableCell align="right">{item.modelNo}</TableCell>
-                                    <TableCell align="right">
+                                    <TableCell className={classes.tableCell}>{item.model}</TableCell>
+                                    <TableCell className={classes.tableCell}>{item.price}</TableCell>
+                                    <TableCell className={classes.tableCell}>{item.modelNo}</TableCell>
+                                    <TableCell className={classes.tableActionCell}>
                                         <div className={classes.buttonsContainer}>
                                             <Tooltip title="Delete" placement="top">
                                                 <IconButton
