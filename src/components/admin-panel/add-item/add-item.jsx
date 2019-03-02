@@ -76,6 +76,7 @@ class AddItem extends React.PureComponent {
                 itemPropertyDefinitions={itemPropertyDefinitions}
                 selectedItemType={selectedItemType}
                 addOrUpdateItem={addItem}
+                updateMode={false}
             />}
         </div>
     );

@@ -9,16 +9,17 @@ import styles from './item-property-definitions-fields.style';
 
 
 const getInitialState = ({ item, updateMode }) => ({
-  color: updateMode && item.color ? item.color : '',
-  gender: updateMode && item.gender ? item.gender : '',
-  length: updateMode && item.length ? item.length : '',
-  model: updateMode && item.model ? item.model : '',
-  price: updateMode && item.price ? item.price : '',
-  producer: updateMode && item.producer ? item.producer : '',
-  raceStyle: updateMode && item['race style'] ? item['race style'] : '',
-  season: updateMode && item.season ? item.season : '',
-  secondColor: updateMode && item['second color'] ? item['second color'] : '',
-  size: updateMode && item.size ? item.size : '',
+  color: updateMode ? item.color : '',
+  gender: updateMode ? item.gender : '',
+  length: updateMode ? item.length : '',
+  model: updateMode ? item.model : '',
+  price: updateMode ? item.price : '',
+  producer: updateMode ? item.producer : '',
+  raceStyle: updateMode ? item['race style'] : '',
+  season: updateMode ? item.season : '',
+  secondColor: updateMode ? item['second color'] : '',
+  size: updateMode ? item.size : '',
+  id: updateMode ? item.id : -1,
   errors: {
     color: '',
     gender: '',
@@ -39,6 +40,15 @@ class ItemPropertyDefinitionsFields extends React.PureComponent {
     this.state = getInitialState(props);
   }
 
+  static getDerivedStateFromProps(props, state) {
+    if (props.item) {
+      if (props.item.id !== state.id) {
+        return getInitialState(props);
+      }
+    }
+    return null;
+  }
+
   handleChange = name => (event) => {
     this.setState({
       [name]: event.target.value,
@@ -56,7 +66,8 @@ class ItemPropertyDefinitionsFields extends React.PureComponent {
   };
 
   handleClearFields = () => {
-    this.setState(initialState);
+    const state = getInitialState(this.props);
+    this.setState(state);
   };
 
   handleCancel = () => {
@@ -254,6 +265,7 @@ ItemPropertyDefinitionsFields.propTypes = {
   addOrUpdateItem: PropTypes.func,
   handleCancelUpdate: PropTypes.func,
   updateMode: PropTypes.bool,
+  item: PropTypes.shape({ id: PropTypes.number }),
 };
 
 export default withStyles(styles)(ItemPropertyDefinitionsFields);
