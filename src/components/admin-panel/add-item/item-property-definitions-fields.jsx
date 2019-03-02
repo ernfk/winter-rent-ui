@@ -8,17 +8,17 @@ import {
 import styles from './item-property-definitions-fields.style';
 
 
-const getInitialState = ({ item, updateMode }) => ({
-  color: updateMode ? item.color : '',
-  gender: updateMode ? item.gender : '',
-  length: updateMode ? item.length : '',
-  model: updateMode ? item.model : '',
-  price: updateMode ? item.price : '',
-  producer: updateMode ? item.producer : '',
-  raceStyle: updateMode ? item['race style'] : '',
-  season: updateMode ? item.season : '',
-  secondColor: updateMode ? item['second color'] : '',
-  size: updateMode ? item.size : '',
+const getInitialState = ({ item, updateMode }, clear) => ({
+  color: updateMode && !clear ? item.color : '',
+  gender: updateMode && !clear ? item.gender : '',
+  length: updateMode && !clear ? item.length : '',
+  model: updateMode && !clear ? item.model : '',
+  price: updateMode && !clear ? item.price : '',
+  producer: updateMode && !clear ? item.producer : '',
+  raceStyle: updateMode && !clear ? item['race style'] : '',
+  season: updateMode && !clear ? item.season : '',
+  secondColor: updateMode && !clear ? item['second color'] : '',
+  size: updateMode && !clear ? item.size : '',
   id: updateMode ? item.id : -1,
   errors: {
     color: '',
@@ -66,7 +66,7 @@ class ItemPropertyDefinitionsFields extends React.PureComponent {
   };
 
   handleClearFields = () => {
-    const state = getInitialState(this.props);
+    const state = getInitialState(this.props, true);
     this.setState(state);
   };
 
@@ -121,12 +121,14 @@ class ItemPropertyDefinitionsFields extends React.PureComponent {
   };
 
   getItemDTO = () => {
-    const { selectedItemType } = this.props;
+    const { selectedItemType, item } = this.props;
+    const { id } = this.state;
 
     return {
-      id: null,
+      id,
       itemType: selectedItemType,
       itemProperties: this.getItemProperties(),
+      modelNo: item ? item.modelNo : null,
     };
   };
 

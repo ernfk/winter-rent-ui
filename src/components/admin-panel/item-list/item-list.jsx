@@ -34,8 +34,8 @@ class ItemList extends React.PureComponent {
   }
 
   handleDeleteItem = (itemId) => {
-    // const { deleteItem } = this.props;
-    // deleteItem(itemId);
+    const { deleteItem } = this.props;
+    deleteItem(itemId);
   };
 
   handleOpenUpdateItem = (item) => {
@@ -44,7 +44,7 @@ class ItemList extends React.PureComponent {
 
     handleCancelUpdate = () => {
       this.setState({ updateMode: false });
-    }
+    };
 
     render() {
       const { classes, items } = this.props;

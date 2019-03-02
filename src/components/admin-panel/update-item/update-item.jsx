@@ -18,7 +18,9 @@ class UpdateItem extends React.PureComponent {
     };
 
     render() {
-      const { itemPropertyDefinitions, item, handleCancelUpdate } = this.props;
+      const {
+        itemPropertyDefinitions, item, handleCancelUpdate, updateItem,
+      } = this.props;
 
       return (
             <div>
@@ -26,8 +28,7 @@ class UpdateItem extends React.PureComponent {
                 <ItemPropertyDefinitionsFields
                     itemPropertyDefinitions={itemPropertyDefinitions}
                     selectedItemType={item.type}
-                    addOrUpdateItem={() => {
-                    }}
+                    addOrUpdateItem={updateItem}
                     updateMode
                     handleCancelUpdate={handleCancelUpdate}
                     item={item}
@@ -42,6 +43,7 @@ UpdateItem.propTypes = {
   fetchItemsData: PropTypes.func,
   item: PropTypes.shape({}),
   handleCancelUpdate: PropTypes.func,
+  updateItem: PropTypes.func,
 };
 
 const mapStateToProps = state => ({
@@ -51,6 +53,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   fetchItemsData: () => {
     dispatch(ItemActions.fetchItemsData());
+  },
+  updateItem: (item) => {
+    dispatch(ItemActions.updateItem(item));
   },
 });
 

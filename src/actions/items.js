@@ -3,6 +3,7 @@ import makeActionCreator from '../utils/action-creator';
 import FIELDS from '../components/commons/fields';
 import * as SnackbarStatus from '../components/commons/snackbar-statuses';
 
+
 const itemsService = new ItemsService();
 
 
@@ -65,3 +66,8 @@ export const deleteItem = itemId => dispatch => itemsService.deleteItem(itemId)
   .then(() => dispatch(showSnackbar(SnackbarStatus.INFO, 'Deleted item successfully')))
   .then(() => dispatch(fetchItems()))
   .catch(() => dispatch(showSnackbar(SnackbarStatus.ERROR, 'Delete unsuccessfully...')));
+
+export const updateItem = item => dispatch => itemsService.updateItem(item)
+  .then(() => dispatch(showSnackbar(SnackbarStatus.INFO, 'Successfully updated!')))
+  .then(() => dispatch(fetchItems()))
+  .catch(() => dispatch(showSnackbar(SnackbarStatus.ERROR, 'Something went wrong...')));
