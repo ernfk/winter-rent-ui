@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Save as SaveIcon, Clear as ClearIcon } from '@material-ui/icons';
+import { Save as SaveIcon, Clear as CancelIcon, Backspace as ClearIcon } from '@material-ui/icons';
 import {
   FormHelperText, InputAdornment, Select, MenuItem,
   InputLabel, FormControl, Input, Button, withStyles,
@@ -57,6 +57,11 @@ class ItemPropertyDefinitionsFields extends React.PureComponent {
 
   handleClearFields = () => {
     this.setState(initialState);
+  };
+
+  handleCancel = () => {
+    const { handleCancelUpdate } = this.props;
+    handleCancelUpdate();
   };
 
   validateForm = () => {
@@ -207,18 +212,22 @@ class ItemPropertyDefinitionsFields extends React.PureComponent {
     };
 
     getButtons = () => {
-      const { classes } = this.props;
+      const { classes, updateMode } = this.props;
 
       return (
             <div>
                 <Button variant="contained" className={classes.button} onClick={this.handleAddItem}>
-                    <SaveIcon className={classes.leftIcon}/>
+                    <SaveIcon className={classes.icon}/>
                     Save
                 </Button>
                 <Button variant="contained" className={classes.clearButton} onClick={this.handleClearFields}>
-                    <ClearIcon className={classes.leftIcon}/>
+                    <ClearIcon className={classes.icon}/>
                     Clear
                 </Button>
+                {updateMode && <Button variant="contained" className={classes.button} onClick={this.handleCancel}>
+                    <CancelIcon className={classes.icon}/>
+                    Cancel
+                </Button>}
             </div>
       );
     };
@@ -243,6 +252,8 @@ ItemPropertyDefinitionsFields.propTypes = {
   itemPropertyDefinitions: PropTypes.array,
   selectedItemType: PropTypes.string,
   addItem: PropTypes.func,
+  handleCancelUpdate: PropTypes.func,
+  updateMode: PropTypes.bool,
 };
 
 export default withStyles(styles)(ItemPropertyDefinitionsFields);

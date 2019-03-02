@@ -42,11 +42,15 @@ class ItemList extends React.PureComponent {
     this.setState({ updateMode: true, item });
   };
 
-  render() {
-    const { classes, items } = this.props;
-    const { updateMode, item } = this.state;
+    handleCancelUpdate = () => {
+      this.setState({ updateMode: false });
+    }
 
-    return (
+    render() {
+      const { classes, items } = this.props;
+      const { updateMode, item } = this.state;
+
+      return (
             <div style={styles.container}>
                 <div style={styles.leftSide}>
                 <Typography className={classes.listItemsTypography}> List of items </Typography>
@@ -95,10 +99,10 @@ class ItemList extends React.PureComponent {
                         </TableBody>
                     </Table>
                 </div>
-                {updateMode && <UpdateItem item={item}/>}
+                {updateMode && <UpdateItem item={item} handleCancelUpdate={this.handleCancelUpdate}/>}
             </div>
-    );
-  }
+      );
+    }
 }
 
 ItemList.propTypes = {

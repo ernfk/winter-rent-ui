@@ -8,16 +8,17 @@ const styles = theme => ({
     width: '200px',
   },
   button: {
-    margin: theme.spacing.unit,
+    margin: '0px 5px',
   },
   clearButton: {
     backgroundColor: '#AA4139',
     '&:hover': {
       backgroundColor: '#D4726A',
     },
+    margin: '0px 5px',
   },
-  leftIcon: {
-    marginRight: '10px',
+  icon: {
+    margin: '0px 5px',
   },
   fieldsGrid: {
     display: 'grid',
