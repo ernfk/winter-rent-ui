@@ -11,6 +11,9 @@ const styles = {
   container: {
     display: 'flex',
   },
+  leftSide: {
+    marginRight: '50px',
+  },
   table: {
     width: '300px',
   },

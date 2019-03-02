@@ -37,17 +37,17 @@ class ItemList extends React.PureComponent {
     // deleteItem(itemId);
   };
 
-  handleOpenEditForm = () => {
-    this.setState({ editMode: true });
+  handleOpenEditForm = (item) => {
+    this.setState({ editMode: true, item });
   };
 
   render() {
     const { classes, items } = this.props;
-    const { editMode } = this.state;
+    const { editMode, item } = this.state;
 
     return (
             <div style={styles.container}>
-                <div>
+                <div style={styles.leftSide}>
                 <Typography className={classes.listItemsTypography}> List of items </Typography>
                     <Table className={classes.table}>
                         <TableHead>
@@ -82,7 +82,7 @@ class ItemList extends React.PureComponent {
                                             <Tooltip title="Edit" placement="top">
                                                 <IconButton color="primary"
                                                             className={classes.button}
-                                                            onClick={this.handleOpenEditForm}
+                                                            onClick={() => this.handleOpenEditForm(item)}
                                                 >
                                                     <Edit/>
                                                 </IconButton>
@@ -94,7 +94,7 @@ class ItemList extends React.PureComponent {
                         </TableBody>
                     </Table>
                 </div>
-                {editMode && <EditItem />}
+                {editMode && <EditItem item={item}/>}
             </div>
     );
   }
