@@ -7,7 +7,6 @@ import {
 } from '@material-ui/core';
 import styles from './item-property-definitions-fields.style';
 
-
 const getInitialState = ({ item, updateMode }, clear) => ({
   color: updateMode && !clear ? item.color : '',
   gender: updateMode && !clear ? item.gender : '',
@@ -158,10 +157,13 @@ class ItemPropertyDefinitionsFields extends React.PureComponent {
 
   getInputProps = (itemPropertyDefinition) => {
     const { adornment } = itemPropertyDefinition.fieldProperties;
-    return <InputAdornment
-            position={adornment.position}>
-            {adornment.value}
-        </InputAdornment>;
+    return (
+      <InputAdornment
+        position={adornment.position}
+      >
+        {adornment.value}
+      </InputAdornment>
+    );
   };
 
   getTextFields = () => {
@@ -172,21 +174,25 @@ class ItemPropertyDefinitionsFields extends React.PureComponent {
       .sort((a, b) => a.fieldProperties.sortNo - b.fieldProperties.sortNo)
       .map((ipd, index) => {
         const { stateRef } = ipd.fieldProperties;
-        return <FormControl className={classes.formControl} key={index}>
-                    <InputLabel htmlFor={`${stateRef}-textfield`}>{ipd.propertyName}</InputLabel>
-                    <Input
-                        id={`${stateRef}-textfield`}
-                        value={this.state[stateRef]}
-                        onChange={this.handleChange(stateRef)}
-                        aria-describedby="component-error-text"
-                        endAdornment={this.getInputProps(ipd)}
-                    />
+        return (
+          <FormControl className={classes.formControl} key={index}>
+            <InputLabel htmlFor={`${stateRef}-textfield`}>{ipd.propertyName}</InputLabel>
+            <Input
+              id={`${stateRef}-textfield`}
+              value={this.state[stateRef]}
+              onChange={this.handleChange(stateRef)}
+              aria-describedby="component-error-text"
+              endAdornment={this.getInputProps(ipd)}
+            />
 
-                    <FormHelperText id="component-error-text"
-                                    className={classes.errorLabel}>
-                        {this.state.errors[stateRef]}
-                    </FormHelperText>
-                </FormControl>;
+            <FormHelperText
+              id="component-error-text"
+              className={classes.errorLabel}
+            >
+              {this.state.errors[stateRef]}
+            </FormHelperText>
+          </FormControl>
+        );
       });
   };
 
@@ -200,27 +206,31 @@ class ItemPropertyDefinitionsFields extends React.PureComponent {
         .filter(ipd => ipd.fieldProperties.fieldType === 'select' && selectedItemType === ipd.itemType)
         .map((ipd, index) => {
           const { stateRef } = ipd.fieldProperties;
-          return <FormControl className={classes.formControl} key={index}>
-                    <InputLabel htmlFor={`select-${stateRef}`}>
-                        {ipd.propertyName}
-                    </InputLabel>
-                    <Select
-                        value={this.state[stateRef]}
-                        onChange={this.handleChange(stateRef)}
-                        input={
-                            <Input
-                                name={`select-${stateRef}`}
-                                id={`select-${stateRef}`}
-                            />
-                        }
-                    >
-                        {this.getMenuItems(ipd)}
-                    </Select>
-                <FormHelperText id="component-error-text"
-                                className={classes.errorLabel}>
-                    {this.state.errors[stateRef]}
-                </FormHelperText>
-                </FormControl>;
+          return (
+            <FormControl className={classes.formControl} key={index}>
+              <InputLabel htmlFor={`select-${stateRef}`}>
+                {ipd.propertyName}
+              </InputLabel>
+              <Select
+                value={this.state[stateRef]}
+                onChange={this.handleChange(stateRef)}
+                input={(
+                  <Input
+                    name={`select-${stateRef}`}
+                    id={`select-${stateRef}`}
+                  />
+                )}
+              >
+                {this.getMenuItems(ipd)}
+              </Select>
+              <FormHelperText
+                id="component-error-text"
+                className={classes.errorLabel}
+              >
+                {this.state.errors[stateRef]}
+              </FormHelperText>
+            </FormControl>
+          );
         });
     };
 
@@ -228,20 +238,22 @@ class ItemPropertyDefinitionsFields extends React.PureComponent {
       const { classes, updateMode } = this.props;
 
       return (
-            <div>
-                <Button variant="contained" className={classes.button} onClick={this.handleSaveOrUpdateItem}>
-                    <SaveIcon className={classes.icon}/>
-                    Save
-                </Button>
-                <Button variant="contained" className={classes.clearButton} onClick={this.handleClearFields}>
-                    <ClearIcon className={classes.icon}/>
-                    Clear
-                </Button>
-                {updateMode && <Button variant="contained" className={classes.button} onClick={this.handleCancel}>
-                    <CancelIcon className={classes.icon}/>
-                    Cancel
-                </Button>}
-            </div>
+        <div>
+          <Button variant="contained" className={classes.button} onClick={this.handleSaveOrUpdateItem}>
+            <SaveIcon className={classes.icon} />
+            {'Save'}
+          </Button>
+          <Button variant="contained" className={classes.clearButton} onClick={this.handleClearFields}>
+            <ClearIcon className={classes.icon} />
+            {'Clear'}
+          </Button>
+          {updateMode && (
+          <Button variant="contained" className={classes.button} onClick={this.handleCancel}>
+            <CancelIcon className={classes.icon} />
+              {'Cancel'}
+          </Button>
+          )}
+        </div>
       );
     };
 
@@ -249,25 +261,35 @@ class ItemPropertyDefinitionsFields extends React.PureComponent {
       const { classes } = this.props;
 
       return (
-            <div>
-                <div className={classes.fieldsGrid}>
-                    {this.getTextFields()}
-                    {this.getSelectFields()}
-                </div>
-                {this.getButtons()}
-            </div>
+        <div>
+          <div className={classes.fieldsGrid}>
+            {this.getTextFields()}
+            {this.getSelectFields()}
+          </div>
+          {this.getButtons()}
+        </div>
       );
     }
 }
 
 ItemPropertyDefinitionsFields.propTypes = {
-  classes: PropTypes.object.isRequired,
-  itemPropertyDefinitions: PropTypes.array,
+  classes: PropTypes.shape({}),
+  itemPropertyDefinitions: PropTypes.arrayOf(PropTypes.shape({})),
   selectedItemType: PropTypes.string,
   addOrUpdateItem: PropTypes.func,
   handleCancelUpdate: PropTypes.func,
   updateMode: PropTypes.bool,
   item: PropTypes.shape({ id: PropTypes.number }),
+};
+
+ItemPropertyDefinitionsFields.defaultProps = {
+  classes: {},
+  itemPropertyDefinitions: [],
+  selectedItemType: '',
+  addOrUpdateItem: () => {},
+  handleCancelUpdate: () => {},
+  updateMode: false,
+  item: null,
 };
 
 export default withStyles(styles)(ItemPropertyDefinitionsFields);

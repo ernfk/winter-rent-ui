@@ -6,5 +6,4 @@ const makeActionCreator = (type, ...argNames) => (...args) => {
   return action;
 };
 
-
 export default makeActionCreator;

@@ -3,9 +3,7 @@ import makeActionCreator from '../utils/action-creator';
 import FIELDS from '../components/commons/fields';
 import * as SnackbarStatus from '../components/commons/snackbar-statuses';
 
-
 const itemsService = new ItemsService();
-
 
 export const FETCHED_ITEM_TYPES = 'FETCHED_ITEM_TYPES';
 const fetchedItemTypes = makeActionCreator(FETCHED_ITEM_TYPES, 'itemTypes');
@@ -29,7 +27,6 @@ export const fetchItemsData = () => dispatch => itemsService.getItemTypes()
     const itemPropertyDefinitions = adjustItemPropertyDefinitionsToFields(response.data);
     return dispatch(fetchedItemPropertyDefinitions(itemPropertyDefinitions));
   });
-
 
 export const SHOW_SNACK_BAR = 'SHOW_SNACK_BAR';
 export const showSnackbar = makeActionCreator(SHOW_SNACK_BAR, 'typeMessage', 'message');

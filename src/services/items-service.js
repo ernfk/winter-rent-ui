@@ -2,7 +2,6 @@
 import axios from 'axios';
 import BaseService from './base-service';
 
-
 class ItemsService extends BaseService {
   constructor(basePath) {
     super(basePath);

@@ -1,10 +1,11 @@
 const HtmlWebPackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack');
 
 module.exports = {
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
+        test: /\.jsx?$/,
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
@@ -17,11 +18,6 @@ module.exports = {
             loader: 'html-loader',
           },
         ],
-      },
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        use: ['babel-loader', 'eslint-loader'],
       },
       {
         test: /\.(png|jpg|gif)$/i,
@@ -41,8 +37,12 @@ module.exports = {
       template: './src/index.html',
       filename: './index.html',
     }),
+    new webpack.LoaderOptionsPlugin({ options: {} }),
   ],
   devServer: {
     historyApiFallback: true,
+  },
+  resolve: {
+    extensions: ['.js', '.jsx'],
   },
 };

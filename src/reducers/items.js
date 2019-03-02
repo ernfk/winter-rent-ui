@@ -1,7 +1,6 @@
 import * as ItemsActionsTypes from '../actions/items';
 import createReducer from '../utils/create-reducer';
 
-
 export const initialState = {
   itemTypes: [],
   itemPropertyDefinitions: [],

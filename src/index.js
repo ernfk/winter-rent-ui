@@ -2,8 +2,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Overview from './components/overview/overview.jsx';
-import AdminPanel from "./components/admin-panel/admin-panel.jsx";
+import Overview from './components/overview/overview';
+import AdminPanel from "./components/admin-panel/admin-panel";
 import {createStore, applyMiddleware, compose} from "redux";
 import {Provider} from "react-redux";
 import thunk from 'redux-thunk';

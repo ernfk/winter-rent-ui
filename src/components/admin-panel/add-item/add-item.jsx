@@ -6,11 +6,10 @@ import { connect } from 'react-redux';
 import {
   FormControl, InputLabel, MenuItem, OutlinedInput, Select, Typography, withStyles,
 } from '@material-ui/core';
-import ItemPropertyDefinitionsFields from './item-property-definitions-fields.jsx';
+import ItemPropertyDefinitionsFields from './item-property-definitions-fields';
 import * as ItemSelectors from '../../../selectors/items';
 import * as ItemActions from '../../../actions/items';
 import styles from './add-item.style';
-
 
 class AddItem extends React.PureComponent {
   constructor(props) {
@@ -41,54 +40,64 @@ class AddItem extends React.PureComponent {
       .map(itemType => <MenuItem value={itemType} key={itemType}>{itemType}</MenuItem>);
   };
 
-
   render() {
     const { classes, itemPropertyDefinitions, addItem } = this.props;
     const { selectedItemType, itemPropertyDefinitionsFieldsOpen, labelWidth } = this.state;
 
     return (
-        <div>
-            <Typography style={styles.addItemTypography}> Add new item </Typography>
-            <FormControl variant="outlined" className={classes.formControl}>
-                <InputLabel htmlFor="outlined-itemType-simple"
-                            ref={(ref) => {
-                              this.InputLabelRef = ref;
-                            }}
-                >
-                    Item type
-                </InputLabel>
-                <Select
-                    value={selectedItemType}
-                    onChange={this.handleSelectItemType}
-                    input={
-                        <OutlinedInput
-                            name="itemType"
-                            labelWidth={labelWidth}
-                            id="outlined-itemType-simple"
-                        />
-                    }
-                >
-                    {this.getItemTypesMenuItems()}
-                </Select>
-            </FormControl>
-            {itemPropertyDefinitionsFieldsOpen
-            && <ItemPropertyDefinitionsFields
-                itemPropertyDefinitions={itemPropertyDefinitions}
-                selectedItemType={selectedItemType}
-                addOrUpdateItem={addItem}
-                updateMode={false}
-            />}
-        </div>
+      <div>
+        <Typography style={styles.addItemTypography}> Add new item </Typography>
+        <FormControl variant="outlined" className={classes.formControl}>
+          <InputLabel
+            htmlFor="outlined-itemType-simple"
+            ref={(ref) => {
+              this.InputLabelRef = ref;
+            }}
+          >
+            {'Item type'}
+          </InputLabel>
+          <Select
+            value={selectedItemType}
+            onChange={this.handleSelectItemType}
+            input={(
+              <OutlinedInput
+                name="itemType"
+                labelWidth={labelWidth}
+                id="outlined-itemType-simple"
+              />
+            )}
+          >
+            {this.getItemTypesMenuItems()}
+          </Select>
+        </FormControl>
+        {itemPropertyDefinitionsFieldsOpen
+            && (
+            <ItemPropertyDefinitionsFields
+              itemPropertyDefinitions={itemPropertyDefinitions}
+              selectedItemType={selectedItemType}
+              addOrUpdateItem={addItem}
+              updateMode={false}
+            />
+            )}
+      </div>
     );
   }
 }
 
 AddItem.propTypes = {
-  classes: PropTypes.object.isRequired,
-  itemTypes: PropTypes.array.isRequired,
-  itemPropertyDefinitions: PropTypes.array.isRequired,
+  classes: PropTypes.shape({}),
+  itemTypes: PropTypes.arrayOf(PropTypes.string),
+  itemPropertyDefinitions: PropTypes.arrayOf(PropTypes.shape({})),
   fetchItemsData: PropTypes.func,
   addItem: PropTypes.func,
+};
+
+AddItem.defaultProps = {
+  classes: {},
+  itemTypes: [],
+  itemPropertyDefinitions: [],
+  fetchItemsData: () => {},
+  addItem: () => {},
 };
 
 const mapStateToProps = state => ({
