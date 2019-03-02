@@ -30,6 +30,7 @@ class UpdateItem extends React.PureComponent {
                     }}
                     updateMode
                     handleCancelUpdate={handleCancelUpdate}
+                    item={item}
                 />
             </div>
       );

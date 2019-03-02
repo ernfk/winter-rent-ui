@@ -8,17 +8,17 @@ import {
 import styles from './item-property-definitions-fields.style';
 
 
-const initialState = {
-  color: '',
-  gender: '',
-  length: '',
-  model: '',
-  price: '',
-  producer: '',
-  raceStyle: '',
-  season: '',
-  secondColor: '',
-  size: '',
+const getInitialState = ({ item, updateMode }) => ({
+  color: updateMode && item.color ? item.color : '',
+  gender: updateMode && item.gender ? item.gender : '',
+  length: updateMode && item.length ? item.length : '',
+  model: updateMode && item.model ? item.model : '',
+  price: updateMode && item.price ? item.price : '',
+  producer: updateMode && item.producer ? item.producer : '',
+  raceStyle: updateMode && item['race style'] ? item['race style'] : '',
+  season: updateMode && item.season ? item.season : '',
+  secondColor: updateMode && item['second color'] ? item['second color'] : '',
+  size: updateMode && item.size ? item.size : '',
   errors: {
     color: '',
     gender: '',
@@ -31,12 +31,12 @@ const initialState = {
     secondColor: '',
     size: '',
   },
-};
+});
 
 class ItemPropertyDefinitionsFields extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.state = initialState;
+    this.state = getInitialState(props);
   }
 
   handleChange = name => (event) => {
