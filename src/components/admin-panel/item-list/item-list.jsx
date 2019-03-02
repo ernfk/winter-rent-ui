@@ -16,14 +16,15 @@ import { Delete, Edit } from '@material-ui/icons/';
 import styles from './item-list.style';
 import * as ItemSelectors from '../../../selectors/items';
 import * as ItemActions from '../../../actions/items';
-import EditItem from '../edit-item/edit-item.jsx';
+import UpdateItem from '../update-item/update-item.jsx';
 
 
 class ItemList extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      editMode: false,
+      updateMode: false,
+      item: {},
     };
   }
 
@@ -37,13 +38,13 @@ class ItemList extends React.PureComponent {
     // deleteItem(itemId);
   };
 
-  handleOpenEditForm = (item) => {
-    this.setState({ editMode: true, item });
+  handleOpenUpdateItem = (item) => {
+    this.setState({ updateMode: true, item });
   };
 
   render() {
     const { classes, items } = this.props;
-    const { editMode, item } = this.state;
+    const { updateMode, item } = this.state;
 
     return (
             <div style={styles.container}>
@@ -79,10 +80,10 @@ class ItemList extends React.PureComponent {
                                                     <Delete/>
                                                 </IconButton>
                                             </Tooltip>
-                                            <Tooltip title="Edit" placement="top">
+                                            <Tooltip title="Update" placement="top">
                                                 <IconButton color="primary"
                                                             className={classes.button}
-                                                            onClick={() => this.handleOpenEditForm(item)}
+                                                            onClick={() => this.handleOpenUpdateItem(item)}
                                                 >
                                                     <Edit/>
                                                 </IconButton>
@@ -94,7 +95,7 @@ class ItemList extends React.PureComponent {
                         </TableBody>
                     </Table>
                 </div>
-                {editMode && <EditItem item={item}/>}
+                {updateMode && <UpdateItem item={item}/>}
             </div>
     );
   }

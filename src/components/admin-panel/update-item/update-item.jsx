@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Typography, withStyles } from '@material-ui/core';
-import styles from './edit-item.style';
+import styles from './update-item.style';
 import ItemPropertyDefinitionsFields from '../add-item/item-property-definitions-fields.jsx';
 import * as ItemSelectors from '../../../selectors/items';
 import * as ItemActions from '../../../actions/items';
 
-class EditItem extends React.PureComponent {
+class UpdateItem extends React.PureComponent {
   constructor(props) {
     super(props);
   }
@@ -22,7 +22,7 @@ class EditItem extends React.PureComponent {
 
       return (
             <div>
-                <Typography style={styles.editItemTypography}> Edit item </Typography>
+                <Typography style={styles.editItemTypography}> Update item </Typography>
                 <ItemPropertyDefinitionsFields
                     itemPropertyDefinitions={itemPropertyDefinitions}
                     selectedItemType={item.type}
@@ -34,7 +34,7 @@ class EditItem extends React.PureComponent {
     }
 }
 
-EditItem.propTypes = {
+UpdateItem.propTypes = {
   itemPropertyDefinitions: PropTypes.array.isRequired,
   fetchItemsData: PropTypes.func,
   item: PropTypes.shape({}),
@@ -50,4 +50,4 @@ const mapDispatchToProps = dispatch => ({
   },
 });
 
-export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(EditItem));
+export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(UpdateItem));
