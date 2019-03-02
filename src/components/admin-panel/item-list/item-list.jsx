@@ -16,11 +16,15 @@ import { Delete, Edit } from '@material-ui/icons/';
 import styles from './item-list.style';
 import * as ItemSelectors from '../../../selectors/items';
 import * as ItemActions from '../../../actions/items';
+import EditItem from '../edit-item/edit-item.jsx';
 
 
 class ItemList extends React.PureComponent {
   constructor(props) {
     super(props);
+    this.state = {
+      editMode: false,
+    };
   }
 
   componentDidMount() {
@@ -29,16 +33,21 @@ class ItemList extends React.PureComponent {
   }
 
   handleDeleteItem = (itemId) => {
-    const { deleteItem } = this.props;
-    deleteItem(itemId);
+    // const { deleteItem } = this.props;
+    // deleteItem(itemId);
+  };
+
+  handleOpenEditForm = () => {
+    this.setState({ editMode: true });
   };
 
   render() {
     const { classes, items } = this.props;
-
+    const { editMode } = this.state;
 
     return (
-            <div>
+            <div style={styles.container}>
+                <div>
                 <Typography className={classes.listItemsTypography}> List of items </Typography>
                     <Table className={classes.table}>
                         <TableHead>
@@ -73,6 +82,7 @@ class ItemList extends React.PureComponent {
                                             <Tooltip title="Edit" placement="top">
                                                 <IconButton color="primary"
                                                             className={classes.button}
+                                                            onClick={this.handleOpenEditForm}
                                                 >
                                                     <Edit/>
                                                 </IconButton>
@@ -83,6 +93,8 @@ class ItemList extends React.PureComponent {
                             ))}
                         </TableBody>
                     </Table>
+                </div>
+                {editMode && <EditItem />}
             </div>
     );
   }

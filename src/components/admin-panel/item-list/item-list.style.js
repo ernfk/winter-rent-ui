@@ -8,6 +8,9 @@ const styles = {
   buttonsContainer: {
     display: 'flex',
   },
+  container: {
+    display: 'flex',
+  },
   table: {
     width: '300px',
   },
