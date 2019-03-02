@@ -26,7 +26,7 @@ class UpdateItem extends React.PureComponent {
                 <ItemPropertyDefinitionsFields
                     itemPropertyDefinitions={itemPropertyDefinitions}
                     selectedItemType={item.type}
-                    addItem={() => {
+                    addOrUpdateItem={() => {
                     }}
                     updateMode
                     handleCancelUpdate={handleCancelUpdate}

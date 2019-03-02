@@ -45,12 +45,12 @@ class ItemPropertyDefinitionsFields extends React.PureComponent {
     });
   };
 
-  handleAddItem = () => {
-    const { addItem } = this.props;
+  handleSaveOrUpdateItem = () => {
+    const { addOrUpdateItem } = this.props;
     const isFormReady = this.validateForm();
     if (isFormReady) {
       const itemDTO = this.getItemDTO();
-      addItem(itemDTO);
+      addOrUpdateItem(itemDTO);
       this.handleClearFields();
     }
   };
@@ -216,7 +216,7 @@ class ItemPropertyDefinitionsFields extends React.PureComponent {
 
       return (
             <div>
-                <Button variant="contained" className={classes.button} onClick={this.handleAddItem}>
+                <Button variant="contained" className={classes.button} onClick={this.handleSaveOrUpdateItem}>
                     <SaveIcon className={classes.icon}/>
                     Save
                 </Button>
@@ -251,7 +251,7 @@ ItemPropertyDefinitionsFields.propTypes = {
   classes: PropTypes.object.isRequired,
   itemPropertyDefinitions: PropTypes.array,
   selectedItemType: PropTypes.string,
-  addItem: PropTypes.func,
+  addOrUpdateItem: PropTypes.func,
   handleCancelUpdate: PropTypes.func,
   updateMode: PropTypes.bool,
 };
