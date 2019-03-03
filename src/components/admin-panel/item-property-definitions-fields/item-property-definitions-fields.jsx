@@ -64,16 +64,6 @@ class ItemPropertyDefinitionsFields extends React.PureComponent {
     }
   };
 
-  handleClearFields = () => {
-    const state = getInitialState(this.props, true);
-    this.setState(state);
-  };
-
-  handleCancel = () => {
-    const { handleCancelUpdate } = this.props;
-    handleCancelUpdate();
-  };
-
   validateForm = () => {
     const errors = { ...this.state.errors };
     const fieldsToCheck = this.getFieldsForSelectedItemType();
@@ -96,14 +86,6 @@ class ItemPropertyDefinitionsFields extends React.PureComponent {
     this.setState({ errors });
 
     return this.isFormErrorFree(errors);
-  };
-
-  getFieldsForSelectedItemType = () => {
-    const { itemPropertyDefinitions, selectedItemType } = this.props;
-
-    return itemPropertyDefinitions
-      .filter(ipd => ipd.itemType === selectedItemType)
-      .map(ipd => ipd.fieldProperties.stateRef);
   };
 
   isFormErrorFree = (errors) => {
@@ -155,6 +137,24 @@ class ItemPropertyDefinitionsFields extends React.PureComponent {
     return itemPropertiesForDTO;
   };
 
+  getFieldsForSelectedItemType = () => {
+    const { itemPropertyDefinitions, selectedItemType } = this.props;
+
+    return itemPropertyDefinitions
+      .filter(ipd => ipd.itemType === selectedItemType)
+      .map(ipd => ipd.fieldProperties.stateRef);
+  };
+
+  handleClearFields = () => {
+    const state = getInitialState(this.props, true);
+    this.setState(state);
+  };
+
+  handleCancel = () => {
+    const { handleCancelUpdate } = this.props;
+    handleCancelUpdate();
+  };
+
   getInputProps = (itemPropertyDefinition) => {
     const { adornment } = itemPropertyDefinition.fieldProperties;
     return (
@@ -196,80 +196,80 @@ class ItemPropertyDefinitionsFields extends React.PureComponent {
       });
   };
 
-    getMenuItems = itemPropertyDefinition => itemPropertyDefinition.fieldProperties.menuItems
-      .map(item => <MenuItem value={item} key={item}>{item}</MenuItem>);
+  getMenuItems = itemPropertyDefinition => itemPropertyDefinition.fieldProperties.menuItems
+    .map(item => <MenuItem value={item} key={item}>{item}</MenuItem>);
 
-    getSelectFields = () => {
-      const { itemPropertyDefinitions, classes, selectedItemType } = this.props;
+  getSelectFields = () => {
+    const { itemPropertyDefinitions, classes, selectedItemType } = this.props;
 
-      return itemPropertyDefinitions
-        .filter(ipd => ipd.fieldProperties.fieldType === 'select' && selectedItemType === ipd.itemType)
-        .map((ipd, index) => {
-          const { stateRef } = ipd.fieldProperties;
-          return (
-            <FormControl className={classes.formControl} key={index}>
-              <InputLabel htmlFor={`select-${stateRef}`}>
-                {ipd.propertyName}
-              </InputLabel>
-              <Select
-                value={this.state[stateRef]}
-                onChange={this.handleChange(stateRef)}
-                input={(
-                  <Input
-                    name={`select-${stateRef}`}
-                    id={`select-${stateRef}`}
-                  />
+    return itemPropertyDefinitions
+      .filter(ipd => ipd.fieldProperties.fieldType === 'select' && selectedItemType === ipd.itemType)
+      .map((ipd, index) => {
+        const { stateRef } = ipd.fieldProperties;
+        return (
+          <FormControl className={classes.formControl} key={index}>
+            <InputLabel htmlFor={`select-${stateRef}`}>
+              {ipd.propertyName}
+            </InputLabel>
+            <Select
+              value={this.state[stateRef]}
+              onChange={this.handleChange(stateRef)}
+              input={(
+                <Input
+                  name={`select-${stateRef}`}
+                  id={`select-${stateRef}`}
+                />
                 )}
-              >
-                {this.getMenuItems(ipd)}
-              </Select>
-              <FormHelperText
-                id="component-error-text"
-                className={classes.errorLabel}
-              >
-                {this.state.errors[stateRef]}
-              </FormHelperText>
-            </FormControl>
-          );
-        });
-    };
+            >
+              {this.getMenuItems(ipd)}
+            </Select>
+            <FormHelperText
+              id="component-error-text"
+              className={classes.errorLabel}
+            >
+              {this.state.errors[stateRef]}
+            </FormHelperText>
+          </FormControl>
+        );
+      });
+  };
 
-    getButtons = () => {
-      const { classes, updateMode } = this.props;
+  getButtons = () => {
+    const { classes, updateMode } = this.props;
 
-      return (
-        <div>
-          <Button variant="contained" className={classes.button} onClick={this.handleSaveOrUpdateItem}>
-            <SaveIcon className={classes.icon} />
-            {'Save'}
-          </Button>
-          <Button variant="contained" className={classes.clearButton} onClick={this.handleClearFields}>
-            <ClearIcon className={classes.icon} />
-            {'Clear'}
-          </Button>
-          {updateMode && (
+    return (
+      <div>
+        <Button variant="contained" className={classes.button} onClick={this.handleSaveOrUpdateItem}>
+          <SaveIcon className={classes.icon} />
+          {'Save'}
+        </Button>
+        <Button variant="contained" className={classes.clearButton} onClick={this.handleClearFields}>
+          <ClearIcon className={classes.icon} />
+          {'Clear'}
+        </Button>
+        {updateMode && (
           <Button variant="contained" className={classes.button} onClick={this.handleCancel}>
             <CancelIcon className={classes.icon} />
               {'Cancel'}
           </Button>
-          )}
-        </div>
-      );
-    };
+        )}
+      </div>
+    );
+  };
 
-    render() {
-      const { classes } = this.props;
+  render() {
+    const { classes } = this.props;
 
-      return (
-        <div>
-          <div className={classes.fieldsGrid}>
-            {this.getTextFields()}
-            {this.getSelectFields()}
-          </div>
-          {this.getButtons()}
+    return (
+      <div>
+        <div className={classes.fieldsGrid}>
+          {this.getTextFields()}
+          {this.getSelectFields()}
         </div>
-      );
-    }
+        {this.getButtons()}
+      </div>
+    );
+  }
 }
 
 ItemPropertyDefinitionsFields.propTypes = {

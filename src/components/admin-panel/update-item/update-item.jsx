@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Typography, withStyles } from '@material-ui/core';
 import styles from './update-item.style';
-import ItemPropertyDefinitionsFields from '../add-item/item-property-definitions-fields';
+import ItemPropertyDefinitionsFields from '../item-property-definitions-fields/item-property-definitions-fields';
 import * as ItemSelectors from '../../../selectors/items';
 import * as ItemActions from '../../../actions/items';
 

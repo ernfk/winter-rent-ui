@@ -1,6 +1,6 @@
 unit tests
-refactor item properrty definitions
-mui theme
+refactor item property definitions
+mui theme (when too many duplicates)
 
 
 Admin only for admins

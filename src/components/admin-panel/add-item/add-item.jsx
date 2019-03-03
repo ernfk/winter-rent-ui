@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import {
   FormControl, InputLabel, MenuItem, OutlinedInput, Select, Typography, withStyles,
 } from '@material-ui/core';
-import ItemPropertyDefinitionsFields from './item-property-definitions-fields';
+import ItemPropertyDefinitionsFields from '../item-property-definitions-fields/item-property-definitions-fields';
 import * as ItemSelectors from '../../../selectors/items';
 import * as ItemActions from '../../../actions/items';
 import styles from './add-item.style';
