@@ -15,14 +15,16 @@ import {
   Toolbar,
   Typography,
   withStyles,
+  Divider,
 } from '@material-ui/core';
 import {
-  AddBox as AddIcon, ExitToApp as ExitIcon, ViewList, BuildOutlined,
+  AddBox as AddIcon, ExitToApp as ExitIcon, ViewList as ViewListIcon, BuildOutlined as LogoIcon, Storage as ReservationIcon,
 } from '@material-ui/icons';
 import { connect } from 'react-redux';
 import AddItem from './add-item/add-item';
-import styles from './admin-panel.style';
 import ItemList from './item-list/item-list';
+import Reservations from './reservations/reservations';
+import styles from './admin-panel.style';
 import * as SnackbarStatus from '../commons/snackbar-statuses';
 import * as ItemActions from '../../actions/items';
 import * as ItemSelectors from '../../selectors/items';
@@ -50,6 +52,8 @@ class AdminPanel extends React.PureComponent {
       return <AddItem />;
     } if (currentOpenContent === 'showAllItems') {
       return <ItemList />;
+    } if (currentOpenContent === 'showReservations') {
+      return <Reservations />;
     }
     return <Typography variant="h5">Welcome to Admin Panel</Typography>;
   };
@@ -70,7 +74,7 @@ class AdminPanel extends React.PureComponent {
           <AppBar position="fixed" className={classes.appBar}>
             <Toolbar className={classes.adminPanelToolbar}>
               <div className={classes.adminPanelTitleContainer}>
-                <BuildOutlined classes={{ root: classes.buildIcon }} />
+                <LogoIcon classes={{ root: classes.buildIcon }} />
                 <Typography variant="h6" className={classes.adminPanelTitle}>
                   {'Admin Panel'}
                 </Typography>
@@ -97,9 +101,16 @@ class AdminPanel extends React.PureComponent {
                 </ListItemIcon>
               </ListItem>
               <ListItem button onClick={() => this.handleOpenContent('showAllItems')}>
-                <ListItemText primary="Show all items" />
+                <ListItemText primary="Items" />
                 <ListItemIcon>
-                  <ViewList />
+                  <ViewListIcon />
+                </ListItemIcon>
+              </ListItem>
+              <Divider />
+              <ListItem button onClick={() => this.handleOpenContent('showReservations')}>
+                <ListItemText primary="Reservations" />
+                <ListItemIcon>
+                  <ReservationIcon />
                 </ListItemIcon>
               </ListItem>
             </List>
