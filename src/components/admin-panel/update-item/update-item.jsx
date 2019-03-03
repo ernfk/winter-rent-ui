@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Typography, withStyles } from '@material-ui/core';
-import styles from './update-item.style';
 import ItemPropertyDefinitionsFields from '../item-property-definitions-fields/item-property-definitions-fields';
+import Title from '../../commons/title';
 import * as ItemSelectors from '../../../selectors/items';
 import * as ItemActions from '../../../actions/items';
 
@@ -24,7 +23,7 @@ class UpdateItem extends React.PureComponent {
 
     return (
       <div>
-        <Typography style={styles.editItemTypography}> Update item </Typography>
+        <Title title="Update item" />
         <ItemPropertyDefinitionsFields
           itemPropertyDefinitions={itemPropertyDefinitions}
           selectedItemType={item.type}
@@ -67,4 +66,4 @@ const mapDispatchToProps = dispatch => ({
   },
 });
 
-export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(UpdateItem));
+export default connect(mapStateToProps, mapDispatchToProps)(UpdateItem);

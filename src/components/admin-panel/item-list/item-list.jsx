@@ -1,19 +1,12 @@
 import React from 'react';
 import {
-  IconButton,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow,
-  Tooltip,
-  Typography,
-  withStyles,
+  IconButton, Table, TableBody, TableCell, TableHead, TableRow, Tooltip, withStyles,
 } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Delete, Edit } from '@material-ui/icons/';
 import UpdateItem from '../update-item/update-item';
+import Title from '../../commons/title';
 import styles from './item-list.style';
 import * as ItemSelectors from '../../../selectors/items';
 import * as ItemActions from '../../../actions/items';
@@ -52,7 +45,7 @@ class ItemList extends React.PureComponent {
     return (
       <div style={styles.container}>
         <div style={styles.leftSide}>
-          <Typography className={classes.listItemsTypography}> List of items </Typography>
+          <Title title="List of items" />
           <Table className={classes.table}>
             <TableHead>
               <TableRow className={classes.row}>

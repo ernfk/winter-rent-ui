@@ -40,10 +40,6 @@ const styles = {
     maxWidth: '90px',
     paddingLeft: '5px',
   },
-  listItemsTypography: {
-    padding: '0 0 5px 9px',
-    fontSize: '18px',
-  },
 };
 
 export default styles;

@@ -1,7 +1,6 @@
 import React from 'react';
-import { Typography, withStyles } from '@material-ui/core';
-import styles from './reservations.style';
+import Title from '../../commons/title';
 
-const Reservations = () => <Typography style={styles.reservationsTypography}> Manage reservations </Typography>;
+const Reservations = () => <Title title="Manage reservations" />;
 
-export default withStyles(styles)(Reservations);
+export default Reservations;

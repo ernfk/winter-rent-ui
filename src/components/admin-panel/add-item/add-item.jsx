@@ -4,9 +4,10 @@ import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
-  FormControl, InputLabel, MenuItem, OutlinedInput, Select, Typography, withStyles,
+  FormControl, InputLabel, MenuItem, OutlinedInput, Select, withStyles,
 } from '@material-ui/core';
 import ItemPropertyDefinitionsFields from '../item-property-definitions-fields/item-property-definitions-fields';
+import Title from '../../commons/title';
 import * as ItemSelectors from '../../../selectors/items';
 import * as ItemActions from '../../../actions/items';
 import styles from './add-item.style';
@@ -46,7 +47,7 @@ class AddItem extends React.PureComponent {
 
     return (
       <div>
-        <Typography style={styles.addItemTypography}> Add new item </Typography>
+        <Title title="Add new item" />
         <FormControl variant="outlined" className={classes.formControl}>
           <InputLabel
             htmlFor="outlined-itemType-simple"
