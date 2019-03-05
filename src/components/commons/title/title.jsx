@@ -3,18 +3,20 @@ import PropTypes from 'prop-types';
 import { Typography, withStyles } from '@material-ui/core';
 import styles from './title.style';
 
-const Title = ({ title }) => (
-  <Typography style={styles.typography}>
+const Title = ({ title, style }) => (
+  <Typography style={{ ...styles.typography, ...style }}>
     {title}
   </Typography>
 );
 
 Title.propTypes = {
   title: PropTypes.string,
+  style: PropTypes.shape({}),
 };
 
 Title.defaultProps = {
   title: '',
+  style: {},
 };
 
 export default withStyles(styles)(Title);

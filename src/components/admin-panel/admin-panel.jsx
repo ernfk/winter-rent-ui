@@ -18,7 +18,8 @@ import {
   Divider,
 } from '@material-ui/core';
 import {
-  AddBox as AddIcon, ExitToApp as ExitIcon, ViewList as ViewListIcon, BuildOutlined as LogoIcon, Storage as ReservationIcon,
+  AddBox as AddIcon, ExitToApp as ExitIcon, ViewList as ViewListIcon,
+  BuildOutlined as LogoIcon, Storage as ReservationIcon,
 } from '@material-ui/icons';
 import { connect } from 'react-redux';
 import AddItem from './add-item/add-item';
@@ -107,7 +108,7 @@ class AdminPanel extends React.PureComponent {
                 </ListItemIcon>
               </ListItem>
               <Divider />
-              <ListItem button onClick={() => this.handleOpenContent('showReservations')}>
+              <ListItem button onClick={() => this.handleOpenContent('showReservations')} disabled>
                 <ListItemText primary="Reservations" />
                 <ListItemIcon>
                   <ReservationIcon />

@@ -8,12 +8,14 @@ import {
 import { AccountCircle, Settings } from '@material-ui/icons';
 import Logo from '../../images/logo.png';
 import styles from './app-menu.style';
+import LoginPanel from '../login-panel/login-panel';
 
 class AppMenu extends Component {
   constructor(props) {
     super(props);
     this.state = {
       anchorEl: null,
+      loginPanel: true,
     };
   }
 
@@ -21,13 +23,17 @@ class AppMenu extends Component {
 
    handleMenuClose = () => this.setState({ anchorEl: null });
 
+   handleOpenLoginPanel = () => {
+     this.setState({ loginPanel: true });
+   };
+
    handleOpenAdminPanel = () => {
      const { history } = this.props;
      history.push('/admin');
    };
 
    render() {
-     const { anchorEl } = this.state;
+     const { anchorEl, loginPanel } = this.state;
      const { classes } = this.props;
      const isMenuOpen = Boolean(anchorEl);
 
@@ -39,8 +45,9 @@ class AppMenu extends Component {
          open={isMenuOpen}
          onClose={this.handleMenuClose}
        >
-         <MenuItem onClick={this.handleMenuClose}>Profile</MenuItem>
-         <MenuItem onClick={this.handleMenuClose}>Logout</MenuItem>
+         <MenuItem onClick={this.handleOpenLoginPanel}>Login</MenuItem>
+         <MenuItem onClick={this.handleMenuClose} disabled>Profile</MenuItem>
+         <MenuItem onClick={this.handleMenuClose} disabled>Logout</MenuItem>
        </Menu>
      );
 
@@ -60,7 +67,6 @@ class AppMenu extends Component {
                  aria-haspopup="true"
                  onClick={this.handleProfileMenuOpen}
                  color="inherit"
-                 disabled
                >
                  <AccountCircle />
                </IconButton>
@@ -76,6 +82,9 @@ class AppMenu extends Component {
            </Toolbar>
          </AppBar>
          {renderMenu}
+         <div>
+           {loginPanel && <LoginPanel />}
+         </div>
        </div>
      );
    }
