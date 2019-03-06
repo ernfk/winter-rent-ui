@@ -12,7 +12,7 @@ import {
 import Title from '../commons/title/title';
 import styles from './login-panel.style';
 
-const LoginPanel = ({ classes }) => (
+const LoginPanel = ({ classes, history }) => (
   <div className={classes.loginPanelContainer}>
     <Paper className={classes.paper} elevation={4}>
       <LoginIcon classes={{ root: classes.loginIcon }} />
@@ -46,7 +46,7 @@ const LoginPanel = ({ classes }) => (
         </Button>
       </div>
       <IconButton
-        onClick={() => {}}
+        onClick={() => history.push('/')}
         color="inherit"
         className={classes.exitButton}
       >
