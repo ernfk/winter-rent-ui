@@ -15,7 +15,6 @@ class AppMenu extends Component {
     super(props);
     this.state = {
       anchorEl: null,
-      loginPanel: true,
     };
   }
 
@@ -24,7 +23,8 @@ class AppMenu extends Component {
    handleMenuClose = () => this.setState({ anchorEl: null });
 
    handleOpenLoginPanel = () => {
-     this.setState({ loginPanel: true });
+     const { history } = this.props;
+     history.push('/login');
    };
 
    handleOpenAdminPanel = () => {
@@ -33,7 +33,7 @@ class AppMenu extends Component {
    };
 
    render() {
-     const { anchorEl, loginPanel } = this.state;
+     const { anchorEl } = this.state;
      const { classes } = this.props;
      const isMenuOpen = Boolean(anchorEl);
 
@@ -82,9 +82,6 @@ class AppMenu extends Component {
            </Toolbar>
          </AppBar>
          {renderMenu}
-         <div>
-           {loginPanel && <LoginPanel />}
-         </div>
        </div>
      );
    }
