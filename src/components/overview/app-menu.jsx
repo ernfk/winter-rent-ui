@@ -25,11 +25,13 @@ class AppMenu extends Component {
    handleOpenLoginPanel = () => {
      const { history } = this.props;
      history.push('/login');
+     this.setState({ anchorEl: null });
    };
 
    handleOpenAdminPanel = () => {
      const { history } = this.props;
      history.push('/admin');
+     this.setState({ anchorEl: null });
    };
 
    render() {

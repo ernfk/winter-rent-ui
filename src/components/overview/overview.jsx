@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
-import AppMenu from './app-menu';
+import Title from '../commons/title/title';
 
-const Overview = () => <AppMenu />;
+const Overview = () => <Title title="Main page" />;
 
 export default Overview;
