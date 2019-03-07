@@ -6,10 +6,12 @@ import Overview from './components/overview/overview';
 import AdminPanel from "./components/admin-panel/admin-panel";
 import AppMenu from './components/overview/app-menu';
 import LoginPanel from './components/login-panel/login-panel';
+import RegistrationPanel from './components/registration-panel/registration-panel';
 import {createStore, applyMiddleware, compose} from "redux";
 import {Provider} from "react-redux";
 import thunk from 'redux-thunk';
 import rootReducer from "./reducers/root-reducer";
+
 
 const store = createStore(
     rootReducer,
@@ -28,6 +30,7 @@ const routing = (
                 <Route exact path="/" component={Overview} />
                 <Route exact path="/admin" component={AdminPanel} />
                 <Route exact path="/login" component={LoginPanel} />
+                <Route exact path="/registration" component={RegistrationPanel} />
             </Switch>
             </div>
         </Router>

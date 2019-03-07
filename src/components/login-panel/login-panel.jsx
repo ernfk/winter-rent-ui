@@ -41,7 +41,7 @@ const LoginPanel = ({ classes, history }) => (
         <Button variant="outlined" className={classes.loginButton}>
           {'Login'}
         </Button>
-        <Button variant="outlined">
+        <Button variant="outlined" onClick={() => history.push('/registration')}>
           {'Register'}
         </Button>
       </div>
@@ -58,10 +58,12 @@ const LoginPanel = ({ classes, history }) => (
 
 LoginPanel.propTypes = {
   classes: PropTypes.shape({}),
+  history: PropTypes.shape({}),
 };
 
 LoginPanel.defaultProps = {
   classes: {},
+  history: {},
 };
 
 export default withStyles(styles)(LoginPanel);
