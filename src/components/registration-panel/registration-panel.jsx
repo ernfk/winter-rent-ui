@@ -5,7 +5,7 @@ import {
 } from '@material-ui/core';
 import { ExitToApp as ExitIcon, Mood as WelcomeIcon } from '@material-ui/icons';
 import Title from '../commons/title/title';
-import styles from './registrationPanelContainer.style';
+import styles from './registration-panel-container.style';
 
 const RegistrationPanel = ({ classes, history }) => (
   <div style={styles.registrationPanelContainer}>
