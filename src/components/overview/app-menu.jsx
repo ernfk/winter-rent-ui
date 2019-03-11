@@ -3,12 +3,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import {
-  AppBar, Toolbar, Typography, IconButton, Menu, MenuItem, withStyles,
+  AppBar, IconButton, Menu, MenuItem, Toolbar, Typography, withStyles,
 } from '@material-ui/core';
 import { AccountCircle, Settings } from '@material-ui/icons';
 import Logo from '../../images/logo.png';
 import styles from './app-menu.style';
-import LoginPanel from '../login-panel/login-panel';
 
 class AppMenu extends Component {
   constructor(props) {
