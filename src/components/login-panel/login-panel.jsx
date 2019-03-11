@@ -1,15 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  FormControl, Input, InputAdornment, Paper, withStyles, Button, IconButton,
+  Button, FormControl, Input, InputAdornment, Paper, withStyles,
 } from '@material-ui/core';
 import {
   Accessibility as LoginIcon,
   AccountCircle as AccountCircleIcon,
   Https as PasswordIcon,
-  ExitToApp as ExitIcon,
 } from '@material-ui/icons';
 import Title from '../commons/title/title';
+import ExitButton from '../commons/exit-button/exit-button';
 import styles from './login-panel.style';
 
 const LoginPanel = ({ classes, history }) => (
@@ -45,13 +45,7 @@ const LoginPanel = ({ classes, history }) => (
           {'Register'}
         </Button>
       </div>
-      <IconButton
-        onClick={() => history.push('/')}
-        color="inherit"
-        className={classes.exitButton}
-      >
-        <ExitIcon classes={{ root: classes.exitIcon }} />
-      </IconButton>
+      <ExitButton history={history} />
     </Paper>
   </div>
 );

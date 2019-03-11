@@ -1,16 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Button, Checkbox, IconButton, Paper, TextField, withStyles,
+  Button, Checkbox, Paper, TextField, withStyles,
 } from '@material-ui/core';
-import { ExitToApp as ExitIcon, Mood as WelcomeIcon } from '@material-ui/icons';
+import { Mood as WelcomeIcon } from '@material-ui/icons';
 import Title from '../commons/title/title';
 import styles from './registration-panel-container.style';
+import ExitButton from '../commons/exit-button/exit-button';
 
 const RegistrationPanel = ({ classes, history }) => (
   <div style={styles.registrationPanelContainer}>
     <Paper className={classes.paper} elevation={4}>
-      <WelcomeIcon classes={{ root: classes.welcomeIcon }}/>
+      <WelcomeIcon classes={{ root: classes.welcomeIcon }} />
       <Title title="Registration" style={styles.title} />
       <div style={styles.textFieldsContainer}>
         <TextField
@@ -64,13 +65,7 @@ const RegistrationPanel = ({ classes, history }) => (
           {'Sign up'}
         </Button>
       </div>
-      <IconButton
-        onClick={() => history.push('/')}
-        color="inherit"
-        className={classes.exitButton}
-      >
-        <ExitIcon classes={{ root: classes.exitIcon }} />
-      </IconButton>
+      <ExitButton history={history} />
     </Paper>
   </div>
 );

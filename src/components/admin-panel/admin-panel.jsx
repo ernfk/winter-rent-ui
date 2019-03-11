@@ -4,8 +4,8 @@ import { withRouter } from 'react-router-dom';
 import {
   AppBar,
   CssBaseline,
+  Divider,
   Drawer,
-  IconButton,
   List,
   ListItem,
   ListItemIcon,
@@ -15,17 +15,19 @@ import {
   Toolbar,
   Typography,
   withStyles,
-  Divider,
 } from '@material-ui/core';
 import {
-  AddBox as AddIcon, ExitToApp as ExitIcon, ViewList as ViewListIcon,
-  BuildOutlined as LogoIcon, Storage as ReservationIcon,
+  AddBox as AddIcon,
+  BuildOutlined as LogoIcon,
+  Storage as ReservationIcon,
+  ViewList as ViewListIcon,
 } from '@material-ui/icons';
 import { connect } from 'react-redux';
 import AddItem from './add-item/add-item';
 import ItemList from './item-list/item-list';
 import Reservations from './reservations/reservations';
 import styles from './admin-panel.style';
+import ExitButton from '../commons/exit-button/exit-button';
 import * as SnackbarStatus from '../commons/snackbar-statuses';
 import * as ItemActions from '../../actions/items';
 import * as ItemSelectors from '../../selectors/items';
@@ -37,11 +39,6 @@ class AdminPanel extends React.PureComponent {
       currentOpenContent: '',
     };
   }
-
-  handleBackToApp = () => {
-    const { history } = this.props;
-    history.push('/');
-  };
 
   handleOpenContent = (value) => {
     this.setState({ currentOpenContent: value });
@@ -66,7 +63,7 @@ class AdminPanel extends React.PureComponent {
 
     render() {
       const {
-        classes, snackbarOpenStatus, snackbarMessage, snackbarInfoType,
+        classes, snackbarOpenStatus, snackbarMessage, snackbarInfoType, history,
       } = this.props;
 
       return (
@@ -80,12 +77,7 @@ class AdminPanel extends React.PureComponent {
                   {'Admin Panel'}
                 </Typography>
               </div>
-              <IconButton
-                onClick={this.handleBackToApp}
-                color="inherit"
-              >
-                <ExitIcon classes={{ root: classes.exitIcon }} />
-              </IconButton>
+              <ExitButton history={history} />
             </Toolbar>
           </AppBar>
           <Drawer

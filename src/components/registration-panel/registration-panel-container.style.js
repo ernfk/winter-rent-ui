@@ -43,12 +43,6 @@ const styles = {
     display: 'grid',
     margin: '55px 60px 10px 60px',
   },
-  exitButton: {
-    float: 'right',
-  },
-  exitIcon: {
-    color: '#36383a',
-  },
   welcomeIcon: {
     width: '50px',
     height: '50px',

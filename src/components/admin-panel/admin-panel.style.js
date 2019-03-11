@@ -39,9 +39,6 @@ const styles = theme => ({
   adminPanelTitle: {
     color: '#36383a',
   },
-  exitIcon: {
-    color: '#36383a',
-  },
 });
 
 export default styles;

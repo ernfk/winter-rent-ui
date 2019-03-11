@@ -23,12 +23,6 @@ const styles = {
     display: 'grid',
     margin: '20px 60px 10px 60px',
   },
-  exitIcon: {
-    color: '#36383a',
-  },
-  exitButton: {
-    float: 'right',
-  },
   loginButton: {
     backgroundColor: '#3ac182',
     marginBottom: '5px',
