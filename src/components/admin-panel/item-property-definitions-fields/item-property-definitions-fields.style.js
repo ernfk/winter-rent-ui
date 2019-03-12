@@ -1,10 +1,9 @@
-const styles = theme => ({
+const styles = {
   root: {
     display: 'flex',
     flexWrap: 'wrap',
   },
   formControl: {
-    margin: theme.spacing.unit,
     width: '200px',
   },
   button: {
@@ -23,11 +22,25 @@ const styles = theme => ({
   fieldsGrid: {
     display: 'grid',
     gridColumnGap: '40px',
-    gridTemplateColumns: '200px 200px',
+    gridTemplateColumns: '200px 250px',
   },
   errorLabel: {
     color: 'red',
   },
-});
+  paperRoot: {
+    width: '250px',
+    height: '250px',
+    marginTop: '25px',
+  },
+  noPhotoPlaceHolder: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '100%',
+  },
+  formContainer: {
+    display: 'flex',
+  },
+};
 
 export default styles;

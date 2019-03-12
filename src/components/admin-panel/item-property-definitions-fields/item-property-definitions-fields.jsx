@@ -4,6 +4,7 @@ import { Save as SaveIcon, Clear as CancelIcon, Backspace as ClearIcon } from '@
 import {
   FormHelperText, InputAdornment, Select, MenuItem,
   InputLabel, FormControl, Input, Button, withStyles,
+  Paper,
 } from '@material-ui/core';
 import styles from './item-property-definitions-fields.style';
 
@@ -257,16 +258,32 @@ class ItemPropertyDefinitionsFields extends React.PureComponent {
     );
   };
 
+  getPhoto = () => {
+    const { classes } = this.props;
+    return (
+      <Paper classes={{ root: classes.paperRoot }}>
+        <div style={styles.noPhotoPlaceHolder}>
+          {' '}
+          {'No photo'}
+          {' '}
+        </div>
+      </Paper>
+    );
+  };
+
   render() {
     const { classes } = this.props;
 
     return (
-      <div>
-        <div className={classes.fieldsGrid}>
-          {this.getTextFields()}
-          {this.getSelectFields()}
+      <div className={classes.formContainer}>
+        <div>
+          <div className={classes.fieldsGrid}>
+            {this.getTextFields()}
+            {this.getSelectFields()}
+          </div>
+          {this.getButtons()}
         </div>
-        {this.getButtons()}
+        {this.getPhoto()}
       </div>
     );
   }
