@@ -16,8 +16,8 @@ class AddItem extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      selectedItemType: '',
-      itemPropertyDefinitionsFieldsOpen: false,
+      selectedItemType: 'SKI',
+      itemPropertyDefinitionsFieldsOpen: true,
       labelWidth: 0,
     };
   }

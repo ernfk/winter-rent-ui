@@ -37,6 +37,7 @@ const getInitialState = ({ item, updateMode }, clear) => ({
     secondColor: '',
     size: '',
   },
+  file: null,
 });
 
 class ItemPropertyDefinitionsFields extends React.PureComponent {
@@ -265,14 +266,16 @@ class ItemPropertyDefinitionsFields extends React.PureComponent {
 
   getPhoto = () => {
     const { classes } = this.props;
+    const { file } = this.state;
+
     return (
       <div style={styles.photoContainer}>
         <Paper classes={{ root: classes.paperRoot }}>
           <div style={styles.noPhotoPlaceHolder}>
-            {'No photo'}
+            {<img src={file} /> || 'No photo'}
           </div>
         </Paper>
-        <input accept="image/*" className={classes.photoUpload} id="icon-button-file" type="file" />
+        <input accept="image/*" className={classes.photoUpload} id="icon-button-file" type="file" onChange={this.handleUpload} />
         <label htmlFor="icon-button-file">
           <IconButton color="primary" component="span">
             <PhotoIcon className={classes.photoIcon} />
@@ -280,6 +283,10 @@ class ItemPropertyDefinitionsFields extends React.PureComponent {
         </label>
       </div>
     );
+  };
+
+  handleUpload = (e) => {
+    this.setState({ file: URL.createObjectURL(e.target.files[0]) });
   };
 
   render() {
