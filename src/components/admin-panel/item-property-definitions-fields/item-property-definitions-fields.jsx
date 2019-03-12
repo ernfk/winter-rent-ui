@@ -285,8 +285,10 @@ class ItemPropertyDefinitionsFields extends React.PureComponent {
     );
   };
 
-  handleUpload = (e) => {
-    this.setState({ file: URL.createObjectURL(e.target.files[0]) });
+  handleUpload = ({ target }) => {
+    const { files } = target;
+    this.setState({ file: URL.createObjectURL(files[0]) });
+    target.value = '';
   };
 
   render() {
