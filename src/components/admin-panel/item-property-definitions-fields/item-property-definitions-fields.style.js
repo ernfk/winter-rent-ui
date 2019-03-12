@@ -22,22 +22,22 @@ const styles = {
   fieldsGrid: {
     display: 'grid',
     gridColumnGap: '40px',
-    gridTemplateColumns: '200px 250px',
+    gridTemplateColumns: '200px 220px',
   },
   errorLabel: {
     color: 'red',
   },
   photoContainer: {
-    width: '250px',
+    width: '200px',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
+    marginBottom: '35px',
   },
   paperRoot: {
-    width: '250px',
-    height: '250px',
-    marginTop: '25px',
+    width: '200px',
+    height: '200px',
   },
   noPhotoPlaceHolder: {
     display: 'flex',
