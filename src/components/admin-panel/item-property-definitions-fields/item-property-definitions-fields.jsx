@@ -1,10 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Save as SaveIcon, Clear as CancelIcon, Backspace as ClearIcon } from '@material-ui/icons';
+import {
+  Save as SaveIcon,
+  Clear as CancelIcon,
+  Backspace as ClearIcon,
+  PhotoCamera as PhotoIcon,
+} from '@material-ui/icons';
 import {
   FormHelperText, InputAdornment, Select, MenuItem,
   InputLabel, FormControl, Input, Button, withStyles,
-  Paper,
+  Paper, IconButton,
 } from '@material-ui/core';
 import styles from './item-property-definitions-fields.style';
 
@@ -261,13 +266,19 @@ class ItemPropertyDefinitionsFields extends React.PureComponent {
   getPhoto = () => {
     const { classes } = this.props;
     return (
-      <Paper classes={{ root: classes.paperRoot }}>
-        <div style={styles.noPhotoPlaceHolder}>
-          {' '}
-          {'No photo'}
-          {' '}
-        </div>
-      </Paper>
+      <div style={styles.photoContainer}>
+        <Paper classes={{ root: classes.paperRoot }}>
+          <div style={styles.noPhotoPlaceHolder}>
+            {'No photo'}
+          </div>
+        </Paper>
+        <input accept="image/*" className={classes.photoUpload} id="icon-button-file" type="file" />
+        <label htmlFor="icon-button-file">
+          <IconButton color="primary" component="span">
+            <PhotoIcon className={classes.photoIcon} />
+          </IconButton>
+        </label>
+      </div>
     );
   };
 

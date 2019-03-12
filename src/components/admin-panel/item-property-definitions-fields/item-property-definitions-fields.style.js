@@ -27,6 +27,13 @@ const styles = {
   errorLabel: {
     color: 'red',
   },
+  photoContainer: {
+    width: '250px',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   paperRoot: {
     width: '250px',
     height: '250px',
@@ -40,6 +47,12 @@ const styles = {
   },
   formContainer: {
     display: 'flex',
+  },
+  photoUpload: {
+    display: 'none',
+  },
+  photoIcon: {
+    color: '#3ac182',
   },
 };
 
