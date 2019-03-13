@@ -26,7 +26,7 @@ const styles = {
   rulesAgreementContainer: {
     display: 'flex',
     justifyContent: 'center',
-    margin: '10px 12px 0 0',
+    margin: '10px 32px 0 0',
   },
   rulesAgreementPaper: {
     width: '250px',

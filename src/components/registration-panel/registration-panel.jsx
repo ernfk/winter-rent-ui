@@ -100,11 +100,9 @@ class RegistrationPanel extends React.PureComponent {
               value={name}
               onChange={this.handleChange('name')}
             />
-            {!!nameError && (
             <FormHelperText classes={{ root: classes.error }}>
               {nameError}
             </FormHelperText>
-            )}
             <TextField
               placeholder="Last name"
               InputLabelProps={{
@@ -114,11 +112,9 @@ class RegistrationPanel extends React.PureComponent {
               value={lastName}
               onChange={this.handleChange('lastName')}
             />
-            {!!lastNameError && (
-              <FormHelperText classes={{ root: classes.error }}>
-                {lastNameError}
-              </FormHelperText>
-            )}
+            <FormHelperText classes={{ root: classes.error }}>
+              {lastNameError}
+            </FormHelperText>
             <TextField
               placeholder="Email"
               InputLabelProps={{
@@ -128,11 +124,9 @@ class RegistrationPanel extends React.PureComponent {
               value={email}
               onChange={this.handleChange('email')}
             />
-            {!!emailError && (
-              <FormHelperText classes={{ root: classes.error }}>
-                {emailError}
-              </FormHelperText>
-            )}
+            <FormHelperText classes={{ root: classes.error }}>
+              {emailError}
+            </FormHelperText>
             <TextField
               type="password"
               placeholder="Password"
@@ -142,11 +136,9 @@ class RegistrationPanel extends React.PureComponent {
               value={password}
               onChange={this.handleChange('password')}
             />
-            {!!passwordError && (
-              <FormHelperText classes={{ root: classes.error }}>
-                {passwordError}
-              </FormHelperText>
-            )}
+            <FormHelperText classes={{ root: classes.error }}>
+              {passwordError}
+            </FormHelperText>
             <TextField
               type="password"
               placeholder="Confirm password"
@@ -156,11 +148,9 @@ class RegistrationPanel extends React.PureComponent {
               value={confirmPassword}
               onChange={this.handleChange('confirmPassword')}
             />
-            {!!confirmPasswordError && (
-              <FormHelperText classes={{ root: classes.error }}>
-                {confirmPasswordError}
-              </FormHelperText>
-            )}
+            <FormHelperText classes={{ root: classes.error }}>
+              {confirmPasswordError}
+            </FormHelperText>
           </div>
           <div style={styles.rulesAgreementContainer}>
             <Checkbox
@@ -174,11 +164,9 @@ class RegistrationPanel extends React.PureComponent {
               </div>
             </Paper>
           </div>
-          {!!termsAcceptStatusError && (
-            <FormHelperText classes={{ root: classes.error }}>
-              {termsAcceptStatusError}
-            </FormHelperText>
-          )}
+          <FormHelperText classes={{ root: classes.error }}>
+            {termsAcceptStatusError}
+          </FormHelperText>
           <div style={styles.buttonsContainer}>
             <Button
               onClick={this.handleSignUp}
