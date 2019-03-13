@@ -5,9 +5,11 @@ const styles = {
   },
   paper: {
     width: '400px',
-    height: '500px',
+    height: '600px',
     margin: 'auto',
     backgroundColor: '#f5f5f5',
+    display: 'flex',
+    flexDirection: 'column',
   },
   textFieldsContainer: {
     display: 'grid',
@@ -48,6 +50,10 @@ const styles = {
     height: '50px',
     margin: 'auto',
     display: 'flex',
+  },
+  error: {
+    color: 'red',
+    margin: '2px 0px 0px 50px',
   },
 };
 
