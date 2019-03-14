@@ -19,12 +19,14 @@ class RegistrationPanel extends React.PureComponent {
       password: '',
       confirmPassword: '',
       termsAcceptStatus: false,
-      nameError: '',
-      lastNameError: '',
-      emailError: '',
-      passwordError: '',
-      confirmPasswordError: '',
-      termsAcceptStatusError: '',
+      errors: {
+        name: '',
+        lastName: '',
+        email: '',
+        password: '',
+        confirmPassword: '',
+        termsAcceptStatus: '',
+      },
     };
   }
 
@@ -39,50 +41,47 @@ class RegistrationPanel extends React.PureComponent {
   };
 
   handleSignUp = () => {
-    const {
-      name, lastName, email, password, confirmPassword, termsAcceptStatus,
-    } = this.state;
-
-    if (name === '') {
-      this.setState({ nameError: 'This field is required' });
-    } else {
-      this.setState({ nameError: '' });
-    }
-    if (lastName === '') {
-      this.setState({ lastNameError: 'This field is required' });
-    } else {
-      this.setState({ lastNameError: '' });
-    }
-    if (email === '') {
-      this.setState({ emailError: 'This field is required' });
-    } else {
-      this.setState({ emailError: '' });
-    }
-    if (password === '') {
-      this.setState({ passwordError: 'This field is required' });
-    } else {
-      this.setState({ passwordError: '' });
-    }
-    if (confirmPassword === '') {
-      this.setState({ confirmPasswordError: 'This field is required' });
-    } else if (confirmPassword !== password) {
-      this.setState({ confirmPasswordError: 'The password does not match' });
-    } else {
-      this.setState({ confirmPasswordError: '' });
-    }
-    if (!termsAcceptStatus) {
-      this.setState({ termsAcceptStatusError: 'You must accept the terms to create an account' });
-    } else {
-      this.setState({ termsAcceptStatusError: '' });
-    }
+    this.validateForm();
+    // if (this.isFormValid()) {
+    //   console.info('Ready to sign up');
+    // } else {
+    //   console.warn('Not yet');
+    // }
   };
+
+  validateForm = () => {
+    const REQUIRED_FIELD = 'This field is required';
+    const PASSWORD_DOES_NOT_MATCH = 'The password does not match';
+    const TERMS_NOT_ACCEPTED = 'You have to accepts the term to create the account!';
+    const errors = { ...this.state.errors };
+    const fieldsToCheck = Object.keys(this.state).filter(field => field !== 'errors');
+
+    fieldsToCheck.forEach((field) => {
+      if (field === 'termsAcceptStatus' && !this.state[field]) {
+        errors[field] = TERMS_NOT_ACCEPTED;
+      } else if (this.state[field] === '') {
+        errors[field] = REQUIRED_FIELD;
+      } else if (field === 'confirmPassword' && this.state[field] !== this.state.password) {
+        errors[field] = PASSWORD_DOES_NOT_MATCH;
+      } else {
+        errors[field] = '';
+      }
+    });
+
+    this.setState({ errors });
+  };
+
+  // isFormValid = () => {
+  //   const index = Object.values(this.state.errors).findIndex(err => err === '');
+  //   console.log(index);
+  //   return index === -1;
+  // };
 
   render() {
     const { classes, history } = this.props;
     const {
       name, lastName, email, password, confirmPassword, termsAcceptStatus,
-      nameError, lastNameError, emailError, passwordError, confirmPasswordError,
-      termsAcceptStatusError,
+      errors,
     } = this.state;
 
     return (
@@ -101,7 +100,7 @@ class RegistrationPanel extends React.PureComponent {
               onChange={this.handleChange('name')}
             />
             <FormHelperText classes={{ root: classes.error }}>
-              {nameError}
+              {errors.name}
             </FormHelperText>
             <TextField
               placeholder="Last name"
@@ -113,7 +112,7 @@ class RegistrationPanel extends React.PureComponent {
               onChange={this.handleChange('lastName')}
             />
             <FormHelperText classes={{ root: classes.error }}>
-              {lastNameError}
+              {errors.lastName}
             </FormHelperText>
             <TextField
               placeholder="Email"
@@ -125,7 +124,7 @@ class RegistrationPanel extends React.PureComponent {
               onChange={this.handleChange('email')}
             />
             <FormHelperText classes={{ root: classes.error }}>
-              {emailError}
+              {errors.email}
             </FormHelperText>
             <TextField
               type="password"
@@ -137,7 +136,7 @@ class RegistrationPanel extends React.PureComponent {
               onChange={this.handleChange('password')}
             />
             <FormHelperText classes={{ root: classes.error }}>
-              {passwordError}
+              {errors.password}
             </FormHelperText>
             <TextField
               type="password"
@@ -149,7 +148,7 @@ class RegistrationPanel extends React.PureComponent {
               onChange={this.handleChange('confirmPassword')}
             />
             <FormHelperText classes={{ root: classes.error }}>
-              {confirmPasswordError}
+              {errors.confirmPassword}
             </FormHelperText>
           </div>
           <div style={styles.rulesAgreementContainer}>
@@ -165,7 +164,7 @@ class RegistrationPanel extends React.PureComponent {
             </Paper>
           </div>
           <FormHelperText classes={{ root: classes.error }}>
-            {termsAcceptStatusError}
+            {errors.termsAcceptStatus}
           </FormHelperText>
           <div style={styles.buttonsContainer}>
             <Button
