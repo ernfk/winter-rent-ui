@@ -41,13 +41,14 @@ class RegistrationPanel extends React.PureComponent {
   };
 
   handleSignUp = () => {
-    this.validateForm();
-    // if (this.isFormValid()) {
-    //   console.info('Ready to sign up');
-    // } else {
-    //   console.warn('Not yet');
-    // }
+    if (this.isFormValid()) {
+      console.info('Ready to sign up');
+    } else {
+      console.warn('Not yet');
+    }
   };
+
+  isFormValid = () => this.validateForm();
 
   validateForm = () => {
     const REQUIRED_FIELD = 'This field is required';
@@ -69,13 +70,14 @@ class RegistrationPanel extends React.PureComponent {
     });
 
     this.setState({ errors });
+
+    return this.checkErrors(errors);
   };
 
-  // isFormValid = () => {
-  //   const index = Object.values(this.state.errors).findIndex(err => err === '');
-  //   console.log(index);
-  //   return index === -1;
-  // };
+  checkErrors = (errors) => {
+    const index = Object.values(errors).findIndex(err => err !== '');
+    return index === -1;
+  };
 
   render() {
     const { classes, history } = this.props;
