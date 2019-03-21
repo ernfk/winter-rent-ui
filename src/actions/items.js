@@ -1,9 +1,11 @@
 import ItemsService from '../services/items-service';
+import ImageService from '../services/image-service';
 import makeActionCreator from '../utils/action-creator';
 import FIELDS from '../components/commons/fields';
 import * as SnackbarStatus from '../components/commons/snackbar-statuses';
 
 const itemsService = new ItemsService();
+const imageService = new ImageService();
 
 export const FETCHED_ITEM_TYPES = 'FETCHED_ITEM_TYPES';
 const fetchedItemTypes = makeActionCreator(FETCHED_ITEM_TYPES, 'itemTypes');
@@ -34,7 +36,13 @@ export const showSnackbar = makeActionCreator(SHOW_SNACK_BAR, 'typeMessage', 'me
 export const CLOSE_SNACK_BAR = 'CLOSE_SNACK_BAR';
 export const closeSnackbar = makeActionCreator(CLOSE_SNACK_BAR);
 
-export const addItem = item => dispatch => itemsService.addItem(item)
+export const addItem = (item, file) => dispatch => itemsService.addItem(item)
+  .then((response) => {
+    const { id } = response.data;
+    if (file && id) {
+      return imageService.addImage(file, id);
+    }
+  })
   .then(() => dispatch(showSnackbar(SnackbarStatus.INFO, 'Successfully added!')))
   .catch(() => dispatch(showSnackbar(SnackbarStatus.ERROR, 'Something went wrong...')));
 

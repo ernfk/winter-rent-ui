@@ -14,16 +14,16 @@ import {
 import styles from './item-property-definitions-fields.style';
 
 const getInitialState = ({ item, updateMode }, clear) => ({
-  color: updateMode && !clear ? item.color : '',
-  gender: updateMode && !clear ? item.gender : '',
-  length: updateMode && !clear ? item.length : '',
-  model: updateMode && !clear ? item.model : '',
-  price: updateMode && !clear ? item.price : '',
-  producer: updateMode && !clear ? item.producer : '',
-  raceStyle: updateMode && !clear ? item['race style'] : '',
-  season: updateMode && !clear ? item.season : '',
-  secondColor: updateMode && !clear ? item['second color'] : '',
-  size: updateMode && !clear ? item.size : '',
+  color: updateMode && !clear ? item.color : 'RED',
+  gender: updateMode && !clear ? item.gender : 'MALE',
+  length: updateMode && !clear ? item.length : '123',
+  model: updateMode && !clear ? item.model : 'C',
+  price: updateMode && !clear ? item.price : '123',
+  producer: updateMode && !clear ? item.producer : 'ELAN',
+  raceStyle: updateMode && !clear ? item['race style'] : 'RACE',
+  season: updateMode && !clear ? item.season : 'NEW',
+  secondColor: updateMode && !clear ? item['second color'] : 'GREEN',
+  size: updateMode && !clear ? item.size : 'L ',
   id: updateMode ? item.id : -1,
   errors: {
     color: '',
@@ -37,6 +37,7 @@ const getInitialState = ({ item, updateMode }, clear) => ({
     secondColor: '',
     size: '',
   },
+  filePreviewPath: null,
   file: null,
 });
 
@@ -63,10 +64,11 @@ class ItemPropertyDefinitionsFields extends React.PureComponent {
 
   handleSaveOrUpdateItem = () => {
     const { addOrUpdateItem } = this.props;
+    const { file } = this.state;
     const isFormReady = this.validateForm();
     if (isFormReady) {
       const itemDTO = this.getItemDTO();
-      addOrUpdateItem(itemDTO);
+      addOrUpdateItem(itemDTO, file);
       this.handleClearFields();
     }
   };
@@ -266,13 +268,13 @@ class ItemPropertyDefinitionsFields extends React.PureComponent {
 
   getPhoto = () => {
     const { classes } = this.props;
-    const { file } = this.state;
+    const { filePreviewPath } = this.state;
 
     return (
       <div style={styles.photoContainer}>
         <Paper classes={{ root: classes.paperRoot }}>
           <div style={styles.noPhotoPlaceHolder}>
-            {<img src={file} /> || 'No photo'}
+            {<img src={filePreviewPath} /> || 'No photo'}
           </div>
         </Paper>
         <input accept="image/*" className={classes.photoUpload} id="icon-button-file" type="file" onChange={this.handleUpload} />
@@ -287,7 +289,7 @@ class ItemPropertyDefinitionsFields extends React.PureComponent {
 
   handleUpload = ({ target }) => {
     const { files } = target;
-    this.setState({ file: URL.createObjectURL(files[0]) });
+    this.setState({ filePreviewPath: URL.createObjectURL(files[0]), file: files[0] });
     target.value = '';
   };
 

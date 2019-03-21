@@ -110,8 +110,8 @@ const mapDispatchToProps = dispatch => ({
   fetchItemsData: () => {
     dispatch(ItemActions.fetchItemsData());
   },
-  addItem: (item) => {
-    dispatch(ItemActions.addItem(item));
+  addItem: (item, file) => {
+    dispatch(ItemActions.addItem(item, file));
   },
 });
 
