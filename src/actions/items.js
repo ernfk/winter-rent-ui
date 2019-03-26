@@ -76,3 +76,12 @@ export const updateItem = item => dispatch => itemsService.updateItem(item)
   .then(() => dispatch(showSnackbar(SnackbarStatus.INFO, 'Successfully updated!')))
   .then(() => dispatch(fetchItems()))
   .catch(() => dispatch(showSnackbar(SnackbarStatus.ERROR, 'Something went wrong...')));
+
+export const getItemByItemId = itemId => dispatch => imageService.getImageByItemId(itemId)
+  .then((res) => {
+    const image = res.data.photo;
+    dispatch(fetchedItemImage(image));
+  });
+
+export const FETCHED_ITEM_IMAGE = 'FETCHED_ITEM_IMAGE';
+const fetchedItemImage = makeActionCreator(FETCHED_ITEM_IMAGE, 'image');

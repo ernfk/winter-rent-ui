@@ -16,6 +16,11 @@ class ImageService extends BaseService {
 
     return axios.post(path, formData, config);
   };
+
+  getImageByItemId = (itemId) => {
+    const path = `${this.basePath}/images/${itemId}`;
+    return axios.get(path);
+  };
 }
 
 export default ImageService;

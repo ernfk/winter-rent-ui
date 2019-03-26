@@ -13,7 +13,7 @@ import {
 } from '@material-ui/core';
 import styles from './item-property-definitions-fields.style';
 
-const getInitialState = ({ item, updateMode }, clear) => ({
+const getInitialState = ({ item, updateMode, itemImage }, clear) => ({
   color: updateMode && !clear ? item.color : 'RED',
   gender: updateMode && !clear ? item.gender : 'MALE',
   length: updateMode && !clear ? item.length : '123',
@@ -37,8 +37,8 @@ const getInitialState = ({ item, updateMode }, clear) => ({
     secondColor: '',
     size: '',
   },
-  filePreviewPath: null,
-  file: null,
+  filePreviewPath: itemImage ? `data:image/jpeg;base64,${itemImage}` : null,
+  file: itemImage,
 });
 
 class ItemPropertyDefinitionsFields extends React.PureComponent {

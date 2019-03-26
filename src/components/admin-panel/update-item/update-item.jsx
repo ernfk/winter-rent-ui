@@ -19,6 +19,7 @@ class UpdateItem extends React.PureComponent {
   render() {
     const {
       itemPropertyDefinitions, item, handleCancelUpdate, updateItem,
+      itemImage,
     } = this.props;
 
     return (
@@ -31,6 +32,7 @@ class UpdateItem extends React.PureComponent {
           updateMode
           handleCancelUpdate={handleCancelUpdate}
           item={item}
+          itemImage={itemImage}
         />
       </div>
     );

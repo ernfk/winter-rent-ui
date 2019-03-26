@@ -1,6 +1,7 @@
 import React from 'react';
 import {
-  IconButton, Table, TableBody, TableCell, TableHead, TableRow, Tooltip, withStyles,
+  IconButton, Table, TableBody, TableCell,
+  TableHead, TableRow, Tooltip, withStyles,
 } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -31,6 +32,8 @@ class ItemList extends React.PureComponent {
   };
 
   handleOpenUpdateItem = (item) => {
+    const { getImageByItemId } = this.props;
+    getImageByItemId(item.id);
     this.setState({ updateMode: true, item });
   };
 
@@ -39,7 +42,7 @@ class ItemList extends React.PureComponent {
   };
 
   render() {
-    const { classes, items } = this.props;
+    const { classes, items, itemImage } = this.props;
     const { updateMode, item } = this.state;
 
     return (
@@ -92,7 +95,13 @@ class ItemList extends React.PureComponent {
             </TableBody>
           </Table>
         </div>
-        {updateMode && <UpdateItem item={item} handleCancelUpdate={this.handleCancelUpdate} />}
+        {updateMode && (
+        <UpdateItem
+          item={item}
+          handleCancelUpdate={this.handleCancelUpdate}
+          itemImage={itemImage}
+        />
+        )}
       </div>
     );
   }
@@ -114,6 +123,7 @@ ItemList.defaultProps = {
 
 const mapStateToProps = state => ({
   items: ItemSelectors.getItems(state),
+  itemImage: ItemSelectors.getItemImage(state),
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -122,6 +132,9 @@ const mapDispatchToProps = dispatch => ({
   },
   deleteItem: (itemId) => {
     dispatch(ItemActions.deleteItem(itemId));
+  },
+  getImageByItemId: (itemId) => {
+    dispatch(ItemActions.getItemByItemId(itemId));
   },
 });
 
