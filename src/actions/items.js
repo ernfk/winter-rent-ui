@@ -77,7 +77,7 @@ export const updateItem = item => dispatch => itemsService.updateItem(item)
   .then(() => dispatch(fetchItems()))
   .catch(() => dispatch(showSnackbar(SnackbarStatus.ERROR, 'Something went wrong...')));
 
-export const getItemByItemId = itemId => dispatch => imageService.getImageByItemId(itemId)
+export const getImageByItemId = itemId => dispatch => imageService.getImageByItemId(itemId)
   .then((res) => {
     const image = res.data.photo;
     dispatch(fetchedItemImage(image));

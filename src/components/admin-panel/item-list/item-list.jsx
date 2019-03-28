@@ -134,7 +134,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(ItemActions.deleteItem(itemId));
   },
   getImageByItemId: (itemId) => {
-    dispatch(ItemActions.getItemByItemId(itemId));
+    dispatch(ItemActions.getImageByItemId(itemId));
   },
 });
 
