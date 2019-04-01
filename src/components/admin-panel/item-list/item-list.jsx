@@ -33,8 +33,10 @@ class ItemList extends React.PureComponent {
 
   handleOpenUpdateItem = (item) => {
     const { getImageByItemId } = this.props;
-    getImageByItemId(item.id);
-    this.setState({ updateMode: true, item });
+    getImageByItemId(item.id)
+      .then(() => {
+        this.setState({ updateMode: true, item });
+      });
   };
 
   handleCancelUpdate = () => {
@@ -111,7 +113,9 @@ ItemList.propTypes = {
   classes: PropTypes.shape({}),
   fetchItems: PropTypes.func,
   deleteItem: PropTypes.func,
+  getImageByItemId: PropTypes.func,
   items: PropTypes.arrayOf(PropTypes.shape({})),
+  itemImage: PropTypes.string,
 };
 
 ItemList.defaultProps = {
@@ -119,6 +123,8 @@ ItemList.defaultProps = {
   items: [],
   fetchItems: () => {},
   deleteItem: () => {},
+  getImageByItemId: () => {},
+  itemImage: '',
 };
 
 const mapStateToProps = state => ({
@@ -133,9 +139,7 @@ const mapDispatchToProps = dispatch => ({
   deleteItem: (itemId) => {
     dispatch(ItemActions.deleteItem(itemId));
   },
-  getImageByItemId: (itemId) => {
-    dispatch(ItemActions.getImageByItemId(itemId));
-  },
+  getImageByItemId: itemId => dispatch(ItemActions.getImageByItemId(itemId)),
 });
 
 export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(ItemList));
