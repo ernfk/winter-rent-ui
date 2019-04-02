@@ -7,7 +7,7 @@ import {
 } from '@material-ui/core';
 import { AccountCircle, Settings } from '@material-ui/icons';
 import Logo from '../../images/logo.png';
-import styles from './app-menu.style';
+import styles from './AppMenu.style';
 
 class AppMenu extends Component {
   constructor(props) {

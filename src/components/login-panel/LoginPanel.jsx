@@ -9,9 +9,9 @@ import {
   AccountCircle as AccountCircleIcon,
   Https as PasswordIcon,
 } from '@material-ui/icons';
-import Title from '../commons/title/title';
-import ExitButton from '../commons/exit-button/exit-button';
-import styles from './login-panel.style';
+import Title from '../commons/title/Title';
+import ExitButton from '../commons/exit-button/ExitButton';
+import styles from './LoginPanel.style';
 
 class LoginPanel extends React.PureComponent {
   constructor(props) {

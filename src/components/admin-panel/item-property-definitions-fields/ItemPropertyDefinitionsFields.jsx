@@ -11,7 +11,7 @@ import {
   InputLabel, FormControl, Input, Button, withStyles,
   Paper, IconButton,
 } from '@material-ui/core';
-import styles from './item-property-definitions-fields.style';
+import styles from './ItemPropertyDefinitionsFields.style';
 
 const getInitialState = ({ item, updateMode, itemImage }, clear) => ({
   color: updateMode && !clear ? item.color : 'RED',

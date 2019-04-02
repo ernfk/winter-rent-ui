@@ -23,11 +23,11 @@ import {
   ViewList as ViewListIcon,
 } from '@material-ui/icons';
 import { connect } from 'react-redux';
-import AddItem from './add-item/add-item';
-import ItemList from './item-list/item-list';
-import Reservations from './reservations/reservations';
-import styles from './admin-panel.style';
-import ExitButton from '../commons/exit-button/exit-button';
+import AddItem from './add-item/AddItem';
+import ItemList from './item-list/ItemList';
+import Reservations from './reservations/Reservations';
+import styles from './AdminPanel.style';
+import ExitButton from '../commons/exit-button/ExitButton';
 import * as SnackbarStatus from '../commons/snackbar-statuses';
 import * as ItemActions from '../../actions/items';
 import * as ItemSelectors from '../../selectors/items';

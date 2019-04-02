@@ -5,9 +5,9 @@ import {
   FormHelperText,
 } from '@material-ui/core';
 import { Mood as WelcomeIcon } from '@material-ui/icons';
-import Title from '../commons/title/title';
-import styles from './registration-panel-container.style';
-import ExitButton from '../commons/exit-button/exit-button';
+import Title from '../commons/title/Title';
+import styles from './RegistrationPanel.style';
+import ExitButton from '../commons/exit-button/ExitButton';
 
 class RegistrationPanel extends React.PureComponent {
   constructor(props) {

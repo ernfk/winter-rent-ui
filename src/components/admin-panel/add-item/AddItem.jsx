@@ -6,11 +6,11 @@ import { connect } from 'react-redux';
 import {
   FormControl, InputLabel, MenuItem, OutlinedInput, Select, withStyles,
 } from '@material-ui/core';
-import ItemPropertyDefinitionsFields from '../item-property-definitions-fields/item-property-definitions-fields';
-import Title from '../../commons/title/title';
+import ItemPropertyDefinitionsFields from '../item-property-definitions-fields/ItemPropertyDefinitionsFields';
+import Title from '../../commons/title/Title';
 import * as ItemSelectors from '../../../selectors/items';
 import * as ItemActions from '../../../actions/items';
-import styles from './add-item.style';
+import styles from './AddItem.style';
 
 class AddItem extends React.PureComponent {
   constructor(props) {

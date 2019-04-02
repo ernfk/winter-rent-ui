@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import ItemPropertyDefinitionsFields from '../item-property-definitions-fields/item-property-definitions-fields';
-import Title from '../../commons/title/title';
+import ItemPropertyDefinitionsFields from '../item-property-definitions-fields/ItemPropertyDefinitionsFields';
+import Title from '../../commons/title/Title';
 import * as ItemSelectors from '../../../selectors/items';
 import * as ItemActions from '../../../actions/items';
 

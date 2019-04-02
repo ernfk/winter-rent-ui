@@ -2,10 +2,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
-import Overview from './components/overview/overview';
-import AdminPanel from "./components/admin-panel/admin-panel";
-import LoginPanel from './components/login-panel/login-panel';
-import RegistrationPanel from './components/registration-panel/registration-panel';
+import Overview from './components/overview/Overview';
+import AdminPanel from "./components/admin-panel/AdminPanel";
+import LoginPanel from './components/login-panel/LoginPanel';
+import RegistrationPanel from './components/registration-panel/RegistrationPanel';
 import {applyMiddleware, compose, createStore} from "redux";
 import {Provider} from "react-redux";
 import thunk from 'redux-thunk';

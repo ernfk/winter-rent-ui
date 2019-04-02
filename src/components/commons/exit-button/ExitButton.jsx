@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { IconButton, withStyles } from '@material-ui/core';
 import { ExitToApp as ExitIcon } from '@material-ui/icons';
-import styles from './exit-button.style';
+import styles from './ExitButton.style';
 
 const ExitButton = ({ history, classes }) => (
   <IconButton
