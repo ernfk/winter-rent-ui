@@ -8,7 +8,7 @@ export const initialState = {
   snackbarMessage: '',
   snackbarOpenStatus: false,
   items: [],
-  itemImage: null,
+  itemImage: {},
 };
 
 const setCloseSnackBar = state => ({

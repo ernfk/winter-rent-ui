@@ -67,7 +67,10 @@ const flatTheItems = items => items
 export const fetchItems = () => dispatch => itemsService.getItems()
   .then(response => dispatch(fetchedItems(flatTheItems(response.data))));
 
-export const deleteItem = itemId => dispatch => itemsService.deleteItem(itemId)
+export const deleteItem = (itemId, imageId) => dispatch => itemsService.deleteItem(itemId)
+  .then(() => {
+    if (imageId) imageService.deleteImage(imageId);
+  })
   .then(() => dispatch(showSnackbar(SnackbarStatus.INFO, 'Deleted item successfully')))
   .then(() => dispatch(fetchItems()))
   .catch(() => dispatch(showSnackbar(SnackbarStatus.ERROR, 'Delete unsuccessfully...')));
@@ -79,7 +82,7 @@ export const updateItem = item => dispatch => itemsService.updateItem(item)
 
 export const getImageByItemId = itemId => dispatch => imageService.getImageByItemId(itemId)
   .then((res) => {
-    const image = res.data.photo;
+    const image = res.data;
     dispatch(fetchedItemImage(image));
   });
 

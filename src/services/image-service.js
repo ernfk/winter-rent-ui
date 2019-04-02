@@ -21,6 +21,11 @@ class ImageService extends BaseService {
     const path = `${this.basePath}/images/${itemId}`;
     return axios.get(path);
   };
+
+  deleteImage(imageId) {
+    const path = `${this.basePath}/images/${imageId}`;
+    return axios.delete(path);
+  }
 }
 
 export default ImageService;

@@ -27,8 +27,8 @@ class ItemList extends React.PureComponent {
   }
 
   handleDeleteItem = (itemId) => {
-    const { deleteItem } = this.props;
-    deleteItem(itemId);
+    const { deleteItem, itemImage } = this.props;
+    deleteItem(itemId, itemImage.id);
   };
 
   handleOpenUpdateItem = (item) => {
@@ -46,7 +46,8 @@ class ItemList extends React.PureComponent {
   render() {
     const { classes, items, itemImage } = this.props;
     const { updateMode, item } = this.state;
-
+    const image = itemImage.photo;
+    console.log(itemImage);
     return (
       <div style={styles.container}>
         <div style={styles.leftSide}>
@@ -101,7 +102,7 @@ class ItemList extends React.PureComponent {
         <UpdateItem
           item={item}
           handleCancelUpdate={this.handleCancelUpdate}
-          itemImage={itemImage}
+          itemImage={image}
         />
         )}
       </div>
@@ -115,7 +116,7 @@ ItemList.propTypes = {
   deleteItem: PropTypes.func,
   getImageByItemId: PropTypes.func,
   items: PropTypes.arrayOf(PropTypes.shape({})),
-  itemImage: PropTypes.string,
+  itemImage: PropTypes.shape({}),
 };
 
 ItemList.defaultProps = {
@@ -124,7 +125,7 @@ ItemList.defaultProps = {
   fetchItems: () => {},
   deleteItem: () => {},
   getImageByItemId: () => {},
-  itemImage: '',
+  itemImage: {},
 };
 
 const mapStateToProps = state => ({
@@ -136,8 +137,8 @@ const mapDispatchToProps = dispatch => ({
   fetchItems: () => {
     dispatch(ItemActions.fetchItems());
   },
-  deleteItem: (itemId) => {
-    dispatch(ItemActions.deleteItem(itemId));
+  deleteItem: (itemId, imageId) => {
+    dispatch(ItemActions.deleteItem(itemId, imageId));
   },
   getImageByItemId: itemId => dispatch(ItemActions.getImageByItemId(itemId)),
 });
