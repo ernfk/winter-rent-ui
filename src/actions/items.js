@@ -82,7 +82,7 @@ export const updateItem = item => dispatch => itemsService.updateItem(item)
 
 export const getImageByItemId = itemId => dispatch => imageService.getImageByItemId(itemId)
   .then((res) => {
-    const image = res.data;
+    const image = res.data ? res.data : {};
     dispatch(fetchedItemImage(image));
   });
 

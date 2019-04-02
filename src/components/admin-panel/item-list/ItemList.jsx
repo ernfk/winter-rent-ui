@@ -47,7 +47,7 @@ class ItemList extends React.PureComponent {
     const { classes, items, itemImage } = this.props;
     const { updateMode, item } = this.state;
     const image = itemImage.photo;
-    console.log(itemImage);
+
     return (
       <div style={styles.container}>
         <div style={styles.leftSide}>
