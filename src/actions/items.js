@@ -75,8 +75,14 @@ export const deleteItem = (itemId, imageId) => dispatch => itemsService.deleteIt
   .then(() => dispatch(fetchItems()))
   .catch(() => dispatch(showSnackbar(SnackbarStatus.ERROR, 'Delete unsuccessfully...')));
 
-export const updateItem = item => dispatch => itemsService.updateItem(item)
-  .then(() => dispatch(showSnackbar(SnackbarStatus.INFO, 'Successfully updated!')))
+export const updateItem = (item, file, imageId) => dispatch => itemsService.updateItem(item)
+  .then((response) => {
+    const { id } = response.data;
+    if (file && id && imageId) {
+      return imageService.updateImage(imageId, id, file);
+    }
+    dispatch(showSnackbar(SnackbarStatus.INFO, 'Successfully updated!'));
+  })
   .then(() => dispatch(fetchItems()))
   .catch(() => dispatch(showSnackbar(SnackbarStatus.ERROR, 'Something went wrong...')));
 

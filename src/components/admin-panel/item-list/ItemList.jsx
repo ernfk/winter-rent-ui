@@ -46,7 +46,6 @@ class ItemList extends React.PureComponent {
   render() {
     const { classes, items, itemImage } = this.props;
     const { updateMode, item } = this.state;
-    const image = itemImage.photo;
 
     return (
       <div style={styles.container}>
@@ -102,7 +101,7 @@ class ItemList extends React.PureComponent {
         <UpdateItem
           item={item}
           handleCancelUpdate={this.handleCancelUpdate}
-          itemImage={image}
+          itemImage={itemImage}
         />
         )}
       </div>

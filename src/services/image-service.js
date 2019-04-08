@@ -26,6 +26,17 @@ class ImageService extends BaseService {
     const path = `${this.basePath}/images/${imageId}`;
     return axios.delete(path);
   }
+
+  updateImage(imageId, itemId, file) {
+    const path = `${this.basePath}/images/${imageId}/items/${itemId}`;
+    const config = { headers: { 'Content-Type': 'multipart/form-data' } };
+    const formData = new FormData();
+
+    formData.append('itemId', itemId);
+    formData.append('file', file);
+
+    return axios.put(path, formData, config);
+  }
 }
 
 export default ImageService;

@@ -65,8 +65,8 @@ const mapDispatchToProps = dispatch => ({
   fetchItemsData: () => {
     dispatch(ItemActions.fetchItemsData());
   },
-  updateItem: (item) => {
-    dispatch(ItemActions.updateItem(item));
+  updateItem: (item, file, imageId) => {
+    dispatch(ItemActions.updateItem(item, file, imageId));
   },
 });
 

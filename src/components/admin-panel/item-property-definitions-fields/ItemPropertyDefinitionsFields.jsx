@@ -37,8 +37,8 @@ const getInitialState = ({ item, updateMode, itemImage }, clear) => ({
     secondColor: '',
     size: '',
   },
-  filePreviewPath: itemImage ? `data:image/jpeg;base64,${itemImage}` : null,
-  file: itemImage,
+  filePreviewPath: itemImage ? `data:image/jpeg;base64,${itemImage.photo}` : null,
+  file: itemImage.photo,
 });
 
 class ItemPropertyDefinitionsFields extends React.PureComponent {
@@ -64,11 +64,11 @@ class ItemPropertyDefinitionsFields extends React.PureComponent {
 
   handleSaveOrUpdateItem = () => {
     const { addOrUpdateItem } = this.props;
-    const { file } = this.state;
+    const { file, itemImageId } = this.state;
     const isFormReady = this.validateForm();
     if (isFormReady) {
       const itemDTO = this.getItemDTO();
-      addOrUpdateItem(itemDTO, file);
+      addOrUpdateItem(itemDTO, file, itemImageId);
       this.handleClearFields();
     }
   };
@@ -277,7 +277,13 @@ class ItemPropertyDefinitionsFields extends React.PureComponent {
             {<img src={filePreviewPath} /> || 'No photo'}
           </div>
         </Paper>
-        <input accept="image/*" className={classes.photoUpload} id="icon-button-file" type="file" onChange={this.handleUpload} />
+        <input
+          accept="image/*"
+          className={classes.photoUpload}
+          id="icon-button-file"
+          type="file"
+          onChange={this.handleUpload}
+        />
         <label htmlFor="icon-button-file">
           <IconButton color="primary" component="span">
             <PhotoIcon className={classes.photoIcon} />
@@ -289,7 +295,12 @@ class ItemPropertyDefinitionsFields extends React.PureComponent {
 
   handleUpload = ({ target }) => {
     const { files } = target;
+    const { itemImage } = this.props;
+    console.log(this.props);
     this.setState({ filePreviewPath: URL.createObjectURL(files[0]), file: files[0] });
+    if (itemImage.id) {
+      this.setState({ itemImageId: itemImage.id });
+    }
     target.value = '';
   };
 
