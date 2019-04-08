@@ -37,7 +37,7 @@ const getInitialState = ({ item, updateMode, itemImage }, clear) => ({
     secondColor: '',
     size: '',
   },
-  filePreviewPath: itemImage ? `data:image/jpeg;base64,${itemImage.photo}` : null,
+  filePreviewPath: itemImage.photo ? `data:image/jpeg;base64,${itemImage.photo}` : null,
   file: itemImage.photo,
 });
 
@@ -64,11 +64,11 @@ class ItemPropertyDefinitionsFields extends React.PureComponent {
 
   handleSaveOrUpdateItem = () => {
     const { addOrUpdateItem } = this.props;
-    const { file, itemImageId } = this.state;
+    const { file, imageId } = this.state;
     const isFormReady = this.validateForm();
     if (isFormReady) {
       const itemDTO = this.getItemDTO();
-      addOrUpdateItem(itemDTO, file, itemImageId);
+      addOrUpdateItem(itemDTO, file, imageId);
       this.handleClearFields();
     }
   };
@@ -296,10 +296,10 @@ class ItemPropertyDefinitionsFields extends React.PureComponent {
   handleUpload = ({ target }) => {
     const { files } = target;
     const { itemImage } = this.props;
-    console.log(this.props);
+
     this.setState({ filePreviewPath: URL.createObjectURL(files[0]), file: files[0] });
     if (itemImage.id) {
-      this.setState({ itemImageId: itemImage.id });
+      this.setState({ imageId: itemImage.id });
     }
     target.value = '';
   };
@@ -330,6 +330,7 @@ ItemPropertyDefinitionsFields.propTypes = {
   handleCancelUpdate: PropTypes.func,
   updateMode: PropTypes.bool,
   item: PropTypes.shape({ id: PropTypes.number }),
+  itemImage: PropTypes.shape({ id: PropTypes.number }),
 };
 
 ItemPropertyDefinitionsFields.defaultProps = {
@@ -340,6 +341,7 @@ ItemPropertyDefinitionsFields.defaultProps = {
   handleCancelUpdate: () => {},
   updateMode: false,
   item: null,
+  itemImage: {},
 };
 
 export default withStyles(styles)(ItemPropertyDefinitionsFields);

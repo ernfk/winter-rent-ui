@@ -78,9 +78,13 @@ export const deleteItem = (itemId, imageId) => dispatch => itemsService.deleteIt
 export const updateItem = (item, file, imageId) => dispatch => itemsService.updateItem(item)
   .then((response) => {
     const { id } = response.data;
+
     if (file && id && imageId) {
       return imageService.updateImage(imageId, id, file);
+    } if (file && id) {
+      return imageService.addImage(file, id);
     }
+
     dispatch(showSnackbar(SnackbarStatus.INFO, 'Successfully updated!'));
   })
   .then(() => dispatch(fetchItems()))

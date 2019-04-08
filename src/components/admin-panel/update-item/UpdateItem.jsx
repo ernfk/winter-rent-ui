@@ -45,7 +45,7 @@ UpdateItem.propTypes = {
   item: PropTypes.shape({}),
   handleCancelUpdate: PropTypes.func,
   updateItem: PropTypes.func,
-  itemImage: PropTypes.string,
+  itemImage: PropTypes.shape({}),
 };
 
 UpdateItem.defaultProps = {
@@ -54,7 +54,7 @@ UpdateItem.defaultProps = {
   item: {},
   handleCancelUpdate: () => {},
   updateItem: () => {},
-  itemImage: '',
+  itemImage: {},
 };
 
 const mapStateToProps = state => ({
