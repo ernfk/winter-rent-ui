@@ -1,13 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import {
-  Button, Checkbox, Paper, TextField, withStyles,
-  FormHelperText,
+  Button, Checkbox, FormHelperText, Paper, TextField, withStyles,
 } from '@material-ui/core';
 import { Mood as WelcomeIcon } from '@material-ui/icons';
 import Title from '../commons/title/Title';
 import styles from './RegistrationPanel.style';
 import ExitButton from '../commons/exit-button/ExitButton';
+import { signUpUser } from '../../actions/user';
 
 class RegistrationPanel extends React.PureComponent {
   constructor(props) {
@@ -39,11 +40,11 @@ class RegistrationPanel extends React.PureComponent {
   };
 
   handleSignUp = () => {
-    if (this.isFormValid()) {
-      console.info('Ready to sign up');
-    } else {
-      console.warn('Not yet');
-    }
+    const { signUpUser } = this.props;
+    const { name, email, password } = this.state;
+    const user = { name, email, password };
+
+    this.isFormValid() && signUpUser(user);
   };
 
   isFormValid = () => this.validateForm();
@@ -175,11 +176,18 @@ class RegistrationPanel extends React.PureComponent {
 RegistrationPanel.propTypes = {
   classes: PropTypes.shape({}),
   history: PropTypes.shape({}),
+  signUpUser: PropTypes.func,
 };
 
 RegistrationPanel.defaultProps = {
   classes: {},
   history: {},
+  signUpUser: () => {},
 };
 
-export default withStyles(styles)(RegistrationPanel);
+const mapDispatchToProps = dispatch => ({
+  signUpUser: (user) => {
+    dispatch(signUpUser(user));
+  },
+});
+export default withStyles(styles)(connect(null, mapDispatchToProps)(RegistrationPanel));
