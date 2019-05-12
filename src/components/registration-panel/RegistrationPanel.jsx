@@ -13,25 +13,35 @@ import * as UserActions from '../../actions/user';
 import * as SnackbarStatus from '../commons/snackbar-statuses';
 import * as UserSelectors from '../../selectors/user';
 
+const getInitialState = () => ({
+  name: '',
+  username: '',
+  email: '',
+  password: '',
+  confirmPassword: '',
+  termsAcceptStatus: false,
+  errors: {
+    name: '',
+    username: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+    termsAcceptStatus: '',
+  },
+});
+
 class RegistrationPanel extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.state = {
-      name: 'Test',
-      username: 'TestLogin',
-      email: 'test123@wp.pl',
-      password: 'testPass',
-      confirmPassword: 'testPass',
-      termsAcceptStatus: true,
-      errors: {
-        name: '',
-        username: '',
-        email: '',
-        password: '',
-        confirmPassword: '',
-        termsAcceptStatus: '',
-      },
-    };
+    this.state = getInitialState();
+  }
+
+  static getDerivedStateFromProps(props, state) {
+    if (props.snackbarInfoType === SnackbarStatus.INFO) {
+      return getInitialState();
+    }
+
+    return null;
   }
 
   handleChange = name => (event) => {
