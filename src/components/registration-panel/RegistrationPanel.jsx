@@ -3,24 +3,29 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
   Button, Checkbox, FormHelperText, Paper, TextField, withStyles,
+  Snackbar, SnackbarContent,
 } from '@material-ui/core';
 import { Mood as WelcomeIcon } from '@material-ui/icons';
 import Title from '../commons/title/Title';
 import styles from './RegistrationPanel.style';
 import ExitButton from '../commons/exit-button/ExitButton';
-import { signUpUser } from '../../actions/user';
+import * as UserActions from '../../actions/user';
+import * as SnackbarStatus from '../commons/snackbar-statuses';
+import * as UserSelectors from '../../selectors/user';
 
 class RegistrationPanel extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
       name: 'Test',
+      username: 'TestLogin',
       email: 'test123@wp.pl',
-      password: 'test',
-      confirmPassword: 'test',
+      password: 'testPass',
+      confirmPassword: 'testPass',
       termsAcceptStatus: true,
       errors: {
         name: '',
+        username: '',
         email: '',
         password: '',
         confirmPassword: '',
@@ -41,8 +46,12 @@ class RegistrationPanel extends React.PureComponent {
 
   handleSignUp = () => {
     const { signUpUser } = this.props;
-    const { name, email, password } = this.state;
-    const user = { name, email, password };
+    const {
+      name, username, email, password,
+    } = this.state;
+    const user = {
+      name, username, email, password,
+    };
 
     this.isFormValid() && signUpUser(user);
   };
@@ -78,10 +87,17 @@ class RegistrationPanel extends React.PureComponent {
     return index === -1;
   };
 
+  handleCloseSnackbar = () => {
+    const { closeUserSnackbar } = this.props;
+    closeUserSnackbar();
+  };
+
   render() {
-    const { classes, history } = this.props;
     const {
-      name, email, password, confirmPassword, termsAcceptStatus,
+      classes, history, snackbarOpenStatus, snackbarInfoType, snackbarMessage,
+    } = this.props;
+    const {
+      name, username, email, password, confirmPassword, termsAcceptStatus,
       errors,
     } = this.state;
 
@@ -102,6 +118,18 @@ class RegistrationPanel extends React.PureComponent {
             />
             <FormHelperText classes={{ root: classes.error }}>
               {errors.name}
+            </FormHelperText>
+            <TextField
+              placeholder="Login"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              className={classes.textfield}
+              value={username}
+              onChange={this.handleChange('username')}
+            />
+            <FormHelperText classes={{ root: classes.error }}>
+              {errors.username}
             </FormHelperText>
             <TextField
               placeholder="Email"
@@ -168,6 +196,23 @@ class RegistrationPanel extends React.PureComponent {
             <ExitButton history={history} />
           </div>
         </Paper>
+        <Snackbar
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'center',
+          }}
+          open={snackbarOpenStatus}
+          autoHideDuration={3000}
+          onClose={this.handleCloseSnackbar}
+        >
+          <SnackbarContent
+            classes={{
+              root: snackbarInfoType === SnackbarStatus.INFO
+                ? classes.snackbarSuccess : classes.snackbarError,
+            }}
+            message={<span>{snackbarMessage}</span>}
+          />
+        </Snackbar>
       </div>
     );
   }
@@ -177,17 +222,34 @@ RegistrationPanel.propTypes = {
   classes: PropTypes.shape({}),
   history: PropTypes.shape({}),
   signUpUser: PropTypes.func,
+  closeUserSnackbar: PropTypes.func,
+  snackbarInfoType: PropTypes.string,
+  snackbarMessage: PropTypes.string,
+  snackbarOpenStatus: PropTypes.bool,
 };
 
 RegistrationPanel.defaultProps = {
   classes: {},
   history: {},
   signUpUser: () => {},
+  closeUserSnackbar: () => {},
+  snackbarInfoType: '',
+  snackbarMessage: '',
+  snackbarOpenStatus: false,
 };
+
+const mapStateToProps = state => ({
+  snackbarInfoType: UserSelectors.getSnackbarInfoType(state),
+  snackbarMessage: UserSelectors.getSnackbarMessage(state),
+  snackbarOpenStatus: UserSelectors.getSnackbarOpenStatus(state),
+});
 
 const mapDispatchToProps = dispatch => ({
   signUpUser: (user) => {
-    dispatch(signUpUser(user));
+    dispatch(UserActions.signUpUser(user));
+  },
+  closeUserSnackbar: () => {
+    dispatch(UserActions.closeUserSnackbar());
   },
 });
-export default withStyles(styles)(connect(null, mapDispatchToProps)(RegistrationPanel));
+export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(RegistrationPanel));

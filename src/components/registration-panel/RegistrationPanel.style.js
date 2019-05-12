@@ -56,6 +56,12 @@ const styles = {
     color: 'red',
     margin: '2px 0px 0px 50px',
   },
+  snackbarSuccess: {
+    backgroundColor: '#1a600d',
+  },
+  snackbarError: {
+    backgroundColor: '#a83434',
+  },
 };
 
 export default styles;
