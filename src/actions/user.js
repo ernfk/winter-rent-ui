@@ -1,3 +1,8 @@
-export const signUpUser = (user) => {
-  console.log(user);
-};
+import UserService from '../services/user-service';
+
+const userService = new UserService();
+
+export const signUpUser = user => dispatch => userService.signUpUser(user)
+  .then((response) => {
+    console.log(response);
+  });

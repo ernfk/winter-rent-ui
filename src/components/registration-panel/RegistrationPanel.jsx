@@ -14,11 +14,11 @@ class RegistrationPanel extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      name: '',
-      email: '',
-      password: '',
-      confirmPassword: '',
-      termsAcceptStatus: false,
+      name: 'Test',
+      email: 'test123@wp.pl',
+      password: 'test',
+      confirmPassword: 'test',
+      termsAcceptStatus: true,
       errors: {
         name: '',
         email: '',
