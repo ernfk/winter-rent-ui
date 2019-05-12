@@ -14,14 +14,12 @@ class RegistrationPanel extends React.PureComponent {
     super(props);
     this.state = {
       name: '',
-      lastName: '',
       email: '',
       password: '',
       confirmPassword: '',
       termsAcceptStatus: false,
       errors: {
         name: '',
-        lastName: '',
         email: '',
         password: '',
         confirmPassword: '',
@@ -82,7 +80,7 @@ class RegistrationPanel extends React.PureComponent {
   render() {
     const { classes, history } = this.props;
     const {
-      name, lastName, email, password, confirmPassword, termsAcceptStatus,
+      name, email, password, confirmPassword, termsAcceptStatus,
       errors,
     } = this.state;
 
@@ -103,18 +101,6 @@ class RegistrationPanel extends React.PureComponent {
             />
             <FormHelperText classes={{ root: classes.error }}>
               {errors.name}
-            </FormHelperText>
-            <TextField
-              placeholder="Last name"
-              InputLabelProps={{
-                shrink: true,
-              }}
-              className={classes.textfield}
-              value={lastName}
-              onChange={this.handleChange('lastName')}
-            />
-            <FormHelperText classes={{ root: classes.error }}>
-              {errors.lastName}
             </FormHelperText>
             <TextField
               placeholder="Email"

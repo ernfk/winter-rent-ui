@@ -20,7 +20,8 @@ const styles = {
   },
   title: {
     textAlign: 'center',
-    padding: '5px 0 5px 0',
+    padding: '5px 0',
+    marginBottom: '20px',
     fontSize: '12px',
   },
   rulesAgreementContainer: {
