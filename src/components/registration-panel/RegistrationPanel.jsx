@@ -3,23 +3,23 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
   Button, Checkbox, FormHelperText, Paper, TextField, withStyles,
-  Snackbar, SnackbarContent,
 } from '@material-ui/core';
 import { Mood as WelcomeIcon } from '@material-ui/icons';
 import Title from '../commons/title/Title';
 import styles from './RegistrationPanel.style';
 import ExitButton from '../commons/exit-button/ExitButton';
+import InfoSnackbar from '../commons/info-snackbar/InfoSnackbar';
 import * as UserActions from '../../actions/user';
 import * as SnackbarStatus from '../commons/snackbar-statuses';
-import * as UserSelectors from '../../selectors/user';
+import * as OverviewSelectors from '../../selectors/overview';
 
 const getInitialState = () => ({
-  name: '',
-  username: '',
-  email: '',
-  password: '',
-  confirmPassword: '',
-  termsAcceptStatus: false,
+  name: 'A',
+  username: 'B',
+  email: 'C',
+  password: 'D',
+  confirmPassword: 'D',
+  termsAcceptStatus: true,
   errors: {
     name: '',
     username: '',
@@ -36,6 +36,7 @@ class RegistrationPanel extends React.PureComponent {
     this.state = getInitialState();
   }
 
+  // FIXME
   static getDerivedStateFromProps(props, state) {
     if (props.snackbarInfoType === SnackbarStatus.INFO) {
       return getInitialState();
@@ -97,15 +98,8 @@ class RegistrationPanel extends React.PureComponent {
     return index === -1;
   };
 
-  handleCloseSnackbar = () => {
-    const { closeUserSnackbar } = this.props;
-    closeUserSnackbar();
-  };
-
   render() {
-    const {
-      classes, history, snackbarOpenStatus, snackbarInfoType, snackbarMessage,
-    } = this.props;
+    const { classes, history } = this.props;
     const {
       name, username, email, password, confirmPassword, termsAcceptStatus,
       errors,
@@ -206,23 +200,7 @@ class RegistrationPanel extends React.PureComponent {
             <ExitButton history={history} />
           </div>
         </Paper>
-        <Snackbar
-          anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'center',
-          }}
-          open={snackbarOpenStatus}
-          autoHideDuration={3000}
-          onClose={this.handleCloseSnackbar}
-        >
-          <SnackbarContent
-            classes={{
-              root: snackbarInfoType === SnackbarStatus.INFO
-                ? classes.snackbarSuccess : classes.snackbarError,
-            }}
-            message={<span>{snackbarMessage}</span>}
-          />
-        </Snackbar>
+        <InfoSnackbar />
       </div>
     );
   }
@@ -232,34 +210,23 @@ RegistrationPanel.propTypes = {
   classes: PropTypes.shape({}),
   history: PropTypes.shape({}),
   signUpUser: PropTypes.func,
-  closeUserSnackbar: PropTypes.func,
   snackbarInfoType: PropTypes.string,
-  snackbarMessage: PropTypes.string,
-  snackbarOpenStatus: PropTypes.bool,
 };
 
 RegistrationPanel.defaultProps = {
   classes: {},
   history: {},
   signUpUser: () => {},
-  closeUserSnackbar: () => {},
   snackbarInfoType: '',
-  snackbarMessage: '',
-  snackbarOpenStatus: false,
 };
 
 const mapStateToProps = state => ({
-  snackbarInfoType: UserSelectors.getSnackbarInfoType(state),
-  snackbarMessage: UserSelectors.getSnackbarMessage(state),
-  snackbarOpenStatus: UserSelectors.getSnackbarOpenStatus(state),
+  snackbarInfoType: OverviewSelectors.getSnackbarInfoType(state),
 });
 
 const mapDispatchToProps = dispatch => ({
   signUpUser: (user) => {
     dispatch(UserActions.signUpUser(user));
-  },
-  closeUserSnackbar: () => {
-    dispatch(UserActions.closeUserSnackbar());
   },
 });
 export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(RegistrationPanel));

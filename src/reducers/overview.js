@@ -1,4 +1,4 @@
-import * as UserActionsTypes from '../actions/user';
+import * as OverviewActionTypes from '../actions/overview';
 import createReducer from '../utils/create-reducer';
 
 export const initialState = {
@@ -18,7 +18,7 @@ const setCloseSnackBar = state => ({
   ...state, snackbarMessage: '', snackbarOpenStatus: false,
 });
 
-export const user = createReducer(initialState, {
-  [UserActionsTypes.SHOW_USER_SNACKBAR]: setShowSnackBar,
-  [UserActionsTypes.CLOSE_USER_SNACKBAR]: setCloseSnackBar,
+export const overview = createReducer(initialState, {
+  [OverviewActionTypes.SHOW_SNACKBAR]: setShowSnackBar,
+  [OverviewActionTypes.CLOSE_SNACKBAR]: setCloseSnackBar,
 });

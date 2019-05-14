@@ -10,6 +10,8 @@ import {applyMiddleware, compose, createStore} from "redux";
 import {Provider} from "react-redux";
 import thunk from 'redux-thunk';
 import rootReducer from "./reducers/root-reducer";
+import * as SnackbarStatus from "./components/commons/snackbar-statuses";
+import {Snackbar, SnackbarContent} from "@material-ui/core";
 
 
 const store = createStore(
