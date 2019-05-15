@@ -3,6 +3,7 @@ import ImageService from '../services/image-service';
 import makeActionCreator from '../utils/action-creator';
 import FIELDS from '../components/commons/fields';
 import * as SnackbarStatus from '../components/commons/snackbar-statuses';
+import { showSnackbar } from './overview';
 
 const itemsService = new ItemsService();
 const imageService = new ImageService();
@@ -30,12 +31,6 @@ export const fetchItemsData = () => dispatch => itemsService.getItemTypes()
     return dispatch(fetchedItemPropertyDefinitions(itemPropertyDefinitions));
   });
 
-export const SHOW_SNACK_BAR = 'SHOW_SNACK_BAR';
-export const showSnackbar = makeActionCreator(SHOW_SNACK_BAR, 'typeMessage', 'message');
-
-export const CLOSE_SNACK_BAR = 'CLOSE_SNACK_BAR';
-export const closeSnackbar = makeActionCreator(CLOSE_SNACK_BAR);
-
 export const addItem = (item, file) => dispatch => itemsService.addItem(item)
   .then((response) => {
     const { id } = response.data;
@@ -44,7 +39,10 @@ export const addItem = (item, file) => dispatch => itemsService.addItem(item)
     }
   })
   .then(() => dispatch(showSnackbar(SnackbarStatus.INFO, 'Successfully added!')))
-  .catch(() => dispatch(showSnackbar(SnackbarStatus.ERROR, 'Something went wrong...')));
+  .catch((response) => {
+    const message = response.response ? response.response.data.message : 'Problem with connection!';
+    dispatch(showSnackbar(SnackbarStatus.ERROR, message));
+  });
 
 export const FETCHED_ITEMS = 'FETCHED_ITEMS';
 const fetchedItems = makeActionCreator(FETCHED_ITEMS, 'items');
