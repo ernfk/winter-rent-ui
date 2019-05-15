@@ -36,9 +36,10 @@ class RegistrationPanel extends React.PureComponent {
     this.state = getInitialState();
   }
 
-  // FIXME
   static getDerivedStateFromProps(props, state) {
-    if (props.snackbarInfoType === SnackbarStatus.INFO) {
+    const { snackbarInfoType } = props;
+
+    if (snackbarInfoType === SnackbarStatus.INFO) {
       return getInitialState();
     }
 
