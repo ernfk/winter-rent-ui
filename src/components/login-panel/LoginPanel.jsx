@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import {
-  Button, FormControl, Input, InputAdornment, Paper, withStyles,
+  Button, FormControl, Input,
+  InputAdornment, Paper, withStyles,
   FormHelperText,
 } from '@material-ui/core';
 import {
@@ -12,15 +14,17 @@ import {
 import Title from '../commons/title/Title';
 import ExitButton from '../commons/exit-button/ExitButton';
 import styles from './LoginPanel.style';
+import { signIn } from '../../actions/user';
+import InfoSnackbar from '../commons/info-snackbar/InfoSnackbar';
 
 class LoginPanel extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      email: '',
+      usernameOrEmail: '',
       password: '',
       errors: {
-        email: '',
+        usernameOrEmail: '',
         password: '',
       },
     };
@@ -31,11 +35,12 @@ class LoginPanel extends React.PureComponent {
   };
 
   handleLogin = () => {
-    if (this.isFormValid()) {
-      console.info('Login');
-    } else {
-      console.warn('Error');
-    }
+    const { login } = this.props;
+    const { usernameOrEmail, password } = this.state;
+
+    const user = { usernameOrEmail, password };
+
+    this.isFormValid() && login(user);
   };
 
   isFormValid = () => this.validateForm();
@@ -64,7 +69,7 @@ class LoginPanel extends React.PureComponent {
 
   render() {
     const { classes, history } = this.props;
-    const { email, password, errors } = this.state;
+    const { usernameOrEmail, password, errors } = this.state;
     return (
       <div className={classes.loginPanelContainer}>
         <Paper className={classes.paper} elevation={4}>
@@ -77,14 +82,14 @@ class LoginPanel extends React.PureComponent {
                   <AccountCircleIcon />
                 </InputAdornment>
               )}
-              name="email"
-              onChange={event => this.handleChange(event, 'email')}
-              placeholder="Email address"
-              value={email}
+              name="usernameOrEmail"
+              onChange={event => this.handleChange(event, 'usernameOrEmail')}
+              placeholder="Email or username"
+              value={usernameOrEmail}
             />
           </FormControl>
           <FormHelperText classes={{ root: classes.error }}>
-            {errors.email}
+            {errors.usernameOrEmail}
           </FormHelperText>
           <FormControl className={classes.formControl}>
             <Input
@@ -116,19 +121,30 @@ class LoginPanel extends React.PureComponent {
           </div>
           <ExitButton history={history} />
         </Paper>
+        <InfoSnackbar />
       </div>
     );
   }
 }
 
+const mapStateToProps = state => ({
+
+});
+
+const mapDispatchToProps = dispatch => ({
+  login: user => dispatch(signIn(user)),
+});
+
 LoginPanel.propTypes = {
   classes: PropTypes.shape({}),
   history: PropTypes.shape({}),
+  login: PropTypes.func,
 };
 
 LoginPanel.defaultProps = {
   classes: {},
   history: {},
+  login: () => {},
 };
 
-export default withStyles(styles)(LoginPanel);
+export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(LoginPanel));

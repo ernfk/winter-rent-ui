@@ -10,6 +10,11 @@ class UserService extends BaseService {
     const path = `${this.basePath}/auth/signup`;
     return axios.post(path, user);
   };
+
+  signIn = (user) => {
+    const path = `${this.basePath}/auth/signin`;
+    return axios.post(path, user);
+  };
 }
 
 export default UserService;

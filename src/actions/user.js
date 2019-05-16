@@ -19,3 +19,12 @@ const getMessage = (response) => {
   }
   return response.response.data.message;
 };
+
+export const signIn = user => dispatch => userService.signIn(user)
+  .then(() => {
+    dispatch(showSnackbar(SnackbarStatus.INFO, 'You are logged!'));
+  })
+  .catch((response) => {
+    const message = response.response ? response.response.data.message : 'Problem with connection!';
+    dispatch(showSnackbar(SnackbarStatus.ERROR, message));
+  });
