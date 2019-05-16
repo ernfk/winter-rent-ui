@@ -14,12 +14,12 @@ import * as SnackbarStatus from '../commons/snackbar-statuses';
 import * as OverviewSelectors from '../../selectors/overview';
 
 const getInitialState = () => ({
-  name: 'A',
-  username: 'B',
-  email: 'C',
-  password: 'D',
-  confirmPassword: 'D',
-  termsAcceptStatus: true,
+  name: '',
+  username: '',
+  email: '',
+  password: '',
+  confirmPassword: '',
+  termsAcceptStatus: false,
   errors: {
     name: '',
     username: '',
