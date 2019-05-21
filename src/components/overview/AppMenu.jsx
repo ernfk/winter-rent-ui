@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import {
   AppBar, IconButton, Menu, MenuItem, Toolbar, Typography, withStyles,
@@ -8,6 +9,7 @@ import {
 import { AccountCircle, Settings } from '@material-ui/icons';
 import Logo from '../../images/logo.png';
 import styles from './AppMenu.style';
+import { getCurrentUsernameOrEmail } from '../../selectors/user';
 
 class AppMenu extends Component {
   constructor(props) {
@@ -21,21 +23,23 @@ class AppMenu extends Component {
 
    handleMenuClose = () => this.setState({ anchorEl: null });
 
-   handleOpenLoginPanel = () => {
-     const { history } = this.props;
-     history.push('/login');
+   handleLog = () => {
+     const { history, currentUsernameOrEmail } = this.props;
+
+     currentUsernameOrEmail ? console.warn('logout') : history.push('/login');
      this.setState({ anchorEl: null });
    };
 
    handleOpenAdminPanel = () => {
      const { history } = this.props;
+
      history.push('/admin');
      this.setState({ anchorEl: null });
    };
 
    render() {
      const { anchorEl } = this.state;
-     const { classes } = this.props;
+     const { classes, currentUsernameOrEmail } = this.props;
      const isMenuOpen = Boolean(anchorEl);
 
      const renderMenu = (
@@ -46,9 +50,8 @@ class AppMenu extends Component {
          open={isMenuOpen}
          onClose={this.handleMenuClose}
        >
-         <MenuItem onClick={this.handleOpenLoginPanel}>Login</MenuItem>
+         <MenuItem onClick={this.handleLog}>{currentUsernameOrEmail ? 'Logout' : 'Login'}</MenuItem>
          <MenuItem onClick={this.handleMenuClose} disabled>Profile</MenuItem>
-         <MenuItem onClick={this.handleMenuClose} disabled>Logout</MenuItem>
        </Menu>
      );
 
@@ -90,12 +93,22 @@ class AppMenu extends Component {
 
 AppMenu.propTypes = {
   classes: PropTypes.shape({}),
+  currentUsernameOrEmail: PropTypes.string,
   history: PropTypes.shape({}),
 };
 
 AppMenu.defaultProps = {
   classes: {},
+  currentUsernameOrEmail: '',
   history: {},
 };
 
-export default withStyles(styles)(withRouter(AppMenu));
+const mapStateToProps = state => ({
+  currentUsernameOrEmail: getCurrentUsernameOrEmail(state),
+});
+
+const mapDispatchToProps = dispatch => ({
+
+});
+
+export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(withRouter(AppMenu)));
