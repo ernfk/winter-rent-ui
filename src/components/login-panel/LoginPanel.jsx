@@ -16,6 +16,7 @@ import ExitButton from '../commons/exit-button/ExitButton';
 import styles from './LoginPanel.style';
 import { signIn } from '../../actions/user';
 import InfoSnackbar from '../commons/info-snackbar/InfoSnackbar';
+import { getCurrentUsernameOrEmail } from '../../selectors/user';
 
 class LoginPanel extends React.PureComponent {
   constructor(props) {
@@ -29,6 +30,14 @@ class LoginPanel extends React.PureComponent {
       },
     };
   }
+
+  componentDidUpdate = (prevProps, prevState) => {
+    const { currentUsernameOrEmail, history } = this.props;
+
+    if (currentUsernameOrEmail !== prevProps.currentUsernameOrEmail) {
+      setTimeout(() => history.push('/'), 1000);
+    }
+  };
 
   handleChange = (event, name) => {
     this.setState({ [name]: event.target.value });
@@ -128,7 +137,7 @@ class LoginPanel extends React.PureComponent {
 }
 
 const mapStateToProps = state => ({
-
+  currentUsernameOrEmail: getCurrentUsernameOrEmail(state),
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -137,12 +146,14 @@ const mapDispatchToProps = dispatch => ({
 
 LoginPanel.propTypes = {
   classes: PropTypes.shape({}),
+  currentUsernameOrEmail: PropTypes.string,
   history: PropTypes.shape({}),
   login: PropTypes.func,
 };
 
 LoginPanel.defaultProps = {
   classes: {},
+  currentUsernameOrEmail: '',
   history: {},
   login: () => {},
 };
