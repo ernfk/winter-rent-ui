@@ -14,6 +14,11 @@ const styles = {
     padding: '5px 0 5px 0',
     fontSize: '12px',
   },
+  titleLogged: {
+    textAlign: 'center',
+    paddingTop: '60px',
+    fontSize: '18px',
+  },
   formControl: {
     margin: '5px auto',
     display: 'flex',
@@ -32,6 +37,14 @@ const styles = {
     height: '50px',
     margin: 'auto',
     display: 'flex',
+  },
+  loggedInIcon: {
+    width: '150px',
+    height: '150px',
+    margin: 'auto',
+    color: 'green',
+    display: 'flex',
+    paddingBottom: '50px',
   },
   error: {
     color: 'red',

@@ -27,6 +27,7 @@ export const signIn = user => dispatch => userService.signIn(user)
 
     dispatch(showSnackbar(SnackbarStatus.INFO, 'You are logged!'));
     dispatch(setUser(user.usernameOrEmail, token));
+    window.localStorage.setItem('accessToken', token);
   })
   .catch((response) => {
     const message = response.response ? response.response.data.message : 'Problem with connection!';
@@ -35,3 +36,9 @@ export const signIn = user => dispatch => userService.signIn(user)
 
 export const SET_USER = 'SET_USER';
 const setUser = makeActionCreator(SET_USER, 'usernameOrEmail', 'accessToken');
+
+export const logout = () => (dispatch) => {
+  dispatch(setUser('', null));
+  window.localStorage.removeItem('accessToken');
+  dispatch(showSnackbar(SnackbarStatus.INFO, 'You have successfully logged out!'));
+};

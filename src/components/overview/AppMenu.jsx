@@ -7,9 +7,11 @@ import {
   AppBar, IconButton, Menu, MenuItem, Toolbar, Typography, withStyles,
 } from '@material-ui/core';
 import { AccountCircle, Settings } from '@material-ui/icons';
+import InfoSnackbar from '../commons/info-snackbar/InfoSnackbar';
 import Logo from '../../images/logo.png';
 import styles from './AppMenu.style';
 import { getCurrentUsernameOrEmail } from '../../selectors/user';
+import { logout } from '../../actions/user';
 
 class AppMenu extends Component {
   constructor(props) {
@@ -24,9 +26,9 @@ class AppMenu extends Component {
    handleMenuClose = () => this.setState({ anchorEl: null });
 
    handleLog = () => {
-     const { history, currentUsernameOrEmail } = this.props;
+     const { history, currentUsernameOrEmail, logout } = this.props;
 
-     currentUsernameOrEmail ? console.warn('logout') : history.push('/login');
+     currentUsernameOrEmail ? history.push('/login') : history.push('/login');
      this.setState({ anchorEl: null });
    };
 
@@ -86,6 +88,7 @@ class AppMenu extends Component {
            </Toolbar>
          </AppBar>
          {renderMenu}
+         <InfoSnackbar />
        </div>
      );
    }
@@ -95,12 +98,14 @@ AppMenu.propTypes = {
   classes: PropTypes.shape({}),
   currentUsernameOrEmail: PropTypes.string,
   history: PropTypes.shape({}),
+  logout: PropTypes.func,
 };
 
 AppMenu.defaultProps = {
   classes: {},
   currentUsernameOrEmail: '',
   history: {},
+  logout: () => {},
 };
 
 const mapStateToProps = state => ({
@@ -108,7 +113,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-
+  logout: () => dispatch(logout()),
 });
 
 export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(withRouter(AppMenu)));
