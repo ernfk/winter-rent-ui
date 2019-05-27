@@ -28,7 +28,7 @@ class AppMenu extends Component {
    handleLog = () => {
      const { history, currentUsernameOrEmail, logout } = this.props;
 
-     currentUsernameOrEmail ? history.push('/login') : history.push('/login');
+     currentUsernameOrEmail ? logout() : history.push('/login');
      this.setState({ anchorEl: null });
    };
 
