@@ -82,18 +82,16 @@ class LoginPanel extends React.PureComponent {
     const { usernameOrEmail, password, errors } = this.state;
 
     return (
-      currentUsernameOrEmail ? (
-        <div className={classes.loginPanelContainer}>
-          <Paper className={classes.paper} elevation={4}>
-            <Title title="You are already logged in!" style={styles.titleLogged} />
-            <LoggedInIcon classes={{ root: classes.loggedInIcon }} />
-            <ExitButton history={history} />
-          </Paper>
-        </div>
-      )
-        : (
-          <div className={classes.loginPanelContainer}>
-            <Paper className={classes.paper} elevation={4}>
+      <div className={classes.loginPanelContainer}>
+        <Paper className={classes.paper} elevation={4}>
+          {currentUsernameOrEmail ? (
+            <div>
+              <Title title="You are already logged in!" style={styles.titleLogged} />
+              <LoggedInIcon classes={{ root: classes.loggedInIcon }} />
+              <ExitButton history={history} />
+            </div>
+          ) : (
+            <div>
               <LoginIcon classes={{ root: classes.loginIcon }} />
               <Title title="PLEASE LOGIN" style={styles.title} />
               <FormControl className={classes.formControl}>
@@ -141,10 +139,11 @@ class LoginPanel extends React.PureComponent {
                 </Button>
               </div>
               <ExitButton history={history} />
-            </Paper>
-            <InfoSnackbar />
-          </div>
-        )
+            </div>
+          )}
+        </Paper>
+        <InfoSnackbar />
+      </div>
     );
   }
 }
