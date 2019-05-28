@@ -22,9 +22,10 @@ class ItemsService extends BaseService {
     return axios.post(path, item);
   };
 
-  getItems = () => {
+  getItems = (accessToken) => {
+    const config = { headers: { Authorization: `Bearer ${accessToken}` } };
     const path = `${this.basePath}/items`;
-    return axios.get(path);
+    return axios.get(path, config);
   };
 
   deleteItem =(itemId) => {

@@ -62,7 +62,7 @@ class AppMenu extends Component {
          <AppBar position="static" color="default">
            <Toolbar style={styles.toolbar}>
              <div style={styles.logoContainer}>
-               <img src={Logo} style={styles.logo} />
+               <img src={Logo} style={styles.logo} alt="logo" />
                <Typography variant="h6" color="inherit" style={styles.appBarHeader}>
                  {'Winter rent'}
                </Typography>
@@ -76,6 +76,7 @@ class AppMenu extends Component {
                >
                  <AccountCircle />
                </IconButton>
+               {currentUsernameOrEmail && (
                <IconButton
                  aria-owns={isMenuOpen ? 'material-appbar' : undefined}
                  aria-haspopup="true"
@@ -84,6 +85,7 @@ class AppMenu extends Component {
                >
                  <Settings />
                </IconButton>
+               )}
              </div>
            </Toolbar>
          </AppBar>

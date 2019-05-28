@@ -62,7 +62,7 @@ const flatTheItems = items => items
       }, flattedItem);
   });
 
-export const fetchItems = () => dispatch => itemsService.getItems()
+export const fetchItems = (accessToken) => dispatch => itemsService.getItems(accessToken)
   .then(response => dispatch(fetchedItems(flatTheItems(response.data))));
 
 export const deleteItem = (itemId, imageId) => dispatch => itemsService.deleteItem(itemId)
