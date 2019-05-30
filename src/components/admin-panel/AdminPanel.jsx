@@ -26,6 +26,7 @@ import ItemList from './item-list/ItemList';
 import Reservations from './reservations/Reservations';
 import styles from './AdminPanel.style';
 import ExitButton from '../commons/exit-button/ExitButton';
+import Info, { InfoTypes } from '../commons/info/info';
 import InfoSnackbar from '../commons/info-snackbar/InfoSnackbar';
 import { getCurrentUsernameOrEmail } from '../../selectors/user';
 
@@ -59,7 +60,13 @@ class AdminPanel extends React.PureComponent {
     } = this.props;
 
     return (
-      !currentUsernameOrEmail ? <div> Unauthorized </div>
+      !currentUsernameOrEmail ? (
+        <Info
+          title="Unauthorized"
+          history={history}
+          type={InfoTypes.UNAUTHORIZED}
+        />
+      )
         : (
           <div className={classes.root}>
             <CssBaseline />
@@ -115,13 +122,13 @@ class AdminPanel extends React.PureComponent {
 
 AdminPanel.propTypes = {
   classes: PropTypes.shape({}),
-  currentUsernameOrEmail: PropTypes.shape({}),
+  currentUsernameOrEmail: PropTypes.string,
   history: PropTypes.shape({}),
 };
 
 AdminPanel.defaultProps = {
   classes: {},
-  currentUsernameOrEmail: {},
+  currentUsernameOrEmail: '',
   history: {},
 };
 

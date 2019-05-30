@@ -33,14 +33,6 @@ const styles = {
     margin: 'auto',
     display: 'flex',
   },
-  loggedInIcon: {
-    width: '150px',
-    height: '150px',
-    margin: 'auto',
-    color: 'green',
-    display: 'flex',
-    paddingTop: '60px',
-  },
   error: {
     color: 'red',
     margin: '2px 0px 0px 50px',

@@ -10,11 +10,10 @@ import {
   Accessibility as LoginIcon,
   AccountCircle as AccountCircleIcon,
   Https as PasswordIcon,
-  CheckCircle as LoggedInIcon,
 } from '@material-ui/icons';
 import Title from '../commons/title/Title';
 import ExitButton from '../commons/exit-button/ExitButton';
-import Info from '../commons/info/info';
+import Info, { InfoTypes } from '../commons/info/info';
 import styles from './LoginPanel.style';
 import { signIn } from '../../actions/user';
 import InfoSnackbar from '../commons/info-snackbar/InfoSnackbar';
@@ -88,7 +87,7 @@ class LoginPanel extends React.PureComponent {
           <Info
             title="You are already logged in!"
             history={history}
-            icon={<LoggedInIcon classes={{ root: classes.loggedInIcon }} />}
+            type={InfoTypes.INFO}
           />
         )
         : (

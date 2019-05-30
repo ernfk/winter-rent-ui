@@ -3,6 +3,22 @@ const styles = {
     margin: 'auto',
     marginTop: '50px',
   },
+  icon: {
+    width: '150px',
+    height: '150px',
+    margin: 'auto',
+    color: 'green',
+    display: 'flex',
+    paddingTop: '60px',
+  },
+  iconError: {
+    width: '150px',
+    height: '150px',
+    margin: 'auto',
+    color: '#ba121a',
+    display: 'flex',
+    paddingTop: '60px',
+  },
   paper: {
     width: '400px',
     height: '340px',
