@@ -14,6 +14,7 @@ import {
 } from '@material-ui/icons';
 import Title from '../commons/title/Title';
 import ExitButton from '../commons/exit-button/ExitButton';
+import Info from '../commons/info/info';
 import styles from './LoginPanel.style';
 import { signIn } from '../../actions/user';
 import InfoSnackbar from '../commons/info-snackbar/InfoSnackbar';
@@ -82,68 +83,70 @@ class LoginPanel extends React.PureComponent {
     const { usernameOrEmail, password, errors } = this.state;
 
     return (
-      <div className={classes.loginPanelContainer}>
-        <Paper className={classes.paper} elevation={4}>
-          {currentUsernameOrEmail ? (
-            <div>
-              <Title title="You are already logged in!" style={styles.titleLogged} />
-              <LoggedInIcon classes={{ root: classes.loggedInIcon }} />
-              <ExitButton history={history} />
-            </div>
-          ) : (
-            <div>
-              <LoginIcon classes={{ root: classes.loginIcon }} />
-              <Title title="PLEASE LOGIN" style={styles.title} />
-              <FormControl className={classes.formControl}>
-                <Input
-                  startAdornment={(
-                    <InputAdornment position="start">
-                      <AccountCircleIcon />
-                    </InputAdornment>
+      currentUsernameOrEmail
+        ? (
+          <Info
+            title="You are already logged in!"
+            history={history}
+            icon={<LoggedInIcon classes={{ root: classes.loggedInIcon }} />}
+          />
+        )
+        : (
+          <div className={classes.loginPanelContainer}>
+            <Paper className={classes.paper} elevation={4}>
+              <div>
+                <LoginIcon classes={{ root: classes.loginIcon }} />
+                <Title title="PLEASE LOGIN" style={styles.title} />
+                <FormControl className={classes.formControl}>
+                  <Input
+                    startAdornment={(
+                      <InputAdornment position="start">
+                        <AccountCircleIcon />
+                      </InputAdornment>
               )}
-                  name="usernameOrEmail"
-                  onChange={event => this.handleChange(event, 'usernameOrEmail')}
-                  placeholder="Email or username"
-                  value={usernameOrEmail}
-                />
-              </FormControl>
-              <FormHelperText classes={{ root: classes.error }}>
-                {errors.usernameOrEmail}
-              </FormHelperText>
-              <FormControl className={classes.formControl}>
-                <Input
-                  startAdornment={(
-                    <InputAdornment position="start">
-                      <PasswordIcon />
-                    </InputAdornment>
+                    name="usernameOrEmail"
+                    onChange={event => this.handleChange(event, 'usernameOrEmail')}
+                    placeholder="Email or username"
+                    value={usernameOrEmail}
+                  />
+                </FormControl>
+                <FormHelperText classes={{ root: classes.error }}>
+                  {errors.usernameOrEmail}
+                </FormHelperText>
+                <FormControl className={classes.formControl}>
+                  <Input
+                    startAdornment={(
+                      <InputAdornment position="start">
+                        <PasswordIcon />
+                      </InputAdornment>
               )}
-                  name="password"
-                  onChange={event => this.handleChange(event, 'password')}
-                  placeholder="Password"
-                  value={password}
-                />
-              </FormControl>
-              <FormHelperText classes={{ root: classes.error }}>
-                {errors.password}
-              </FormHelperText>
-              <div className={classes.buttonsContainer}>
-                <Button
-                  variant="outlined"
-                  className={classes.loginButton}
-                  onClick={this.handleLogin}
-                >
-                  {'Login'}
-                </Button>
-                <Button variant="outlined" onClick={() => history.push('/registration')}>
-                  {'Register'}
-                </Button>
+                    name="password"
+                    onChange={event => this.handleChange(event, 'password')}
+                    placeholder="Password"
+                    value={password}
+                  />
+                </FormControl>
+                <FormHelperText classes={{ root: classes.error }}>
+                  {errors.password}
+                </FormHelperText>
+                <div className={classes.buttonsContainer}>
+                  <Button
+                    variant="outlined"
+                    className={classes.loginButton}
+                    onClick={this.handleLogin}
+                  >
+                    {'Login'}
+                  </Button>
+                  <Button variant="outlined" onClick={() => history.push('/registration')}>
+                    {'Register'}
+                  </Button>
+                </div>
+                <ExitButton history={history} />
               </div>
-              <ExitButton history={history} />
-            </div>
-          )}
-        </Paper>
-        <InfoSnackbar />
-      </div>
+            </Paper>
+            <InfoSnackbar />
+          </div>
+        )
     );
   }
 }
