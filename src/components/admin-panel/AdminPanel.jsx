@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import {
@@ -26,6 +27,7 @@ import Reservations from './reservations/Reservations';
 import styles from './AdminPanel.style';
 import ExitButton from '../commons/exit-button/ExitButton';
 import InfoSnackbar from '../commons/info-snackbar/InfoSnackbar';
+import { getCurrentUsernameOrEmail } from '../../selectors/user';
 
 class AdminPanel extends React.PureComponent {
   constructor(props) {
@@ -53,69 +55,82 @@ class AdminPanel extends React.PureComponent {
 
   render() {
     const {
-      classes, history,
+      classes, history, currentUsernameOrEmail,
     } = this.props;
 
     return (
-      <div className={classes.root}>
-        <CssBaseline />
-        <AppBar position="fixed" className={classes.appBar}>
-          <Toolbar className={classes.adminPanelToolbar}>
-            <div className={classes.adminPanelTitleContainer}>
-              <LogoIcon classes={{ root: classes.buildIcon }} />
-              <Typography variant="h6" className={classes.adminPanelTitle}>
-                {'Admin Panel'}
-              </Typography>
-            </div>
-            <ExitButton history={history} />
-          </Toolbar>
-        </AppBar>
-        <Drawer
-          className={classes.drawer}
-          variant="permanent"
-          classes={{ paper: classes.drawerPaper }}
-        >
-          <div className={classes.toolbar} />
-          <List>
-            <ListItem button onClick={() => this.handleOpenContent('addItem')}>
-              <ListItemText primary="Add new item" />
-              <ListItemIcon>
-                <AddIcon />
-              </ListItemIcon>
-            </ListItem>
-            <ListItem button onClick={() => this.handleOpenContent('showAllItems')}>
-              <ListItemText primary="Items" />
-              <ListItemIcon>
-                <ViewListIcon />
-              </ListItemIcon>
-            </ListItem>
-            <Divider />
-            <ListItem button onClick={() => this.handleOpenContent('showReservations')} disabled>
-              <ListItemText primary="Reservations" />
-              <ListItemIcon>
-                <ReservationIcon />
-              </ListItemIcon>
-            </ListItem>
-          </List>
-        </Drawer>
-        <main className={classes.content}>
-          <div className={classes.toolbar} />
-          {this.getContent()}
-        </main>
-        <InfoSnackbar />
-      </div>
+      !currentUsernameOrEmail ? <div> Unauthorized </div>
+        : (
+          <div className={classes.root}>
+            <CssBaseline />
+            <AppBar position="fixed" className={classes.appBar}>
+              <Toolbar className={classes.adminPanelToolbar}>
+                <div className={classes.adminPanelTitleContainer}>
+                  <LogoIcon classes={{ root: classes.buildIcon }} />
+                  <Typography variant="h6" className={classes.adminPanelTitle}>
+                    {'Admin Panel'}
+                  </Typography>
+                </div>
+                <ExitButton history={history} />
+              </Toolbar>
+            </AppBar>
+            <Drawer
+              className={classes.drawer}
+              variant="permanent"
+              classes={{ paper: classes.drawerPaper }}
+            >
+              <div className={classes.toolbar} />
+              <List>
+                <ListItem button onClick={() => this.handleOpenContent('addItem')}>
+                  <ListItemText primary="Add new item" />
+                  <ListItemIcon>
+                    <AddIcon />
+                  </ListItemIcon>
+                </ListItem>
+                <ListItem button onClick={() => this.handleOpenContent('showAllItems')}>
+                  <ListItemText primary="Items" />
+                  <ListItemIcon>
+                    <ViewListIcon />
+                  </ListItemIcon>
+                </ListItem>
+                <Divider />
+                <ListItem button onClick={() => this.handleOpenContent('showReservations')} disabled>
+                  <ListItemText primary="Reservations" />
+                  <ListItemIcon>
+                    <ReservationIcon />
+                  </ListItemIcon>
+                </ListItem>
+              </List>
+            </Drawer>
+            <main className={classes.content}>
+              <div className={classes.toolbar} />
+              {this.getContent()}
+            </main>
+            <InfoSnackbar />
+          </div>
+        )
     );
   }
 }
 
 AdminPanel.propTypes = {
   classes: PropTypes.shape({}),
+  currentUsernameOrEmail: PropTypes.shape({}),
   history: PropTypes.shape({}),
 };
 
 AdminPanel.defaultProps = {
   classes: {},
+  currentUsernameOrEmail: {},
   history: {},
 };
 
-export default withStyles(styles)(withRouter(AdminPanel));
+const mapStateToProps = state => ({
+  currentUsernameOrEmail: getCurrentUsernameOrEmail(state),
+});
+
+const mapDispatchToProps = dispatch => ({
+
+});
+
+export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(withRouter(AdminPanel)));
