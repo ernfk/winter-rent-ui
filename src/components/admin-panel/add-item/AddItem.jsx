@@ -23,9 +23,10 @@ class AddItem extends React.PureComponent {
   }
 
   componentDidMount = () => {
-    this.setState({ labelWidth: ReactDOM.findDOMNode(this.InputLabelRef).offsetWidth });
     const { fetchItemsData } = this.props;
-    fetchItemsData();
+    this.setState({ labelWidth: ReactDOM.findDOMNode(this.InputLabelRef).offsetWidth });
+    const accessToken = window.localStorage.getItem('accessToken');
+    fetchItemsData(accessToken);
   };
 
   handleSelectItemType = (event) => {
@@ -107,8 +108,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchItemsData: () => {
-    dispatch(ItemActions.fetchItemsData());
+  fetchItemsData: (accessToken) => {
+    dispatch(ItemActions.fetchItemsData(accessToken));
   },
   addItem: (item, file) => {
     dispatch(ItemActions.addItem(item, file));

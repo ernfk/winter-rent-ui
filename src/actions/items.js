@@ -23,7 +23,7 @@ const adjustItemPropertyDefinitionsToFields = (itemPropertyDefinitions) => {
   return itemPropertyDefinitions;
 };
 
-export const fetchItemsData = () => dispatch => itemsService.getItemTypes()
+export const fetchItemsData = accessToken => dispatch => itemsService.getItemTypes(accessToken)
   .then(response => dispatch(fetchedItemTypes(response.data)))
   .then(itemsService.getItemPropertyDefinitions)
   .then((response) => {
@@ -62,7 +62,7 @@ const flatTheItems = items => items
       }, flattedItem);
   });
 
-export const fetchItems = (accessToken) => dispatch => itemsService.getItems(accessToken)
+export const fetchItems = accessToken => dispatch => itemsService.getItems(accessToken)
   .then(response => dispatch(fetchedItems(flatTheItems(response.data))));
 
 export const deleteItem = (itemId, imageId) => dispatch => itemsService.deleteItem(itemId)

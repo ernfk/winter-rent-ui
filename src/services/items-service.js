@@ -7,36 +7,37 @@ class ItemsService extends BaseService {
     super(basePath);
   }
 
-  getItemTypes = () => {
-    const path = `${this.basePath}/itemTypes`;
-    return axios.get(path);
-  };
+    getItemTypes = (accessToken) => {
+      const config = { headers: { Authorization: `Bearer ${accessToken}` } };
+      const path = `${this.basePath}/itemTypes`;
+      return axios.get(path, config);
+    };
 
-  getItemPropertyDefinitions = () => {
-    const path = `${this.basePath}/itemPropertyDefinitions`;
-    return axios.get(path);
-  };
+    getItemPropertyDefinitions = () => {
+      const path = `${this.basePath}/itemPropertyDefinitions`;
+      return axios.get(path);
+    };
 
-  addItem = (item) => {
-    const path = `${this.basePath}/items`;
-    return axios.post(path, item);
-  };
+    addItem = (item) => {
+      const path = `${this.basePath}/items`;
+      return axios.post(path, item);
+    };
 
-  getItems = (accessToken) => {
-    const config = { headers: { Authorization: `Bearer ${accessToken}` } };
-    const path = `${this.basePath}/items`;
-    return axios.get(path, config);
-  };
+    getItems = (accessToken) => {
+      const config = { headers: { Authorization: `Bearer ${accessToken}` } };
+      const path = `${this.basePath}/items`;
+      return axios.get(path, config);
+    };
 
-  deleteItem =(itemId) => {
-    const path = `${this.basePath}/items/`;
-    return axios.delete(path + itemId);
-  };
+    deleteItem = (itemId) => {
+      const path = `${this.basePath}/items/`;
+      return axios.delete(path + itemId);
+    };
 
-  updateItem = (item) => {
-    const path = `${this.basePath}/items`;
-    return axios.put(path, item);
-  };
+    updateItem = (item) => {
+      const path = `${this.basePath}/items`;
+      return axios.put(path, item);
+    };
 }
 
 export default ItemsService;
