@@ -4,9 +4,16 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import {
-  AppBar, IconButton, Menu, MenuItem, Toolbar, Typography, withStyles,
+  AppBar,
+  IconButton,
+  Menu,
+  MenuItem,
+  Toolbar,
+  Typography,
+  withStyles,
+  Button,
 } from '@material-ui/core';
-import { AccountCircle, Settings } from '@material-ui/icons';
+import { AccountCircle, Settings, PowerSettingsNew as LogIcon } from '@material-ui/icons';
 import InfoSnackbar from '../commons/info-snackbar/InfoSnackbar';
 import Logo from '../../images/logo.png';
 import styles from './AppMenu.style';
@@ -26,9 +33,13 @@ class AppMenu extends Component {
    handleMenuClose = () => this.setState({ anchorEl: null });
 
    handleLog = () => {
-     const { history, currentUsernameOrEmail, logout } = this.props;
+     const { history } = this.props;
+     history.push('/login');
+   };
 
-     currentUsernameOrEmail ? logout() : history.push('/login');
+   handleLogout = () => {
+     const { logoutUser } = this.props;
+     logoutUser();
      this.setState({ anchorEl: null });
    };
 
@@ -52,8 +63,11 @@ class AppMenu extends Component {
          open={isMenuOpen}
          onClose={this.handleMenuClose}
        >
-         <MenuItem onClick={this.handleLog}>{currentUsernameOrEmail ? 'Logout' : 'Login'}</MenuItem>
          <MenuItem onClick={this.handleMenuClose} disabled>Profile</MenuItem>
+         <MenuItem onClick={this.handleLogout}>
+           {'Logout'}
+           <LogIcon className={classes.loginIcon} />
+         </MenuItem>
        </Menu>
      );
 
@@ -68,14 +82,23 @@ class AppMenu extends Component {
                </Typography>
              </div>
              <div>
-               <IconButton
-                 aria-owns={isMenuOpen ? 'material-appbar' : undefined}
-                 aria-haspopup="true"
-                 onClick={this.handleProfileMenuOpen}
-                 color="inherit"
-               >
-                 <AccountCircle />
-               </IconButton>
+               {currentUsernameOrEmail
+                 ? (
+                   <IconButton
+                     aria-owns={isMenuOpen ? 'material-appbar' : undefined}
+                     aria-haspopup="true"
+                     onClick={this.handleProfileMenuOpen}
+                     color="inherit"
+                   >
+                     <AccountCircle />
+                   </IconButton>
+                 )
+                 : (
+                   <Button onClick={this.handleLog}>
+                     {'Login'}
+                     <LogIcon className={classes.loginIcon} />
+                   </Button>
+                 ) }
                {currentUsernameOrEmail && (
                <IconButton
                  aria-owns={isMenuOpen ? 'material-appbar' : undefined}
@@ -100,14 +123,14 @@ AppMenu.propTypes = {
   classes: PropTypes.shape({}),
   currentUsernameOrEmail: PropTypes.string,
   history: PropTypes.shape({}),
-  logout: PropTypes.func,
+  logoutUser: PropTypes.func,
 };
 
 AppMenu.defaultProps = {
   classes: {},
   currentUsernameOrEmail: '',
   history: {},
-  logout: () => {},
+  logoutUser: () => {},
 };
 
 const mapStateToProps = state => ({
@@ -115,7 +138,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  logout: () => dispatch(logout()),
+  logoutUser: () => dispatch(logout()),
 });
 
 export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(withRouter(AppMenu)));

@@ -3,6 +3,11 @@ const styles = {
     fontFamily: 'ZCOOL KuaiLe',
     fontSize: '30px',
   },
+  loginIcon: {
+    width: '18px',
+    height: '18px',
+    marginLeft: '5px',
+  },
   logo: {
     height: '50px',
     paddingRight: '10px',
