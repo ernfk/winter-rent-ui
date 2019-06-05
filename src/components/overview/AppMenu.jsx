@@ -13,7 +13,7 @@ import {
   withStyles,
   Button,
 } from '@material-ui/core';
-import { AccountCircle, Settings, PowerSettingsNew as LogIcon } from '@material-ui/icons';
+import { AccountCircle, Settings, PowerSettingsNew as LogIcon, Star } from '@material-ui/icons';
 import InfoSnackbar from '../commons/info-snackbar/InfoSnackbar';
 import Logo from '../../images/logo.png';
 import styles from './AppMenu.style';
@@ -36,6 +36,11 @@ class AppMenu extends Component {
      const { history } = this.props;
      history.push('/login');
    };
+
+    handleRegister = () => {
+      const { history } = this.props;
+      history.push('/registration');
+    };
 
    handleLogout = () => {
      const { logoutUser } = this.props;
@@ -94,10 +99,16 @@ class AppMenu extends Component {
                    </IconButton>
                  )
                  : (
-                   <Button onClick={this.handleLog}>
-                     {'Login'}
-                     <LogIcon className={classes.loginIcon} />
-                   </Button>
+                   <div>
+                     <Button onClick={this.handleLog}>
+                       {'Login'}
+                       <LogIcon className={classes.icon} />
+                     </Button>
+                     <Button onClick={this.handleRegister}>
+                       {'Register'}
+                       <Star className={classes.icon} />
+                     </Button>
+                   </div>
                  ) }
                {currentUsernameOrEmail && (
                <IconButton

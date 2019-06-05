@@ -3,7 +3,7 @@ const styles = {
     fontFamily: 'ZCOOL KuaiLe',
     fontSize: '30px',
   },
-  loginIcon: {
+  icon: {
     width: '18px',
     height: '18px',
     marginLeft: '5px',
