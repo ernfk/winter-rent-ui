@@ -12,6 +12,7 @@ import thunk from 'redux-thunk';
 import rootReducer from "./reducers/root-reducer";
 import * as SnackbarStatus from "./components/commons/snackbar-statuses";
 import {Snackbar, SnackbarContent} from "@material-ui/core";
+import Profile from "./components/profile/Profile";
 
 
 const store = createStore(
@@ -31,6 +32,7 @@ const routing = (
                 <Route exact path="/admin" component={AdminPanel} />
                 <Route exact path="/login" component={LoginPanel} />
                 <Route exact path="/registration" component={RegistrationPanel} />
+                <Route exact path="/profile" component={Profile} />
             </Switch>
             </div>
         </Router>

@@ -44,10 +44,10 @@ class AppMenu extends Component {
      history.push('/login');
    };
 
-    handleRegister = () => {
-      const { history } = this.props;
-      history.push('/registration');
-    };
+   handleRegister = () => {
+     const { history } = this.props;
+     history.push('/registration');
+   };
 
    handleLogout = () => {
      const { logoutUser } = this.props;
