@@ -26,7 +26,7 @@ import ItemList from './item-list/ItemList';
 import Reservations from './reservations/Reservations';
 import styles from './AdminPanel.style';
 import ExitButton from '../commons/exit-button/ExitButton';
-import Info, { InfoTypes } from '../commons/info/info';
+import Info, { InfoTypes } from '../commons/info/Info';
 import InfoSnackbar from '../commons/info-snackbar/InfoSnackbar';
 import { getCurrentUsernameOrEmail } from '../../selectors/user';
 

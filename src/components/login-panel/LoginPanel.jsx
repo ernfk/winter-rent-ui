@@ -13,7 +13,7 @@ import {
 } from '@material-ui/icons';
 import Title from '../commons/title/Title';
 import ExitButton from '../commons/exit-button/ExitButton';
-import Info, { InfoTypes } from '../commons/info/info';
+import Info, { InfoTypes } from '../commons/info/Info';
 import styles from './LoginPanel.style';
 import { signIn } from '../../actions/user';
 import InfoSnackbar from '../commons/info-snackbar/InfoSnackbar';

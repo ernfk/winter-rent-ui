@@ -13,7 +13,9 @@ import {
   withStyles,
   Button,
 } from '@material-ui/core';
-import { AccountCircle, Settings, PowerSettingsNew as LogIcon, Star } from '@material-ui/icons';
+import {
+  AccountCircle, Settings, PowerSettingsNew as LogIcon, Star,
+} from '@material-ui/icons';
 import InfoSnackbar from '../commons/info-snackbar/InfoSnackbar';
 import Logo from '../../images/logo.png';
 import styles from './AppMenu.style';
@@ -31,6 +33,11 @@ class AppMenu extends Component {
    handleProfileMenuOpen = event => this.setState({ anchorEl: event.currentTarget });
 
    handleMenuClose = () => this.setState({ anchorEl: null });
+
+   handleOpenProfile = () => {
+     const { history } = this.props;
+     history.push('/profile');
+   };
 
    handleLog = () => {
      const { history } = this.props;
@@ -68,10 +75,10 @@ class AppMenu extends Component {
          open={isMenuOpen}
          onClose={this.handleMenuClose}
        >
-         <MenuItem onClick={this.handleMenuClose} disabled>Profile</MenuItem>
+         <MenuItem onClick={this.handleOpenProfile}>Profile</MenuItem>
          <MenuItem onClick={this.handleLogout}>
            {'Logout'}
-           <LogIcon className={classes.loginIcon} />
+           <LogIcon className={classes.icon} />
          </MenuItem>
        </Menu>
      );
@@ -87,7 +94,7 @@ class AppMenu extends Component {
                </Typography>
              </div>
              <div>
-               {currentUsernameOrEmail
+               {!currentUsernameOrEmail
                  ? (
                    <IconButton
                      aria-owns={isMenuOpen ? 'material-appbar' : undefined}

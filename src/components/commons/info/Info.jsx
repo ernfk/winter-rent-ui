@@ -7,7 +7,7 @@ import {
 } from '@material-ui/icons/';
 import Title from '../title/Title';
 import ExitButton from '../exit-button/ExitButton';
-import styles from './info.style';
+import styles from './Info.style';
 
 export const InfoTypes = {
   INFO: 'INFO',
