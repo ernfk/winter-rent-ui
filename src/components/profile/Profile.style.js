@@ -5,6 +5,9 @@ const styles = {
     padding: '0px',
     textAlign: 'center',
   },
+  tabsIndicator: {
+    backgroundColor: 'green',
+  },
 };
 
 export default styles;

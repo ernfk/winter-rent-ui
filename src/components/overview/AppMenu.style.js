@@ -22,7 +22,6 @@ const styles = {
   },
   root: {
     flexGrow: 1,
-    paddingRight: '5px',
   },
   toolbar: {
     display: 'flex',
