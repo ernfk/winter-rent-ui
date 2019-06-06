@@ -7,14 +7,16 @@ import {
   withStyles,
 } from '@material-ui/core';
 import AppMenu from '../overview/AppMenu';
-import Title from '../commons/title/Title';
 import styles from './Profile.style';
+import AccountDetails from './account-details/AccountDetails';
+import MyReservations from './my-reservations/MyReservations';
+import History from './history/History';
 
 class Profile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentTab: '',
+      currentTab: 0,
     };
   }
 
@@ -29,23 +31,20 @@ class Profile extends React.Component {
     return (
       <div>
         <AppMenu />
-        <div>
-          <Paper square>
-            <Tabs
-              value={currentTab}
-              onChange={this.handleChangeTab}
-              classes={{ indicator: classes.tabsIndicator }}
-            >
-              <Tab label="Account details" />
-              <Tab label="My reservations" disabled/>
-            </Tabs>
-          </Paper>
-          <Title
-            title="Hello User! Please complete your profile."
-            style={styles.header}
-          />
-
-        </div>
+        <Paper square>
+          <Tabs
+            value={currentTab}
+            onChange={this.handleChangeTab}
+            classes={{ indicator: classes.tabsIndicator }}
+          >
+            <Tab label="Account details" />
+            <Tab label="My reservations" />
+            <Tab label="History" />
+          </Tabs>
+        </Paper>
+        {currentTab === 0 && <AccountDetails />}
+        {currentTab === 1 && <MyReservations />}
+        {currentTab === 2 && <History />}
       </div>
     );
   }
