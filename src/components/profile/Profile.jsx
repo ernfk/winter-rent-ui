@@ -38,8 +38,8 @@ class Profile extends React.Component {
             classes={{ indicator: classes.tabsIndicator }}
           >
             <Tab label="Account details" />
-            <Tab label="My reservations" />
-            <Tab label="History" />
+            <Tab label="My reservations" disabled />
+            <Tab label="History" disabled />
           </Tabs>
         </Paper>
         {currentTab === 0 && <AccountDetails />}
