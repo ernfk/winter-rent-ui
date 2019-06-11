@@ -1,4 +1,16 @@
 const styles = {
+  buttonsContainer: {
+    marginTop: '15px',
+    display: 'flex',
+    justifyContent: 'space-between',
+    width: '350px',
+  },
+  clearButton: {
+    backgroundColor: '#AA4139',
+    '&:hover': {
+      backgroundColor: '#D4726A',
+    },
+  },
   container: {
     display: 'flex',
     flexDirection: 'column',
@@ -9,6 +21,9 @@ const styles = {
     marginTop: '30px',
     padding: '0px',
     textAlign: 'center',
+  },
+  icon: {
+    margin: '0px 5px',
   },
   textField: {
     width: '350px',

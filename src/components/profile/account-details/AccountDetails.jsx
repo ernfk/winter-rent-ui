@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { TextField, withStyles } from '@material-ui/core';
+import { Button, TextField, withStyles } from '@material-ui/core';
+import { Backspace as ClearIcon, Save as SaveIcon } from '@material-ui/icons';
 import Title from '../../commons/title/Title';
 import styles from './AccountDetails.style';
 
@@ -8,17 +9,25 @@ class AccountDetails extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: '',
-      lastName: '',
-      street: '',
-      city: '',
-      phone: '',
-      postalCode: '',
+      name: 'A',
+      lastName: 'B',
+      street: 'C',
+      city: 'D',
+      phone: '123',
+      postalCode: '54000',
     };
   }
 
   handleChange = name => (event) => {
     this.setState({ [name]: event.target.value });
+  };
+
+  handleSave = () => {
+
+  };
+
+  handleClear = () => {
+
   };
 
   render() {
@@ -75,6 +84,23 @@ class AccountDetails extends React.Component {
           onChange={this.handleChange('phone')}
           className={classes.textField}
         />
+        <div style={styles.buttonsContainer}>
+          <Button
+            variant="contained"
+            onClick={this.handleSave}
+          >
+            <SaveIcon className={classes.icon} />
+            {'Save'}
+          </Button>
+          <Button
+            variant="contained"
+            className={classes.clearButton}
+            onClick={this.handleClear}
+          >
+            <ClearIcon className={classes.icon} />
+            {'Clear'}
+          </Button>
+        </div>
       </div>
     );
   }
