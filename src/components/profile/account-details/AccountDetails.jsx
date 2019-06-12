@@ -9,12 +9,13 @@ class AccountDetails extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: 'A',
-      lastName: 'B',
-      street: 'C',
-      city: 'D',
-      phone: '123',
-      postalCode: '54000',
+      name: 'Andrew',
+      lastName: 'Baggs',
+      street: 'Ocean Drive',
+      city: 'Wildwood',
+      phone: 700800500,
+      postalCode: 54000,
+      flatNo: 55,
     };
   }
 
@@ -27,13 +28,16 @@ class AccountDetails extends React.Component {
   };
 
   handleClear = () => {
+    const clearedState = this.state;
+    Object.keys(clearedState).forEach(key => clearedState[key] = '');
 
+    this.setState(clearedState);
   };
 
   render() {
     const { classes } = this.props;
     const {
-      name, lastName, street, city, phone, postalCode,
+      name, lastName, street, city, phone, postalCode, flatNo,
     } = this.state;
 
     return (
@@ -48,6 +52,7 @@ class AccountDetails extends React.Component {
           value={name}
           onChange={this.handleChange('name')}
           className={classes.textField}
+          type="text"
         />
         <TextField
           id="lastName"
@@ -55,6 +60,7 @@ class AccountDetails extends React.Component {
           value={lastName}
           onChange={this.handleChange('lastName')}
           className={classes.textField}
+          type="text"
         />
         <TextField
           id="street"
@@ -62,6 +68,15 @@ class AccountDetails extends React.Component {
           value={street}
           onChange={this.handleChange('street')}
           className={classes.textField}
+          type="text"
+        />
+        <TextField
+          id="flatNo"
+          label="Flat number"
+          value={flatNo}
+          onChange={this.handleChange('flatNo')}
+          className={classes.textField}
+          type="number"
         />
         <TextField
           id="city"
@@ -69,6 +84,7 @@ class AccountDetails extends React.Component {
           value={city}
           onChange={this.handleChange('city')}
           className={classes.textField}
+          type="text"
         />
         <TextField
           id="postalCode"
@@ -83,6 +99,7 @@ class AccountDetails extends React.Component {
           value={phone}
           onChange={this.handleChange('phone')}
           className={classes.textField}
+          type="number"
         />
         <div style={styles.buttonsContainer}>
           <Button
