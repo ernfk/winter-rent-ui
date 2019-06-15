@@ -10,11 +10,9 @@ import {applyMiddleware, compose, createStore} from "redux";
 import {Provider} from "react-redux";
 import thunk from 'redux-thunk';
 import rootReducer from "./reducers/root-reducer";
-import * as SnackbarStatus from "./components/commons/snackbar-statuses";
-import {Snackbar, SnackbarContent} from "@material-ui/core";
 import Profile from "./components/profile/Profile";
 
-
+ 
 const store = createStore(
     rootReducer,
     compose(
@@ -27,13 +25,13 @@ const routing = (
     <Provider store={store}>
         <Router>
             <div>
-            <Switch>
-                <Route exact path="/" component={Overview} />
-                <Route exact path="/admin" component={AdminPanel} />
-                <Route exact path="/login" component={LoginPanel} />
-                <Route exact path="/registration" component={RegistrationPanel} />
-                <Route exact path="/profile" component={Profile} />
-            </Switch>
+                <Switch>
+                    <Route exact path="/" component={Overview}/>
+                    <Route exact path="/admin" component={AdminPanel}/>
+                    <Route exact path="/login" component={LoginPanel}/>
+                    <Route exact path="/registration" component={RegistrationPanel}/>
+                    <Route exact path="/profile" component={Profile}/>
+                </Switch>
             </div>
         </Router>
     </Provider>

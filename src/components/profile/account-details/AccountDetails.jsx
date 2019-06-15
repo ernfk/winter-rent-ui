@@ -13,7 +13,7 @@ class AccountDetails extends React.Component {
       lastName: 'Baggs',
       street: 'Ocean Drive',
       city: 'Wildwood',
-      phone: 700800500,
+      phoneNo: 700800500,
       postalCode: 54000,
       flatNo: 55,
     };
@@ -37,7 +37,7 @@ class AccountDetails extends React.Component {
   render() {
     const { classes } = this.props;
     const {
-      name, lastName, street, city, phone, postalCode, flatNo,
+      name, lastName, street, city, phoneNo, postalCode, flatNo,
     } = this.state;
 
     return (
@@ -94,10 +94,10 @@ class AccountDetails extends React.Component {
           className={classes.textField}
         />
         <TextField
-          id="phone"
+          id="phoneNo"
           label="Phone number"
-          value={phone}
-          onChange={this.handleChange('phone')}
+          value={phoneNo}
+          onChange={this.handleChange('phoneNo')}
           className={classes.textField}
           type="number"
         />

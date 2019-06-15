@@ -94,7 +94,7 @@ class AppMenu extends Component {
                </Typography>
              </div>
              <div>
-               {!currentUsernameOrEmail
+               {currentUsernameOrEmail
                  ? (
                    <IconButton
                      aria-owns={isMenuOpen ? 'material-appbar' : undefined}
