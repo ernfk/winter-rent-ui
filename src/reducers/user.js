@@ -12,6 +12,12 @@ const setUser = (state, action) => ({
   accessToken: action.accessToken,
 });
 
+const setUserProfile = (state, action) => ({
+  ...state,
+  userProfile: action.userProfile,
+});
+
 export const user = createReducer(initialState, {
   [UserActionTypes.SET_USER]: setUser,
+  [UserActionTypes.SET_USER_PROFILE]: setUserProfile,
 });

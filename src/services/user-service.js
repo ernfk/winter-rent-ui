@@ -15,6 +15,14 @@ class UserService extends BaseService {
     const path = `${this.basePath}/auth/signin`;
     return axios.post(path, user);
   };
+
+  getUserProfile = (username) => {
+    const accessToken = window.localStorage.getItem('accessToken');
+    const config = { headers: { Authorization: `Bearer ${accessToken}` } };
+    const path = `${this.basePath}/profile/${username}`;
+
+    return axios.get(path, config);
+  }
 }
 
 export default UserService;

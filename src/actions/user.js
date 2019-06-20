@@ -42,3 +42,13 @@ export const logout = () => (dispatch) => {
   window.localStorage.removeItem('accessToken');
   dispatch(showSnackbar(SnackbarStatus.INFO, 'You have successfully logged out!'));
 };
+
+export const SET_USER_PROFILE = 'SET_USER_PROFILE';
+const setUserProfile = makeActionCreator(SET_USER_PROFILE, 'userProfile');
+
+export const getUserProfile = username => (dispatch) => {
+  userService.getUserProfile(username)
+    .then((response) => {
+      dispatch(setUserProfile(response.data));
+    });
+};

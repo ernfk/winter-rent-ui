@@ -6,11 +6,14 @@ import {
   Tabs,
   withStyles,
 } from '@material-ui/core';
+import { connect } from 'react-redux';
 import AppMenu from '../overview/AppMenu';
 import styles from './Profile.style';
 import AccountDetails from './account-details/AccountDetails';
 import MyReservations from './my-reservations/MyReservations';
 import History from './history/History';
+import * as UserSelectors from '../../selectors/user';
+import * as UserActions from '../../actions/user';
 
 class Profile extends React.Component {
   constructor(props) {
@@ -18,6 +21,11 @@ class Profile extends React.Component {
     this.state = {
       currentTab: 0,
     };
+  }
+
+  componentDidMount() {
+    const { getUserProfile, currentUsernameOrEmail } = this.props;
+    getUserProfile(currentUsernameOrEmail);
   }
 
   handleChangeTab = (event, newValue) => {
@@ -50,12 +58,24 @@ class Profile extends React.Component {
   }
 }
 
+const mapStateToProps = state => ({
+  currentUsernameOrEmail: UserSelectors.getCurrentUsernameOrEmail(state),
+});
+
+const mapDispatchToProps = dispatch => ({
+  getUserProfile: currentUsernameOrEmail => dispatch(UserActions.getUserProfile(currentUsernameOrEmail)),
+});
+
 Profile.propTypes = {
   classes: PropTypes.shape({}),
+  getUserProfile: PropTypes.func,
+  currentUsernameOrEmail: PropTypes.string,
 };
 
 Profile.defaultProps = {
   classes: {},
+  getUserProfile: () => {},
+  currentUsernameOrEmail: 0,
 };
 
-export default withStyles(styles)(Profile);
+export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(Profile));
