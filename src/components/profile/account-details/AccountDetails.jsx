@@ -9,14 +9,31 @@ class AccountDetails extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: 'Andrew',
-      lastName: 'Baggs',
-      street: 'Ocean Drive',
-      city: 'Wildwood',
-      phoneNo: 700800500,
-      postalCode: 54000,
-      flatNo: 55,
+      name: '',
+      lastName: '',
+      street: '',
+      city: '',
+      phoneNo: 0,
+      postalCode: 0,
+      flatNo: 0,
+      username: '',
     };
+  }
+
+  static getDerivedStateFromProps(nextProps, state) {
+    if (nextProps.currentUserProfile.username !== state.username) {
+      return {
+        name: nextProps.currentUserProfile.name,
+        lastName: nextProps.currentUserProfile.lastName,
+        street: nextProps.currentUserProfile.street,
+        city: nextProps.currentUserProfile.city,
+        phoneNo: nextProps.currentUserProfile.phoneNo,
+        postalCode: nextProps.currentUserProfile.postalCode,
+        flatNo: nextProps.currentUserProfile.flatNo,
+        username: nextProps.currentUserProfile.username,
+      };
+    }
+    return null;
   }
 
   handleChange = name => (event) => {
@@ -29,7 +46,9 @@ class AccountDetails extends React.Component {
 
   handleClear = () => {
     const clearedState = this.state;
-    Object.keys(clearedState).forEach(key => clearedState[key] = '');
+    Object.keys(clearedState).forEach((key) => {
+      if (key !== 'username') clearedState[key] = '';
+    });
 
     this.setState(clearedState);
   };

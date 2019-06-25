@@ -49,6 +49,6 @@ const setUserProfile = makeActionCreator(SET_USER_PROFILE, 'userProfile');
 export const getUserProfile = username => (dispatch) => {
   userService.getUserProfile(username)
     .then((response) => {
-      dispatch(setUserProfile(response.data));
+      dispatch(setUserProfile({ ...response.data, username }));
     });
 };

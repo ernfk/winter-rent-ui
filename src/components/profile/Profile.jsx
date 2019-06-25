@@ -34,7 +34,7 @@ class Profile extends React.Component {
 
   render() {
     const { currentTab } = this.state;
-    const { classes } = this.props;
+    const { classes, currentUserProfile } = this.props;
 
     return (
       <div>
@@ -50,7 +50,11 @@ class Profile extends React.Component {
             <Tab label="History" disabled />
           </Tabs>
         </Paper>
-        {currentTab === 0 && <AccountDetails />}
+        {currentTab === 0 && (
+        <AccountDetails
+          currentUserProfile={currentUserProfile}
+        />
+        )}
         {currentTab === 1 && <MyReservations />}
         {currentTab === 2 && <History />}
       </div>
@@ -60,6 +64,7 @@ class Profile extends React.Component {
 
 const mapStateToProps = state => ({
   currentUsernameOrEmail: UserSelectors.getCurrentUsernameOrEmail(state),
+  currentUserProfile: UserSelectors.getCurrentUserProfile(state),
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -68,14 +73,16 @@ const mapDispatchToProps = dispatch => ({
 
 Profile.propTypes = {
   classes: PropTypes.shape({}),
-  getUserProfile: PropTypes.func,
+  currentUserProfile: PropTypes.shape({}),
   currentUsernameOrEmail: PropTypes.string,
+  getUserProfile: PropTypes.func,
 };
 
 Profile.defaultProps = {
   classes: {},
-  getUserProfile: () => {},
+  currentUserProfile: {},
   currentUsernameOrEmail: 0,
+  getUserProfile: () => {},
 };
 
 export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(Profile));

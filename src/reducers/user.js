@@ -4,6 +4,16 @@ import createReducer from '../utils/create-reducer';
 export const initialState = {
   usernameOrEmail: null,
   accessToken: '',
+  userProfile: {
+    name: '',
+    lastName: '',
+    street: '',
+    flatNo: 0,
+    city: '',
+    postalCode: '',
+    phoneNo: 0,
+    username: '',
+  },
 };
 
 const setUser = (state, action) => ({
