@@ -52,3 +52,13 @@ export const getUserProfile = username => (dispatch) => {
       dispatch(setUserProfile({ ...response.data, username }));
     });
 };
+
+export const updateUserProfile = (username, userProfile) => (dispatch) => {
+  userService.updateUserProfile(username, userProfile)
+    .then(() => {
+      dispatch(showSnackbar(SnackbarStatus.INFO, 'Your profile updated successfully'));
+    })
+    .catch((err) => {
+      dispatch(showSnackbar(SnackbarStatus.ERROR, 'Something went wrong'));
+    });
+};

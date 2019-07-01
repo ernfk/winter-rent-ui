@@ -34,7 +34,12 @@ class Profile extends React.Component {
 
   render() {
     const { currentTab } = this.state;
-    const { classes, currentUserProfile } = this.props;
+    const {
+      classes,
+      currentUserProfile,
+      updateUserProfile,
+      currentUsernameOrEmail,
+    } = this.props;
 
     return (
       <div>
@@ -53,6 +58,8 @@ class Profile extends React.Component {
         {currentTab === 0 && (
         <AccountDetails
           currentUserProfile={currentUserProfile}
+          updateUserProfile={updateUserProfile}
+          currentUsernameOrEmail={currentUsernameOrEmail}
         />
         )}
         {currentTab === 1 && <MyReservations />}
@@ -69,6 +76,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   getUserProfile: currentUsernameOrEmail => dispatch(UserActions.getUserProfile(currentUsernameOrEmail)),
+  updateUserProfile: (username, userProfile) => dispatch(UserActions.updateUserProfile(username, userProfile)),
 });
 
 Profile.propTypes = {
@@ -76,6 +84,7 @@ Profile.propTypes = {
   currentUserProfile: PropTypes.shape({}),
   currentUsernameOrEmail: PropTypes.string,
   getUserProfile: PropTypes.func,
+  updateUserProfile: PropTypes.func,
 };
 
 Profile.defaultProps = {
@@ -83,6 +92,7 @@ Profile.defaultProps = {
   currentUserProfile: {},
   currentUsernameOrEmail: 0,
   getUserProfile: () => {},
+  updateUserProfile: () => {},
 };
 
 export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(Profile));

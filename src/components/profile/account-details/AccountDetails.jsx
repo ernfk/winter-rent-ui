@@ -9,6 +9,7 @@ class AccountDetails extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      id: null,
       name: '',
       lastName: '',
       street: '',
@@ -23,6 +24,7 @@ class AccountDetails extends React.Component {
   static getDerivedStateFromProps(nextProps, state) {
     if (nextProps.currentUserProfile.username !== state.username) {
       return {
+        id: nextProps.currentUserProfile.id,
         name: nextProps.currentUserProfile.name,
         lastName: nextProps.currentUserProfile.lastName,
         street: nextProps.currentUserProfile.street,
@@ -41,7 +43,9 @@ class AccountDetails extends React.Component {
   };
 
   handleSave = () => {
+    const { currentUsernameOrEmail, updateUserProfile } = this.props;
 
+    updateUserProfile(currentUsernameOrEmail, this.state);
   };
 
   handleClear = () => {
@@ -144,10 +148,15 @@ class AccountDetails extends React.Component {
 
 AccountDetails.propTypes = {
   classes: PropTypes.shape({}),
+  currentUsernameOrEmail: PropTypes.string,
+
+  updateUserProfile: PropTypes.func,
 };
 
 AccountDetails.defaultProps = {
   classes: {},
+  currentUsernameOrEmail: '',
+  updateUserProfile: () => {},
 };
 
 export default withStyles(styles)(AccountDetails);
