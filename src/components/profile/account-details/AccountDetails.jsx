@@ -57,16 +57,20 @@ class AccountDetails extends React.Component {
     this.setState(clearedState);
   };
 
+  isProfileComplete = () => Object.values(this.state).some(val => val);
+
   render() {
     const { classes } = this.props;
     const {
       name, lastName, street, city, phoneNo, postalCode, flatNo,
     } = this.state;
 
+    const greetings = this.isProfileComplete() ? 'Your profile' : 'Please complete your profile';
+
     return (
       <div style={styles.container}>
         <Title
-          title="Hello User! Please complete your profile."
+          title={greetings}
           style={styles.header}
         />
         <TextField
