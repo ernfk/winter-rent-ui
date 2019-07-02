@@ -15,7 +15,7 @@ export const InfoTypes = {
 };
 
 const Info = ({
-  classes, history, title, type,
+  classes, history, title, type, exitButton,
 }) => (
   <div className={classes.infoContainer}>
     <Paper className={classes.paper} elevation={4}>
@@ -24,7 +24,7 @@ const Info = ({
           ? <InfoIcon classes={{ root: classes.icon }} />
           : <WarningIcon classes={{ root: classes.iconError }} />}
         <Title title={title} style={styles.title} />
-        <ExitButton history={history} />
+        {exitButton && <ExitButton history={history} />}
       </div>
     </Paper>
   </div>
@@ -32,6 +32,7 @@ const Info = ({
 
 Info.propTypes = {
   classes: PropTypes.shape({}),
+  exitButton: PropTypes.bool,
   history: PropTypes.shape({}),
   title: PropTypes.string,
   type: PropTypes.string,
@@ -39,6 +40,7 @@ Info.propTypes = {
 
 Info.defaultProps = {
   classes: {},
+  exitButton: true,
   history: {},
   title: '',
   type: '',

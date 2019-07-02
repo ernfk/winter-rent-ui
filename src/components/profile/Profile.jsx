@@ -14,6 +14,8 @@ import MyReservations from './my-reservations/MyReservations';
 import History from './history/History';
 import * as UserSelectors from '../../selectors/user';
 import * as UserActions from '../../actions/user';
+import { InfoTypes } from '../commons/info/Info';
+import Info from '../commons/info/Info';
 
 class Profile extends React.Component {
   constructor(props) {
@@ -39,6 +41,7 @@ class Profile extends React.Component {
       currentUserProfile,
       updateUserProfile,
       currentUsernameOrEmail,
+      history,
     } = this.props;
 
     return (
@@ -55,13 +58,23 @@ class Profile extends React.Component {
             <Tab label="History" disabled />
           </Tabs>
         </Paper>
-        {currentTab === 0 && (
-        <AccountDetails
-          currentUserProfile={currentUserProfile}
-          updateUserProfile={updateUserProfile}
-          currentUsernameOrEmail={currentUsernameOrEmail}
-        />
-        )}
+        {currentTab === 0 && currentUsernameOrEmail
+          ? (
+            <AccountDetails
+              currentUserProfile={currentUserProfile}
+              updateUserProfile={updateUserProfile}
+              currentUsernameOrEmail={currentUsernameOrEmail}
+            />
+          )
+          : (
+            <Info
+              title="Please login first"
+              history={history}
+              type={InfoTypes.UNAUTHORIZED}
+              exitButton={false}
+            />
+          )
+        }
         {currentTab === 1 && <MyReservations />}
         {currentTab === 2 && <History />}
       </div>
