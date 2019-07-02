@@ -97,6 +97,7 @@ Profile.propTypes = {
   currentUserProfile: PropTypes.shape({}),
   currentUsernameOrEmail: PropTypes.string,
   getUserProfile: PropTypes.func,
+  history: PropTypes.shape({}),
   updateUserProfile: PropTypes.func,
 };
 
@@ -105,6 +106,7 @@ Profile.defaultProps = {
   currentUserProfile: {},
   currentUsernameOrEmail: 0,
   getUserProfile: () => {},
+  history: {},
   updateUserProfile: () => {},
 };
 
