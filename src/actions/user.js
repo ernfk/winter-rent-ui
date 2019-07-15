@@ -56,7 +56,8 @@ export const getUserProfile = username => (dispatch) => {
 
 export const updateUserProfile = (username, userProfile) => (dispatch) => {
   userService.updateUserProfile(username, userProfile)
-    .then(() => {
+    .then((response) => {
+      dispatch(setUserProfile(response.data));
       dispatch(showSnackbar(SnackbarStatus.INFO, 'Your profile updated successfully'));
     })
     .catch((err) => {
