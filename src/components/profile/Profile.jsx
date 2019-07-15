@@ -25,13 +25,17 @@ class Profile extends React.Component {
   }
 
   componentDidMount() {
-    const { getUserProfile, currentUsernameOrEmail } = this.props;
-    getUserProfile(currentUsernameOrEmail);
+    const { getUserProfile, currentUsernameOrEmail, currentUserProfile } = this.props;
+    if (!this.isUserLogged() || !currentUserProfile.name) {
+      getUserProfile(currentUsernameOrEmail);
+    }
   }
 
   handleChangeTab = (event, newValue) => {
     this.setState({ currentTab: newValue });
   };
+
+  isUserLogged = () => window.localStorage.getItem('accessToken');
 
   render() {
     const { currentTab } = this.state;
@@ -42,7 +46,6 @@ class Profile extends React.Component {
       currentUsernameOrEmail,
       history,
     } = this.props;
-    const isUserLogged = window.localStorage.getItem('accessToken');
 
     return (
       <div>
@@ -58,7 +61,7 @@ class Profile extends React.Component {
             <Tab label="History" disabled />
           </Tabs>
         </Paper>
-        {currentTab === 0 && isUserLogged
+        {currentTab === 0 && this.isUserLogged()
           ? (
             <AccountDetails
               currentUserProfile={currentUserProfile}
