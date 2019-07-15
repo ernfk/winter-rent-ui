@@ -11,8 +11,8 @@ import {
 } from '@material-ui/icons';
 import InfoSnackbar from '../commons/info-snackbar/InfoSnackbar';
 import Logo from '../../images/logo.png';
+import * as UserActions from '../../actions/user';
 import styles from './AppMenu.style';
-import { logout } from '../../actions/user';
 
 class AppMenu extends Component {
   constructor(props) {
@@ -28,21 +28,26 @@ class AppMenu extends Component {
 
   handleOpenProfile = () => {
     const { history } = this.props;
+
     history.push('/profile');
   };
 
   handleLog = () => {
     const { history } = this.props;
+
     history.push('/login');
   };
 
   handleRegister = () => {
-    const { history } = this.props;
+    const { history, clearUserSuccessfullyRegisteredStatus } = this.props;
+
+    clearUserSuccessfullyRegisteredStatus();
     history.push('/registration');
   };
 
   handleLogout = () => {
     const { logoutUser, history } = this.props;
+
     logoutUser(history);
     this.setState({ anchorEl: null });
   };
@@ -134,16 +139,19 @@ AppMenu.propTypes = {
   classes: PropTypes.shape({}),
   history: PropTypes.shape({}),
   logoutUser: PropTypes.func,
+  clearUserSuccessfullyRegisteredStatus: PropTypes.func,
 };
 
 AppMenu.defaultProps = {
   classes: {},
   history: {},
   logoutUser: () => {},
+  clearUserSuccessfullyRegisteredStatus: () => {},
 };
 
 const mapDispatchToProps = dispatch => ({
-  logoutUser: history => dispatch(logout(history)),
+  logoutUser: history => dispatch(UserActions.logout(history)),
+  clearUserSuccessfullyRegisteredStatus: () => dispatch(UserActions.setUserSuccessfullyRegisteredStatus(false)),
 });
 
 export default withStyles(styles)(connect(null, mapDispatchToProps)(withRouter(AppMenu)));

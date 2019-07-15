@@ -5,14 +5,19 @@ import makeActionCreator from '../utils/action-creator';
 
 const userService = new UserService();
 
-export const signUpUser = user => dispatch => userService.signUpUser(user)
+export const signUpUser = (user, history) => dispatch => userService.signUpUser(user)
   .then(() => {
     dispatch(showSnackbar(SnackbarStatus.INFO, 'User successfully added!'));
+    dispatch(setUserSuccessfullyRegisteredStatus(true));
+    history.push('/');
   })
   .catch((response) => {
     const message = response.response ? getMessage(response.response) : 'Problem with connection!';
     dispatch(showSnackbar(SnackbarStatus.ERROR, message));
   });
+
+const USER_SUCCESSFULLY_REGISTERED = 'USER_SUCCESSFULLY_REGISTERED';
+export const setUserSuccessfullyRegisteredStatus = makeActionCreator(USER_SUCCESSFULLY_REGISTERED, 'status');
 
 const getMessage = (response) => {
   if (response.data.status && response.data.status >= 400) {

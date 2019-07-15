@@ -9,10 +9,9 @@ import Title from '../commons/title/Title';
 import styles from './RegistrationPanel.style';
 import ExitButton from '../commons/exit-button/ExitButton';
 import InfoSnackbar from '../commons/info-snackbar/InfoSnackbar';
-import * as UserActions from '../../actions/user';
-import * as SnackbarStatus from '../commons/snackbar-statuses';
-import * as OverviewSelectors from '../../selectors/overview';
 import Info, { InfoTypes } from '../commons/info/Info';
+import * as UserActions from '../../actions/user';
+import * as UserSelectors from '../../selectors/user';
 
 const getInitialState = () => ({
   name: '',
@@ -38,9 +37,9 @@ class RegistrationPanel extends React.PureComponent {
   }
 
   static getDerivedStateFromProps(props, state) {
-    const { snackbarInfoType } = props;
+    const { userRegisteredSuccessfully } = props;
 
-    if (snackbarInfoType === SnackbarStatus.INFO) {
+    if (userRegisteredSuccessfully) {
       return getInitialState();
     }
 
@@ -58,7 +57,7 @@ class RegistrationPanel extends React.PureComponent {
   };
 
   handleSignUp = () => {
-    const { signUpUser } = this.props;
+    const { signUpUser, history } = this.props;
     const {
       name, username, email, password,
     } = this.state;
@@ -66,7 +65,7 @@ class RegistrationPanel extends React.PureComponent {
       name, username, email, password,
     };
 
-    this.isFormValid() && signUpUser(user);
+    this.isFormValid() && signUpUser(user, history);
   };
 
   isFormValid = () => this.validateForm();
@@ -223,23 +222,21 @@ RegistrationPanel.propTypes = {
   classes: PropTypes.shape({}),
   history: PropTypes.shape({}),
   signUpUser: PropTypes.func,
-  snackbarInfoType: PropTypes.string,
 };
 
 RegistrationPanel.defaultProps = {
   classes: {},
   history: {},
   signUpUser: () => {},
-  snackbarInfoType: '',
 };
 
 const mapStateToProps = state => ({
-  snackbarInfoType: OverviewSelectors.getSnackbarInfoType(state),
+  userRegisteredSuccessfully: UserSelectors.isUserSuccessfullyRegistered(state),
 });
 
 const mapDispatchToProps = dispatch => ({
-  signUpUser: (user) => {
-    dispatch(UserActions.signUpUser(user));
+  signUpUser: (user, history) => {
+    dispatch(UserActions.signUpUser(user, history));
   },
 });
 export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(RegistrationPanel));

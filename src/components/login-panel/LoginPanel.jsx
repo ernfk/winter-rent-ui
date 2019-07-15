@@ -14,10 +14,10 @@ import {
 import Title from '../commons/title/Title';
 import ExitButton from '../commons/exit-button/ExitButton';
 import Info, { InfoTypes } from '../commons/info/Info';
-import styles from './LoginPanel.style';
-import { signIn } from '../../actions/user';
 import InfoSnackbar from '../commons/info-snackbar/InfoSnackbar';
-import { getCurrentUsernameOrEmail } from '../../selectors/user';
+import * as UserActions from '../../actions/user';
+import * as UserSelectors from '../../selectors/user';
+import styles from './LoginPanel.style';
 
 class LoginPanel extends React.PureComponent {
   constructor(props) {
@@ -75,6 +75,13 @@ class LoginPanel extends React.PureComponent {
   checkErrors = (errors) => {
     const index = Object.values(errors).findIndex(err => err !== '');
     return index === -1;
+  };
+
+  onRegisterClick = () => {
+    const { clearUserSuccessfullyRegisteredStatus, history } = this.props;
+
+    clearUserSuccessfullyRegisteredStatus();
+    history.push('/registration');
   };
 
   render() {
@@ -137,7 +144,7 @@ class LoginPanel extends React.PureComponent {
                   >
                     {'Login'}
                   </Button>
-                  <Button variant="outlined" onClick={() => history.push('/registration')}>
+                  <Button variant="outlined" onClick={this.onRegisterClick}>
                     {'Register'}
                   </Button>
                 </div>
@@ -152,11 +159,12 @@ class LoginPanel extends React.PureComponent {
 }
 
 const mapStateToProps = state => ({
-  currentUsernameOrEmail: getCurrentUsernameOrEmail(),
+  currentUsernameOrEmail: UserSelectors.getCurrentUsernameOrEmail(),
 });
 
 const mapDispatchToProps = dispatch => ({
-  login: (user, history) => dispatch(signIn(user, history)),
+  login: (user, history) => dispatch(UserActions.signIn(user, history)),
+  clearUserSuccessfullyRegisteredStatus: () => dispatch(UserActions.setUserSuccessfullyRegisteredStatus(false)),
 });
 
 LoginPanel.propTypes = {
@@ -164,6 +172,7 @@ LoginPanel.propTypes = {
   currentUsernameOrEmail: PropTypes.string,
   history: PropTypes.shape({}),
   login: PropTypes.func,
+  clearUserSuccessfullyRegisteredStatus: PropTypes.func,
 };
 
 LoginPanel.defaultProps = {
@@ -171,6 +180,7 @@ LoginPanel.defaultProps = {
   currentUsernameOrEmail: '',
   history: {},
   login: () => {},
+  clearUserSuccessfullyRegisteredStatus: () => {},
 };
 
 export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(LoginPanel));

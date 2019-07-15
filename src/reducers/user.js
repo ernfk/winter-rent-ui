@@ -2,6 +2,7 @@ import * as UserActionTypes from '../actions/user';
 import createReducer from '../utils/create-reducer';
 
 export const initialState = {
+  isUserSuccessfullyRegisteredStatus: false,
   userProfile: {
     name: '',
     lastName: '',
