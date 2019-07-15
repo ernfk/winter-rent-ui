@@ -12,6 +12,7 @@ import InfoSnackbar from '../commons/info-snackbar/InfoSnackbar';
 import * as UserActions from '../../actions/user';
 import * as SnackbarStatus from '../commons/snackbar-statuses';
 import * as OverviewSelectors from '../../selectors/overview';
+import Info, { InfoTypes } from '../commons/info/Info';
 
 const getInitialState = () => ({
   name: '',
@@ -105,104 +106,115 @@ class RegistrationPanel extends React.PureComponent {
       name, username, email, password, confirmPassword, termsAcceptStatus,
       errors,
     } = this.state;
+    const isUserLogged = window.localStorage.getItem('accessToken');
 
     return (
-      <div style={styles.registrationPanelContainer}>
-        <Paper className={classes.paper} elevation={4}>
-          <WelcomeIcon classes={{ root: classes.welcomeIcon }} />
-          <Title title="Registration" style={styles.title} />
-          <div style={styles.textFieldsContainer}>
-            <TextField
-              placeholder="Name"
-              InputLabelProps={{
-                shrink: true,
-              }}
-              className={classes.textfield}
-              value={name}
-              onChange={this.handleChange('name')}
-            />
-            <FormHelperText classes={{ root: classes.error }}>
-              {errors.name}
-            </FormHelperText>
-            <TextField
-              placeholder="Login"
-              InputLabelProps={{
-                shrink: true,
-              }}
-              className={classes.textfield}
-              value={username}
-              onChange={this.handleChange('username')}
-            />
-            <FormHelperText classes={{ root: classes.error }}>
-              {errors.username}
-            </FormHelperText>
-            <TextField
-              placeholder="Email"
-              InputLabelProps={{
-                shrink: true,
-              }}
-              className={classes.textfield}
-              value={email}
-              onChange={this.handleChange('email')}
-            />
-            <FormHelperText classes={{ root: classes.error }}>
-              {errors.email}
-            </FormHelperText>
-            <TextField
-              type="password"
-              placeholder="Password"
-              autoComplete="current-password"
-              margin="normal"
-              className={classes.textfield}
-              value={password}
-              onChange={this.handleChange('password')}
-            />
-            <FormHelperText classes={{ root: classes.error }}>
-              {errors.password}
-            </FormHelperText>
-            <TextField
-              type="password"
-              placeholder="Confirm password"
-              autoComplete="current-password"
-              margin="normal"
-              className={classes.textfield}
-              value={confirmPassword}
-              onChange={this.handleChange('confirmPassword')}
-            />
-            <FormHelperText classes={{ root: classes.error }}>
-              {errors.confirmPassword}
-            </FormHelperText>
-          </div>
-          <div style={styles.rulesAgreementContainer}>
-            <Checkbox
-              color="default"
-              checked={termsAcceptStatus}
-              onChange={this.handleChange('termsAcceptStatus')}
-            />
-            <Paper className={classes.rulesAgreementPaper}>
-              <div style={styles.ruleAgreementTitle}>
-                {'I accept the Terms of Use & Privacy Policy'}
+      isUserLogged
+        ? (
+          <Info
+            title="You are already logged in!"
+            history={history}
+            type={InfoTypes.INFO}
+          />
+        )
+        : (
+          <div style={styles.registrationPanelContainer}>
+            <Paper className={classes.paper} elevation={4}>
+              <WelcomeIcon classes={{ root: classes.welcomeIcon }} />
+              <Title title="Registration" style={styles.title} />
+              <div style={styles.textFieldsContainer}>
+                <TextField
+                  placeholder="Name"
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  className={classes.textfield}
+                  value={name}
+                  onChange={this.handleChange('name')}
+                />
+                <FormHelperText classes={{ root: classes.error }}>
+                  {errors.name}
+                </FormHelperText>
+                <TextField
+                  placeholder="Login"
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  className={classes.textfield}
+                  value={username}
+                  onChange={this.handleChange('username')}
+                />
+                <FormHelperText classes={{ root: classes.error }}>
+                  {errors.username}
+                </FormHelperText>
+                <TextField
+                  placeholder="Email"
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  className={classes.textfield}
+                  value={email}
+                  onChange={this.handleChange('email')}
+                />
+                <FormHelperText classes={{ root: classes.error }}>
+                  {errors.email}
+                </FormHelperText>
+                <TextField
+                  type="password"
+                  placeholder="Password"
+                  autoComplete="current-password"
+                  margin="normal"
+                  className={classes.textfield}
+                  value={password}
+                  onChange={this.handleChange('password')}
+                />
+                <FormHelperText classes={{ root: classes.error }}>
+                  {errors.password}
+                </FormHelperText>
+                <TextField
+                  type="password"
+                  placeholder="Confirm password"
+                  autoComplete="current-password"
+                  margin="normal"
+                  className={classes.textfield}
+                  value={confirmPassword}
+                  onChange={this.handleChange('confirmPassword')}
+                />
+                <FormHelperText classes={{ root: classes.error }}>
+                  {errors.confirmPassword}
+                </FormHelperText>
+              </div>
+              <div style={styles.rulesAgreementContainer}>
+                <Checkbox
+                  color="default"
+                  checked={termsAcceptStatus}
+                  onChange={this.handleChange('termsAcceptStatus')}
+                />
+                <Paper className={classes.rulesAgreementPaper}>
+                  <div style={styles.ruleAgreementTitle}>
+                    {'I accept the Terms of Use & Privacy Policy'}
+                  </div>
+                </Paper>
+              </div>
+              <FormHelperText classes={{ root: classes.error }}>
+                {errors.termsAcceptStatus}
+              </FormHelperText>
+              <div style={styles.buttonsContainer}>
+                <Button
+                  onClick={this.handleSignUp}
+                  variant="outlined"
+                  className={classes.signUpButton}
+                >
+                  {'Sign up'}
+                </Button>
+              </div>
+              <div>
+                <ExitButton history={history} />
               </div>
             </Paper>
+            <InfoSnackbar />
           </div>
-          <FormHelperText classes={{ root: classes.error }}>
-            {errors.termsAcceptStatus}
-          </FormHelperText>
-          <div style={styles.buttonsContainer}>
-            <Button
-              onClick={this.handleSignUp}
-              variant="outlined"
-              className={classes.signUpButton}
-            >
-              {'Sign up'}
-            </Button>
-          </div>
-          <div>
-            <ExitButton history={history} />
-          </div>
-        </Paper>
-        <InfoSnackbar />
-      </div>
+        )
     );
   }
 }
