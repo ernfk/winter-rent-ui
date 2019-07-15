@@ -42,8 +42,8 @@ class AppMenu extends Component {
   };
 
   handleLogout = () => {
-    const { logoutUser } = this.props;
-    logoutUser();
+    const { logoutUser, history } = this.props;
+    logoutUser(history);
     this.setState({ anchorEl: null });
   };
 
@@ -143,7 +143,7 @@ AppMenu.defaultProps = {
 };
 
 const mapDispatchToProps = dispatch => ({
-  logoutUser: () => dispatch(logout()),
+  logoutUser: history => dispatch(logout(history)),
 });
 
 export default withStyles(styles)(connect(null, mapDispatchToProps)(withRouter(AppMenu)));

@@ -21,26 +21,23 @@ const getMessage = (response) => {
   return response.response.data.message;
 };
 
-export const signIn = user => dispatch => userService.signIn(user)
+export const signIn = (user, history) => dispatch => userService.signIn(user)
   .then((response) => {
     const token = response.data.accessToken;
 
     dispatch(showSnackbar(SnackbarStatus.INFO, 'You are logged!'));
-    dispatch(setUser(user.usernameOrEmail));
     window.localStorage.setItem('accessToken', token);
     window.localStorage.setItem('usernameOrEmail', user.usernameOrEmail);
+    history.push('/');
   })
   .catch((response) => {
     const message = response.response ? response.response.data.message : 'Problem with connection!';
     dispatch(showSnackbar(SnackbarStatus.ERROR, message));
   });
 
-export const SET_USER = 'SET_USER';
-const setUser = makeActionCreator(SET_USER, 'usernameOrEmail');
-
-export const logout = () => (dispatch) => {
-  dispatch(setUser(''));
-  window.localStorage.removeItem('accessToken');
+export const logout = history => (dispatch) => {
+  window.localStorage.clear();
+  history.push('/');
   dispatch(showSnackbar(SnackbarStatus.INFO, 'You have successfully logged out!'));
 };
 

@@ -45,12 +45,12 @@ class LoginPanel extends React.PureComponent {
   };
 
   handleLogin = () => {
-    const { login } = this.props;
+    const { login, history } = this.props;
     const { usernameOrEmail, password } = this.state;
 
     const user = { usernameOrEmail, password };
 
-    this.isFormValid() && login(user);
+    this.isFormValid() && login(user, history);
   };
 
   isFormValid = () => this.validateForm();
@@ -156,7 +156,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  login: user => dispatch(signIn(user)),
+  login: (user, history) => dispatch(signIn(user, history)),
 });
 
 LoginPanel.propTypes = {
