@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import {
@@ -28,7 +27,6 @@ import styles from './AdminPanel.style';
 import ExitButton from '../commons/exit-button/ExitButton';
 import Info, { InfoTypes } from '../commons/info/Info';
 import InfoSnackbar from '../commons/info-snackbar/InfoSnackbar';
-import { getCurrentUsernameOrEmail } from '../../selectors/user';
 
 class AdminPanel extends React.PureComponent {
   constructor(props) {
@@ -55,12 +53,11 @@ class AdminPanel extends React.PureComponent {
   };
 
   render() {
-    const {
-      classes, history, currentUsernameOrEmail,
-    } = this.props;
+    const { classes, history } = this.props;
+    const isUserLogged = window.localStorage.getItem('accessToken');
 
     return (
-      !currentUsernameOrEmail ? (
+      !isUserLogged ? (
         <Info
           title="Unauthorized"
           history={history}
@@ -122,22 +119,12 @@ class AdminPanel extends React.PureComponent {
 
 AdminPanel.propTypes = {
   classes: PropTypes.shape({}),
-  currentUsernameOrEmail: PropTypes.string,
   history: PropTypes.shape({}),
 };
 
 AdminPanel.defaultProps = {
   classes: {},
-  currentUsernameOrEmail: '',
   history: {},
 };
 
-const mapStateToProps = state => ({
-  currentUsernameOrEmail: getCurrentUsernameOrEmail(state),
-});
-
-const mapDispatchToProps = dispatch => ({
-
-});
-
-export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(withRouter(AdminPanel)));
+export default withStyles(styles)((withRouter(AdminPanel)));

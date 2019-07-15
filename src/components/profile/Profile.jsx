@@ -14,8 +14,7 @@ import MyReservations from './my-reservations/MyReservations';
 import History from './history/History';
 import * as UserSelectors from '../../selectors/user';
 import * as UserActions from '../../actions/user';
-import { InfoTypes } from '../commons/info/Info';
-import Info from '../commons/info/Info';
+import Info, { InfoTypes } from '../commons/info/Info';
 
 class Profile extends React.Component {
   constructor(props) {
@@ -43,6 +42,7 @@ class Profile extends React.Component {
       currentUsernameOrEmail,
       history,
     } = this.props;
+    const isUserLogged = window.localStorage.getItem('accessToken');
 
     return (
       <div>
@@ -58,7 +58,7 @@ class Profile extends React.Component {
             <Tab label="History" disabled />
           </Tabs>
         </Paper>
-        {currentTab === 0 && currentUsernameOrEmail
+        {currentTab === 0 && isUserLogged
           ? (
             <AccountDetails
               currentUserProfile={currentUserProfile}
@@ -83,7 +83,7 @@ class Profile extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  currentUsernameOrEmail: UserSelectors.getCurrentUsernameOrEmail(state),
+  currentUsernameOrEmail: UserSelectors.getCurrentUsernameOrEmail(),
   currentUserProfile: UserSelectors.getCurrentUserProfile(state),
 });
 

@@ -153,7 +153,6 @@ class AccountDetails extends React.Component {
 AccountDetails.propTypes = {
   classes: PropTypes.shape({}),
   currentUsernameOrEmail: PropTypes.string,
-
   updateUserProfile: PropTypes.func,
 };
 

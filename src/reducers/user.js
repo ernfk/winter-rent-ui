@@ -3,7 +3,6 @@ import createReducer from '../utils/create-reducer';
 
 export const initialState = {
   usernameOrEmail: null,
-  accessToken: '',
   userProfile: {
     name: '',
     lastName: '',
@@ -19,7 +18,6 @@ export const initialState = {
 const setUser = (state, action) => ({
   ...state,
   usernameOrEmail: action.usernameOrEmail,
-  accessToken: action.accessToken,
 });
 
 const setUserProfile = (state, action) => ({

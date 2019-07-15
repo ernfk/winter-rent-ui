@@ -78,11 +78,12 @@ class LoginPanel extends React.PureComponent {
   };
 
   render() {
-    const { classes, history, currentUsernameOrEmail } = this.props;
+    const { classes, history } = this.props;
     const { usernameOrEmail, password, errors } = this.state;
+    const isUserLogged = window.localStorage.getItem('accessToken');
 
     return (
-      currentUsernameOrEmail
+      isUserLogged
         ? (
           <Info
             title="You are already logged in!"
@@ -151,7 +152,7 @@ class LoginPanel extends React.PureComponent {
 }
 
 const mapStateToProps = state => ({
-  currentUsernameOrEmail: getCurrentUsernameOrEmail(state),
+  currentUsernameOrEmail: getCurrentUsernameOrEmail(),
 });
 
 const mapDispatchToProps = dispatch => ({
