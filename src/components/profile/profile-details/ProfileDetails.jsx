@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button, TextField, withStyles } from '@material-ui/core';
+import {
+  Button, FormHelperText, TextField, withStyles,
+} from '@material-ui/core';
 import { Backspace as ClearIcon, Save as SaveIcon } from '@material-ui/icons';
 import Title from '../../commons/title/Title';
 import styles from './ProfileDetails.style';
@@ -18,6 +20,7 @@ class ProfileDetails extends React.Component {
       postalCode: 0,
       flatNo: 0,
       username: '',
+      error: '',
     };
   }
 
@@ -44,8 +47,23 @@ class ProfileDetails extends React.Component {
 
   handleSave = () => {
     const { currentUsernameOrEmail, updateUserProfile } = this.props;
+    const userProfile = this.state;
+    if (this.isFormValid()) {
+      delete userProfile.error;
+      updateUserProfile(currentUsernameOrEmail, this.state);
+    }
+  };
 
-    updateUserProfile(currentUsernameOrEmail, this.state);
+  isFormValid = () => this.validateForm();
+
+  validateForm = () => {
+    const { name, lastName } = this.state;
+    if (!name || !lastName) {
+      this.setState({ error: 'Your name and lastname can not be empty!' });
+      return false;
+    }
+    this.setState({ error: '' });
+    return true;
   };
 
   handleClear = () => {
@@ -62,7 +80,7 @@ class ProfileDetails extends React.Component {
   render() {
     const { classes } = this.props;
     const {
-      name, lastName, street, city, phoneNo, postalCode, flatNo,
+      name, lastName, street, city, phoneNo, postalCode, flatNo, error,
     } = this.state;
 
     const greetings = this.isProfileComplete() ? 'Your profile' : 'Please complete your profile';
@@ -128,6 +146,9 @@ class ProfileDetails extends React.Component {
           className={classes.textField}
           type="number"
         />
+        <FormHelperText classes={{ root: classes.error }}>
+          {error}
+        </FormHelperText>
         <div style={styles.buttonsContainer}>
           <Button
             variant="contained"

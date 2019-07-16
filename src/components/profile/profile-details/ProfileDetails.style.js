@@ -25,6 +25,10 @@ const styles = {
   icon: {
     margin: '0px 5px',
   },
+  error: {
+    color: 'red',
+    fontSize: '14px',
+  },
   textField: {
     width: '350px',
   },

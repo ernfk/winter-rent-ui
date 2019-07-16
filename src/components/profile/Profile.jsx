@@ -9,7 +9,7 @@ import {
 import { connect } from 'react-redux';
 import AppMenu from '../overview/AppMenu';
 import styles from './Profile.style';
-import AccountDetails from './profile-details/ProfileDetails';
+import ProfileDetails from './profile-details/ProfileDetails';
 import MyReservations from './my-reservations/MyReservations';
 import History from './history/History';
 import * as UserSelectors from '../../selectors/user';
@@ -25,10 +25,8 @@ class Profile extends React.Component {
   }
 
   componentDidMount() {
-    const { getUserProfile, currentUsernameOrEmail, currentUserProfile } = this.props;
-    if (!this.isUserLogged() || !currentUserProfile.name) {
-      getUserProfile(currentUsernameOrEmail);
-    }
+    const { getUserProfile, currentUsernameOrEmail } = this.props;
+    getUserProfile(currentUsernameOrEmail);
   }
 
   handleChangeTab = (event, newValue) => {
@@ -63,7 +61,7 @@ class Profile extends React.Component {
         </Paper>
         {currentTab === 0 && this.isUserLogged()
           ? (
-            <AccountDetails
+            <ProfileDetails
               currentUserProfile={currentUserProfile}
               updateUserProfile={updateUserProfile}
               currentUsernameOrEmail={currentUsernameOrEmail}
