@@ -9,7 +9,7 @@ import {
 import { connect } from 'react-redux';
 import AppMenu from '../overview/AppMenu';
 import styles from './Profile.style';
-import AccountDetails from './account-details/AccountDetails';
+import AccountDetails from './profile-details/ProfileDetails';
 import MyReservations from './my-reservations/MyReservations';
 import History from './history/History';
 import * as UserSelectors from '../../selectors/user';

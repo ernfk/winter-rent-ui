@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { Button, TextField, withStyles } from '@material-ui/core';
 import { Backspace as ClearIcon, Save as SaveIcon } from '@material-ui/icons';
 import Title from '../../commons/title/Title';
-import styles from './AccountDetails.style';
+import styles from './ProfileDetails.style';
 
-class AccountDetails extends React.Component {
+class ProfileDetails extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -150,16 +150,16 @@ class AccountDetails extends React.Component {
   }
 }
 
-AccountDetails.propTypes = {
+ProfileDetails.propTypes = {
   classes: PropTypes.shape({}),
   currentUsernameOrEmail: PropTypes.string,
   updateUserProfile: PropTypes.func,
 };
 
-AccountDetails.defaultProps = {
+ProfileDetails.defaultProps = {
   classes: {},
   currentUsernameOrEmail: '',
   updateUserProfile: () => {},
 };
 
-export default withStyles(styles)(AccountDetails);
+export default withStyles(styles)(ProfileDetails);
