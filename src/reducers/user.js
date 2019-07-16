@@ -20,6 +20,9 @@ const setUserProfile = (state, action) => ({
   userProfile: action.userProfile,
 });
 
+const clearUserProfile = (state, action) => initialState;
+
 export const user = createReducer(initialState, {
   [UserActionTypes.SET_USER_PROFILE]: setUserProfile,
+  [UserActionTypes.CLEAR_USER_PROFILE]: clearUserProfile,
 });

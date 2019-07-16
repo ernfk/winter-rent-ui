@@ -43,8 +43,12 @@ export const signIn = (user, history) => dispatch => userService.signIn(user)
 export const logout = history => (dispatch) => {
   window.localStorage.clear();
   history.push('/');
+  dispatch(clearUserProfile());
   dispatch(showSnackbar(SnackbarStatus.INFO, 'You have successfully logged out!'));
 };
+
+export const CLEAR_USER_PROFILE = 'CLEAR_USER_PROFILE';
+const clearUserProfile = makeActionCreator(CLEAR_USER_PROFILE);
 
 export const SET_USER_PROFILE = 'SET_USER_PROFILE';
 const setUserProfile = makeActionCreator(SET_USER_PROFILE, 'userProfile');

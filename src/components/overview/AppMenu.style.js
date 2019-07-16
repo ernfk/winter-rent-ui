@@ -28,6 +28,10 @@ const styles = {
     justifyContent: 'space-between',
     paddingLeft: '10px',
   },
+  userProfileMenuItem: {
+    color: 'darkgreen',
+    opacity: '1',
+  },
 };
 
 export default styles;

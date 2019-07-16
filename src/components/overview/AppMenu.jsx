@@ -84,7 +84,12 @@ class AppMenu extends Component {
         open={isMenuOpen}
         onClose={this.handleMenuClose}
       >
-        <MenuItem>{this.getUserProfile()}</MenuItem>
+        <MenuItem
+          className={classes.userProfileMenuItem}
+          disabled
+        >
+          {this.getUserProfile()}
+        </MenuItem>
         <MenuItem onClick={this.handleOpenProfile}>Profile</MenuItem>
         <MenuItem onClick={this.handleLogout}>
           {'Logout'}
