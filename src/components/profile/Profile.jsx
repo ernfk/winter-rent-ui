@@ -25,8 +25,10 @@ class Profile extends React.Component {
   }
 
   componentDidMount() {
-    const { getUserProfile, currentUsernameOrEmail } = this.props;
-    getUserProfile(currentUsernameOrEmail);
+    const { getUserProfile, currentUsernameOrEmail, currentUserProfile } = this.props;
+    if (!this.isUserLogged() || !currentUserProfile.name) {
+      getUserProfile(currentUsernameOrEmail);
+    }
   }
 
   handleChangeTab = (event, newValue) => {
