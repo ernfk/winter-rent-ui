@@ -12,6 +12,7 @@ import {
 import InfoSnackbar from '../commons/info-snackbar/InfoSnackbar';
 import Logo from '../../images/logo.png';
 import * as UserActions from '../../actions/user';
+import * as UserSelectors from '../../selectors/user';
 import styles from './AppMenu.style';
 
 class AppMenu extends Component {
@@ -59,6 +60,16 @@ class AppMenu extends Component {
     this.setState({ anchorEl: null });
   };
 
+  getUserProfile = () => {
+    const { currentUserProfile } = this.props;
+    let profileTitle = window.localStorage.getItem('usernameOrEmail');
+
+    if (currentUserProfile.name && currentUserProfile.lastName) {
+      profileTitle = `${currentUserProfile.name} ${currentUserProfile.lastName}`;
+    }
+    return profileTitle;
+  };
+
   render() {
     const { anchorEl } = this.state;
     const { classes } = this.props;
@@ -73,6 +84,7 @@ class AppMenu extends Component {
         open={isMenuOpen}
         onClose={this.handleMenuClose}
       >
+        <MenuItem>{this.getUserProfile()}</MenuItem>
         <MenuItem onClick={this.handleOpenProfile}>Profile</MenuItem>
         <MenuItem onClick={this.handleLogout}>
           {'Logout'}
@@ -137,6 +149,7 @@ class AppMenu extends Component {
 
 AppMenu.propTypes = {
   classes: PropTypes.shape({}),
+  currentUserProfile: PropTypes.shape({}),
   history: PropTypes.shape({}),
   logoutUser: PropTypes.func,
   clearUserSuccessfullyRegisteredStatus: PropTypes.func,
@@ -144,6 +157,7 @@ AppMenu.propTypes = {
 
 AppMenu.defaultProps = {
   classes: {},
+  currentUserProfile: {},
   history: {},
   logoutUser: () => {},
   clearUserSuccessfullyRegisteredStatus: () => {},
@@ -154,4 +168,8 @@ const mapDispatchToProps = dispatch => ({
   clearUserSuccessfullyRegisteredStatus: () => dispatch(UserActions.setUserSuccessfullyRegisteredStatus(false)),
 });
 
-export default withStyles(styles)(connect(null, mapDispatchToProps)(withRouter(AppMenu)));
+const mapStateToProps = state => ({
+  currentUserProfile: UserSelectors.getCurrentUserProfile(state),
+});
+
+export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(withRouter(AppMenu)));
