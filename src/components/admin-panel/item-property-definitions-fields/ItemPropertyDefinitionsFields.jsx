@@ -65,6 +65,7 @@ class ItemPropertyDefinitionsFields extends React.PureComponent {
   handleSaveOrUpdateItem = () => {
     const { addOrUpdateItem } = this.props;
     const { file, imageId } = this.state;
+
     const isFormReady = this.validateForm();
     if (isFormReady) {
       const itemDTO = this.getItemDTO();
@@ -156,16 +157,19 @@ class ItemPropertyDefinitionsFields extends React.PureComponent {
 
   handleClearFields = () => {
     const state = getInitialState(this.props, true);
+
     this.setState(state);
   };
 
   handleCancel = () => {
     const { handleCancelUpdate } = this.props;
+
     handleCancelUpdate();
   };
 
   getInputProps = (itemPropertyDefinition) => {
     const { adornment } = itemPropertyDefinition.fieldProperties;
+
     return (
       <InputAdornment
         position={adornment.position}
@@ -324,24 +328,20 @@ class ItemPropertyDefinitionsFields extends React.PureComponent {
 
 ItemPropertyDefinitionsFields.propTypes = {
   classes: PropTypes.shape({}),
-  itemPropertyDefinitions: PropTypes.arrayOf(PropTypes.shape({})),
-  selectedItemType: PropTypes.string,
-  addOrUpdateItem: PropTypes.func,
+  itemPropertyDefinitions: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  selectedItemType: PropTypes.string.isRequired,
+  addOrUpdateItem: PropTypes.func.isRequired,
   handleCancelUpdate: PropTypes.func,
-  updateMode: PropTypes.bool,
+  updateMode: PropTypes.bool.isRequired,
   item: PropTypes.shape({ id: PropTypes.number }),
   itemImage: PropTypes.shape({ id: PropTypes.number }),
 };
 
 ItemPropertyDefinitionsFields.defaultProps = {
   classes: {},
-  itemPropertyDefinitions: [],
-  selectedItemType: '',
-  addOrUpdateItem: () => {},
-  handleCancelUpdate: () => {},
-  updateMode: false,
-  item: null,
+  item: {},
   itemImage: {},
+  handleCancelUpdate: () => {},
 };
 
 export default withStyles(styles)(ItemPropertyDefinitionsFields);

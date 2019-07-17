@@ -112,20 +112,15 @@ class ItemList extends React.PureComponent {
 
 ItemList.propTypes = {
   classes: PropTypes.shape({}),
-  fetchItems: PropTypes.func,
-  deleteItem: PropTypes.func,
-  getImageByItemId: PropTypes.func,
-  items: PropTypes.arrayOf(PropTypes.shape({})),
-  itemImage: PropTypes.shape({}),
+  fetchItems: PropTypes.func.isRequired,
+  deleteItem: PropTypes.func.isRequired,
+  getImageByItemId: PropTypes.func.isRequired,
+  items: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  itemImage: PropTypes.shape({}).isRequired,
 };
 
 ItemList.defaultProps = {
   classes: {},
-  items: [],
-  fetchItems: () => {},
-  deleteItem: () => {},
-  getImageByItemId: () => {},
-  itemImage: {},
 };
 
 const mapStateToProps = state => ({

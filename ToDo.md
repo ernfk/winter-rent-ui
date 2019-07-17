@@ -1,4 +1,4 @@
 unit tests
 response from backend
-propTypes
+propTypes // admin panel done
 add mapping source to easier debug

@@ -24,8 +24,9 @@ class AddItem extends React.PureComponent {
 
   componentDidMount = () => {
     const { fetchItemsData } = this.props;
-    this.setState({ labelWidth: ReactDOM.findDOMNode(this.InputLabelRef).offsetWidth });
     const accessToken = window.localStorage.getItem('accessToken');
+
+    this.setState({ labelWidth: ReactDOM.findDOMNode(this.InputLabelRef).offsetWidth });
     fetchItemsData(accessToken);
   };
 
@@ -38,6 +39,7 @@ class AddItem extends React.PureComponent {
 
   getItemTypesMenuItems = () => {
     const { itemTypes } = this.props;
+
     return itemTypes
       .map(itemType => <MenuItem value={itemType} key={itemType}>{itemType}</MenuItem>);
   };
@@ -88,18 +90,14 @@ class AddItem extends React.PureComponent {
 
 AddItem.propTypes = {
   classes: PropTypes.shape({}),
-  itemTypes: PropTypes.arrayOf(PropTypes.string),
-  itemPropertyDefinitions: PropTypes.arrayOf(PropTypes.shape({})),
-  fetchItemsData: PropTypes.func,
-  addItem: PropTypes.func,
+  itemTypes: PropTypes.arrayOf(PropTypes.string).isRequired,
+  itemPropertyDefinitions: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  fetchItemsData: PropTypes.func.isRequired,
+  addItem: PropTypes.func.isRequired,
 };
 
 AddItem.defaultProps = {
   classes: {},
-  itemTypes: [],
-  itemPropertyDefinitions: [],
-  fetchItemsData: () => {},
-  addItem: () => {},
 };
 
 const mapStateToProps = state => ({

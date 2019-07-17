@@ -42,6 +42,7 @@ class AdminPanel extends React.PureComponent {
 
   getContent = () => {
     const { currentOpenContent } = this.state;
+
     if (currentOpenContent === 'addItem') {
       return <AddItem />;
     } if (currentOpenContent === 'showAllItems') {
