@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
-  Button, FormControl, Input,
+  Button, FormControl, IconButton, Input,
   InputAdornment, Paper, withStyles,
   FormHelperText,
 } from '@material-ui/core';
@@ -10,6 +10,8 @@ import {
   Accessibility as LoginIcon,
   AccountCircle as AccountCircleIcon,
   Https as PasswordIcon,
+  Visibility,
+  VisibilityOff,
 } from '@material-ui/icons';
 import Title from '../commons/title/Title';
 import ExitButton from '../commons/exit-button/ExitButton';
@@ -29,6 +31,7 @@ class LoginPanel extends React.PureComponent {
         usernameOrEmail: '',
         password: '',
       },
+      showPassword: false,
     };
   }
 
@@ -84,9 +87,17 @@ class LoginPanel extends React.PureComponent {
     history.push('/registration');
   };
 
+  handleClickShowPassword = () => {
+    const { showPassword } = this.state;
+
+    this.setState({ showPassword: !showPassword });
+  };
+
   render() {
     const { classes, history } = this.props;
-    const { usernameOrEmail, password, errors } = this.state;
+    const {
+      usernameOrEmail, password, errors, showPassword,
+    } = this.state;
     const isUserLogged = window.localStorage.getItem('accessToken');
 
     return (
@@ -126,11 +137,22 @@ class LoginPanel extends React.PureComponent {
                       <InputAdornment position="start">
                         <PasswordIcon />
                       </InputAdornment>
-              )}
+                    )}
+                    endAdornment={(
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="Toggle password visibility"
+                          onClick={this.handleClickShowPassword}
+                        >
+                          {showPassword ? <Visibility /> : <VisibilityOff />}
+                        </IconButton>
+                      </InputAdornment>
+                    )}
                     name="password"
                     onChange={event => this.handleChange(event, 'password')}
                     placeholder="Password"
                     value={password}
+                    type={showPassword ? 'text' : 'password'}
                   />
                 </FormControl>
                 <FormHelperText classes={{ root: classes.error }}>
