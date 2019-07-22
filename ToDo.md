@@ -1,4 +1,4 @@
 unit tests
 response from backend
-propTypes // admin panel done
+admin icon only for admin
 add mapping source to easier debug

@@ -97,8 +97,8 @@ const mapDispatchToProps = dispatch => ({
 
 Profile.propTypes = {
   classes: PropTypes.shape({}),
-  currentUserProfile: PropTypes.shape({}),
-  currentUsernameOrEmail: PropTypes.string,
+  currentUserProfile: PropTypes.shape({}).isRequired,
+  currentUsernameOrEmail: PropTypes.string.isRequired,
   getUserProfile: PropTypes.func,
   history: PropTypes.shape({}),
   updateUserProfile: PropTypes.func,
@@ -106,8 +106,6 @@ Profile.propTypes = {
 
 Profile.defaultProps = {
   classes: {},
-  currentUserProfile: {},
-  currentUsernameOrEmail: 0,
   getUserProfile: () => {},
   history: {},
   updateUserProfile: () => {},

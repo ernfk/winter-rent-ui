@@ -173,14 +173,12 @@ class ProfileDetails extends React.Component {
 
 ProfileDetails.propTypes = {
   classes: PropTypes.shape({}),
-  currentUsernameOrEmail: PropTypes.string,
-  updateUserProfile: PropTypes.func,
+  currentUsernameOrEmail: PropTypes.string.isRequired,
+  updateUserProfile: PropTypes.func.isRequired,
 };
 
 ProfileDetails.defaultProps = {
   classes: {},
-  currentUsernameOrEmail: '',
-  updateUserProfile: () => {},
 };
 
 export default withStyles(styles)(ProfileDetails);

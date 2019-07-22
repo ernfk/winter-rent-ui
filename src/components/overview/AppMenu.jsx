@@ -154,7 +154,7 @@ class AppMenu extends Component {
 
 AppMenu.propTypes = {
   classes: PropTypes.shape({}),
-  currentUserProfile: PropTypes.shape({}),
+  currentUserProfile: PropTypes.shape({}).isRequired,
   history: PropTypes.shape({}),
   logoutUser: PropTypes.func,
   clearUserSuccessfullyRegisteredStatus: PropTypes.func,
@@ -162,7 +162,6 @@ AppMenu.propTypes = {
 
 AppMenu.defaultProps = {
   classes: {},
-  currentUserProfile: {},
   history: {},
   logoutUser: () => {},
   clearUserSuccessfullyRegisteredStatus: () => {},
