@@ -33,10 +33,12 @@ export const signIn = (user, history) => dispatch => userService.signIn(user)
     dispatch(showSnackbar(SnackbarStatus.INFO, 'You are logged!'));
     window.localStorage.setItem('accessToken', token);
     window.localStorage.setItem('usernameOrEmail', user.usernameOrEmail);
-    history.push('/');
   })
   .then(() => userService.isUserAdmin(user.usernameOrEmail))
-  .then(response => response.data && window.localStorage.setItem('isAdmin', response.data))
+  .then((response) => {
+    response.data && window.localStorage.setItem('isAdmin', response.data);
+    history.push('/');
+  })
   .catch((response) => {
     const message = response.response ? response.response.data.message : 'Problem with connection!';
     dispatch(showSnackbar(SnackbarStatus.ERROR, message));
