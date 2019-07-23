@@ -53,12 +53,16 @@ class AdminPanel extends React.PureComponent {
     return <Typography variant="h5">Welcome to Admin Panel</Typography>;
   };
 
+  isUserAdmin = () => window.localStorage.getItem('isAdmin');
+
+  isUserLogged = () => window.localStorage.getItem('accessToken');
+
   render() {
     const { classes, history } = this.props;
-    const isUserLogged = window.localStorage.getItem('accessToken');
+    const showAdminButton = this.isUserLogged() && Boolean(this.isUserAdmin());
 
     return (
-      !isUserLogged ? (
+      !showAdminButton ? (
         <Info
           title="Unauthorized"
           history={history}
