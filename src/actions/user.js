@@ -35,6 +35,8 @@ export const signIn = (user, history) => dispatch => userService.signIn(user)
     window.localStorage.setItem('usernameOrEmail', user.usernameOrEmail);
     history.push('/');
   })
+  .then(() => userService.isUserAdmin(user.usernameOrEmail))
+  .then(response => response.data && window.localStorage.setItem('isAdmin', response.data))
   .catch((response) => {
     const message = response.response ? response.response.data.message : 'Problem with connection!';
     dispatch(showSnackbar(SnackbarStatus.ERROR, message));

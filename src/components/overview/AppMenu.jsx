@@ -70,11 +70,15 @@ class AppMenu extends Component {
     return profileTitle;
   };
 
+  isUserAdmin = () => window.localStorage.getItem('isAdmin');
+
+  isUserLogged = () => window.localStorage.getItem('accessToken');
+
   render() {
     const { anchorEl } = this.state;
     const { classes } = this.props;
-    const isUserLogged = window.localStorage.getItem('accessToken');
     const isMenuOpen = Boolean(anchorEl);
+    const showAdminButton = this.isUserLogged() && Boolean(this.isUserAdmin());
 
     const renderMenu = (
       <Menu
@@ -109,7 +113,7 @@ class AppMenu extends Component {
               </Typography>
             </div>
             <div>
-              {isUserLogged
+              {this.isUserLogged()
                 ? (
                   <IconButton
                     aria-owns={isMenuOpen ? 'material-appbar' : undefined}
@@ -132,15 +136,15 @@ class AppMenu extends Component {
                     </Button>
                   </div>
                 ) }
-              {isUserLogged && (
-              <IconButton
-                aria-owns={isMenuOpen ? 'material-appbar' : undefined}
-                aria-haspopup="true"
-                onClick={this.handleOpenAdminPanel}
-                color="inherit"
-              >
-                <Settings />
-              </IconButton>
+              { showAdminButton && (
+                <IconButton
+                  aria-owns={isMenuOpen ? 'material-appbar' : undefined}
+                  aria-haspopup="true"
+                  onClick={this.handleOpenAdminPanel}
+                  color="inherit"
+                >
+                  <Settings />
+                </IconButton>
               )}
             </div>
           </Toolbar>
