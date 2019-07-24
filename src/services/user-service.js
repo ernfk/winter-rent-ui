@@ -19,27 +19,27 @@ class UserService extends BaseService {
   };
 
   getUserProfile = (username) => {
-    const config = this.getConfig();
+    const config = this.getAuthConfig();
     const path = `${this.basePath}/profile/${username}`;
 
     return axios.get(path, config);
   };
 
   updateUserProfile = (username, userProfile) => {
-    const config = this.getConfig();
+    const config = this.getAuthConfig();
     const path = `${this.basePath}/profile/${username}`;
 
     return axios.put(path, userProfile, config);
   };
 
   isUserAdmin = (username) => {
-    const config = this.getConfig();
+    const config = this.getAuthConfig();
     const path = `${this.basePath}/profile/${username}/role`;
 
     return axios.get(path, config);
   };
 
-  getConfig = () => {
+  getAuthConfig = () => {
     const accessToken = window.localStorage.getItem('accessToken');
 
     return { headers: { Authorization: `Bearer ${accessToken}` } };

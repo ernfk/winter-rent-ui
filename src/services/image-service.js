@@ -8,7 +8,7 @@ class ImageService extends BaseService {
 
   addImage = (file, itemId) => {
     const path = `${this.basePath}/images`;
-    const config = { headers: { 'Content-Type': 'multipart/form-data' } };
+    const config = this.getAuthConfigWithContentType();
     const formData = new FormData();
 
     formData.append('itemId', itemId);
@@ -18,18 +18,21 @@ class ImageService extends BaseService {
   };
 
   getImageByItemId = (itemId) => {
+    const config = this.getAuthConfig();
     const path = `${this.basePath}/images/${itemId}`;
-    return axios.get(path);
+
+    return axios.get(path, config);
   };
 
   deleteImage(imageId) {
     const path = `${this.basePath}/images/${imageId}`;
+
     return axios.delete(path);
   }
 
   updateImage(imageId, itemId, file) {
     const path = `${this.basePath}/images/${imageId}/items/${itemId}`;
-    const config = { headers: { 'Content-Type': 'multipart/form-data' } };
+    const config = this.getAuthConfigWithContentType();
     const formData = new FormData();
 
     formData.append('itemId', itemId);
@@ -37,6 +40,22 @@ class ImageService extends BaseService {
 
     return axios.put(path, formData, config);
   }
+
+  getAuthConfig = () => {
+    const accessToken = window.localStorage.getItem('accessToken');
+
+    return { headers: { Authorization: `Bearer ${accessToken}` } };
+  };
+
+  getAuthConfigWithContentType = () => {
+    const accessToken = window.localStorage.getItem('accessToken');
+    return {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        Authorization: `Bearer ${accessToken}`,
+      },
+    };
+  };
 }
 
 export default ImageService;
