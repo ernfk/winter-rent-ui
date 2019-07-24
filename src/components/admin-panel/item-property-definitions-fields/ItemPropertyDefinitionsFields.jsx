@@ -49,7 +49,7 @@ class ItemPropertyDefinitionsFields extends React.PureComponent {
 
   static getDerivedStateFromProps(props, state) {
     if (props.item) {
-      if (props.item.id !== state.id) {
+      if (props.item.id !== state.id && props.updateMode) {
         return getInitialState(props);
       }
     }
@@ -278,7 +278,7 @@ class ItemPropertyDefinitionsFields extends React.PureComponent {
       <div style={styles.photoContainer}>
         <Paper classes={{ root: classes.paperRoot }}>
           <div style={styles.noPhotoPlaceHolder}>
-            {<img src={filePreviewPath} /> || 'No photo'}
+            {filePreviewPath ? <img src={filePreviewPath} /> : 'No photo'}
           </div>
         </Paper>
         <input

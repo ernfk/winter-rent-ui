@@ -40,6 +40,7 @@ const styles = {
     height: '200px',
   },
   noPhotoPlaceHolder: {
+    fontFamily: 'Roboto sans-serif',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
