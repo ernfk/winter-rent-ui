@@ -42,12 +42,6 @@ class ItemsService extends BaseService {
     const path = `${this.basePath}/items`;
     return axios.put(path, item, config);
   };
-
-  getAuthConfig = () => {
-    const accessToken = window.localStorage.getItem('accessToken');
-
-    return { headers: { Authorization: `Bearer ${accessToken}` } };
-  };
 }
 
 export default ItemsService;

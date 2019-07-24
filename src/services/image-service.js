@@ -40,22 +40,6 @@ class ImageService extends BaseService {
 
     return axios.put(path, formData, config);
   }
-
-  getAuthConfig = () => {
-    const accessToken = window.localStorage.getItem('accessToken');
-
-    return { headers: { Authorization: `Bearer ${accessToken}` } };
-  };
-
-  getAuthConfigWithContentType = () => {
-    const accessToken = window.localStorage.getItem('accessToken');
-    return {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-        Authorization: `Bearer ${accessToken}`,
-      },
-    };
-  };
 }
 
 export default ImageService;

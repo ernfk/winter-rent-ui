@@ -38,12 +38,6 @@ class UserService extends BaseService {
 
     return axios.get(path, config);
   };
-
-  getAuthConfig = () => {
-    const accessToken = window.localStorage.getItem('accessToken');
-
-    return { headers: { Authorization: `Bearer ${accessToken}` } };
-  }
 }
 
 export default UserService;
