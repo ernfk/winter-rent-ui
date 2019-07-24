@@ -36,6 +36,7 @@ const getInitialState = ({ item, updateMode, itemImage }, clear) => ({
     season: '',
     secondColor: '',
     size: '',
+    uploadPhoto: '',
   },
   filePreviewPath: itemImage.photo ? `data:image/jpeg;base64,${itemImage.photo}` : null,
   file: itemImage.photo,
@@ -293,19 +294,38 @@ class ItemPropertyDefinitionsFields extends React.PureComponent {
             <PhotoIcon className={classes.photoIcon} />
           </IconButton>
         </label>
+        <FormHelperText
+          id="component-error-text"
+          className={classes.errorLabel}
+        >
+          {this.state.errors.uploadPhoto}
+        </FormHelperText>
       </div>
     );
   };
 
   handleUpload = ({ target }) => {
     const { files } = target;
-    const { itemImage } = this.props;
+    const image = new Image();
 
-    this.setState({ filePreviewPath: URL.createObjectURL(files[0]), file: files[0] });
-    if (itemImage.id) {
-      this.setState({ imageId: itemImage.id });
-    }
+    image.src = URL.createObjectURL(files[0]);
+    image.onload = () => this.checkImageResolution(image, files[0]);
     target.value = '';
+  };
+
+  checkImageResolution = (image, file) => {
+    const { itemImage } = this.props;
+    const errors = { ...this.state.errors };
+
+    if (image.naturalHeight > 200 || image.naturalWidth > 200) {
+      errors.uploadPhoto = 'Images width and height can not be bigger than 200px';
+      this.setState({ errors });
+    } else {
+      this.setState({ filePreviewPath: image.src, file });
+      if (itemImage.id) {
+        this.setState({ imageId: itemImage.id });
+      }
+    }
   };
 
   render() {
