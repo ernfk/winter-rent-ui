@@ -314,18 +314,28 @@ class ItemPropertyDefinitionsFields extends React.PureComponent {
   };
 
   checkImageResolution = (image, file) => {
+    if (image.naturalHeight <= 200 && image.naturalWidth <= 200) {
+      this.uploadPhoto(image, file);
+    } else {
+      this.setUploadPhotoError('Images width and height can not be bigger than 200px');
+    }
+  };
+
+  uploadPhoto = (image, file) => {
     const { itemImage } = this.props;
+
+    this.setUploadPhotoError('');
+    this.setState({ filePreviewPath: image.src, file });
+    if (itemImage.id) {
+      this.setState({ imageId: itemImage.id });
+    }
+  };
+
+  setUploadPhotoError = (error) => {
     const errors = { ...this.state.errors };
 
-    if (image.naturalHeight > 200 || image.naturalWidth > 200) {
-      errors.uploadPhoto = 'Images width and height can not be bigger than 200px';
-      this.setState({ errors });
-    } else {
-      this.setState({ filePreviewPath: image.src, file });
-      if (itemImage.id) {
-        this.setState({ imageId: itemImage.id });
-      }
-    }
+    errors.uploadPhoto = error;
+    this.setState({ errors });
   };
 
   render() {
