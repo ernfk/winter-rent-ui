@@ -55,7 +55,7 @@ const flatTheItems = items => items
     flattedItem.modelNo = item.modelNo;
 
     return item.itemProperties
-      .map(ip => ({ property: ip.itemPropertyDefinition.propertyName, value: ip.value }))
+      .map(ip => ({ property: ip.property, value: ip.value }))
       .reduce((r, e) => {
         r[e.property.toLowerCase()] = e.value;
         return r;
