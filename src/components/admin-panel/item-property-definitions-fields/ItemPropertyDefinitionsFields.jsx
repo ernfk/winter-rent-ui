@@ -135,13 +135,9 @@ class ItemPropertyDefinitionsFields extends React.PureComponent {
 
       return {
         id: null,
-        itemPropertyDefinition: {
-          id: itemPropertyDefinitionForDTO.id,
-          propertyName: itemPropertyDefinitionForDTO.propertyName,
-          itemType: selectedItemType,
-        },
-        itemType: selectedItemType,
         value,
+        property: itemPropertyDefinitionForDTO.propertyName,
+        propertyId: itemPropertyDefinitionForDTO.id,
       };
     });
 
