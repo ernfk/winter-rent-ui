@@ -7,7 +7,7 @@ class ItemsService extends BaseService {
     super(basePath);
   }
 
-  getItemTypes = (accessToken) => {
+  getItemTypes = () => {
     const config = this.getAuthConfig();
     const path = `${this.basePath}/itemTypes`;
     return axios.get(path, config);
@@ -25,7 +25,7 @@ class ItemsService extends BaseService {
     return axios.post(path, item, config);
   };
 
-  getItems = (accessToken) => {
+  getItems = () => {
     const config = this.getAuthConfig();
     const path = `${this.basePath}/items`;
     return axios.get(path, config);

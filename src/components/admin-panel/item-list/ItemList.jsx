@@ -23,8 +23,8 @@ class ItemList extends React.PureComponent {
 
   componentDidMount() {
     const { fetchItems } = this.props;
-    const accessToken = window.localStorage.getItem('accessToken');
-    fetchItems(accessToken);
+
+    fetchItems();
   }
 
   handleDeleteItem = (itemId) => {
@@ -129,8 +129,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchItems: (accessToken) => {
-    dispatch(ItemActions.fetchItems(accessToken));
+  fetchItems: () => {
+    dispatch(ItemActions.fetchItems());
   },
   deleteItem: (itemId, imageId) => {
     dispatch(ItemActions.deleteItem(itemId, imageId));

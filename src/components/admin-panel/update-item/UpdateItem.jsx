@@ -12,9 +12,9 @@ class UpdateItem extends React.PureComponent {
   }
 
   componentDidMount = () => {
-    const accessToken = window.localStorage.getItem('accessToken');
     const { fetchItemsData } = this.props;
-    fetchItemsData(accessToken);
+
+    fetchItemsData();
   };
 
   render() {
@@ -63,8 +63,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchItemsData: (accessToken) => {
-    dispatch(ItemActions.fetchItemsData(accessToken));
+  fetchItemsData: () => {
+    dispatch(ItemActions.fetchItemsData());
   },
   updateItem: (item, file, imageId) => {
     dispatch(ItemActions.updateItem(item, file, imageId));
