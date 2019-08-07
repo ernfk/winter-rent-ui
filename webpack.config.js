@@ -32,12 +32,14 @@ module.exports = {
       },
     ],
   },
+  devtool: false,
   plugins: [
     new HtmlWebPackPlugin({
       template: './src/index.html',
       filename: './index.html',
     }),
     new webpack.LoaderOptionsPlugin({ options: {} }),
+    new webpack.SourceMapDevToolPlugin({}),
   ],
   devServer: {
     historyApiFallback: true,
