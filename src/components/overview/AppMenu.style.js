@@ -11,6 +11,7 @@ const styles = {
   logo: {
     height: '50px',
     paddingRight: '10px',
+    cursor: 'pointer',
   },
   logoContainer: {
     display: 'flex',

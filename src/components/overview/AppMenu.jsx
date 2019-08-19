@@ -74,6 +74,13 @@ class AppMenu extends Component {
 
   isUserLogged = () => window.localStorage.getItem('accessToken');
 
+  handleGoToOverview = () => {
+    const { history } = this.props;
+
+    history.push('/');
+    this.setState({ anchorEl: null });
+  };
+
   render() {
     const { anchorEl } = this.state;
     const { classes } = this.props;
@@ -107,7 +114,12 @@ class AppMenu extends Component {
         <AppBar position="static" color="default">
           <Toolbar style={styles.toolbar}>
             <div style={styles.logoContainer}>
-              <img src={Logo} style={styles.logo} alt="logo" />
+              <img
+                src={Logo}
+                style={styles.logo}
+                alt="logo"
+                onClick={this.handleGoToOverview}
+              />
               <Typography variant="h6" color="inherit" style={styles.appBarHeader}>
                 {'Winter rent'}
               </Typography>

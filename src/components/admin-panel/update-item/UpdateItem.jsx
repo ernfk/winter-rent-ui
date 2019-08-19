@@ -19,7 +19,10 @@ class UpdateItem extends React.PureComponent {
 
   render() {
     const {
-      itemPropertyDefinitions, item, handleCancelUpdate, updateItem,
+      itemPropertyDefinitions,
+      item,
+      handleCancelUpdate,
+      updateItem,
       itemImage,
     } = this.props;
 
