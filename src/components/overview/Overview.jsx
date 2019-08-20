@@ -1,12 +1,12 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
-import Title from '../commons/title/Title';
 import AppMenu from './AppMenu';
+import Main from './Main';
 
 const Overview = () => (
   <div>
     <AppMenu />
-    <Title title="Main page" />
+    <Main />
   </div>
 );
 
