@@ -32,24 +32,24 @@ const Main = ({ classes }) => (
   <div>
     <Title title="Prices" style={styles.title} />
     <Paper className={classes.container}>
-      <Table>
+      <Table className={classes.table}>
         <TableHead>
           <TableRow>
-            <TableCell>Equipment</TableCell>
-            <TableCell align="right">1-2 day</TableCell>
-            <TableCell align="right">3-7 days</TableCell>
-            <TableCell align="right">8-14</TableCell>
-            <TableCell align="right">month</TableCell>
+            <TableCell className={classes.tableCell}>Equipment</TableCell>
+            <TableCell align="right" className={classes.tableCell}>1-2 day</TableCell>
+            <TableCell align="right" className={classes.tableCell}>3-7 days</TableCell>
+            <TableCell align="right" className={classes.tableCell}>8-14</TableCell>
+            <TableCell align="right" className={classes.tableCell}>month</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {equipments.map((row, i) => (
             <TableRow key={i} className={(i % 2 !== 0) && classes.oddRow}>
-              <TableCell component="th" scope="row">{row.name}</TableCell>
-              <TableCell align="right">{row.days}</TableCell>
-              <TableCell align="right">{row.week}</TableCell>
-              <TableCell align="right">{row.twoWeeks}</TableCell>
-              <TableCell align="right">{row.month}</TableCell>
+              <TableCell component="th" scope="row" className={classes.tableCell}>{row.name}</TableCell>
+              <TableCell align="right" className={classes.tableCell}>{row.days}</TableCell>
+              <TableCell align="right" className={classes.tableCell}>{row.week}</TableCell>
+              <TableCell align="right" className={classes.tableCell}>{row.twoWeeks}</TableCell>
+              <TableCell align="right" className={classes.tableCell}>{row.month}</TableCell>
             </TableRow>
           ))}
         </TableBody>
