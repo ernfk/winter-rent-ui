@@ -2,11 +2,13 @@
 import React from 'react';
 import AppMenu from './AppMenu';
 import Main from './Main';
+import Footer from './Footer';
 
 const Overview = () => (
   <div>
     <AppMenu />
     <Main />
+    <Footer />
   </div>
 );
 
