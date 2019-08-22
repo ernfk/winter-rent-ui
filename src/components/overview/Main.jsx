@@ -30,7 +30,7 @@ const equipments = [
 
 const Main = ({ classes }) => (
   <div>
-    <Title title="Prices" style={styles.title} />
+    <Title title="PRICES" style={styles.title} />
     <Paper className={classes.container}>
       <Table className={classes.table}>
         <TableHead>
@@ -44,7 +44,7 @@ const Main = ({ classes }) => (
         </TableHead>
         <TableBody>
           {equipments.map((row, i) => (
-            <TableRow key={i} className={(i % 2 !== 0) && classes.oddRow}>
+            <TableRow key={i} className={(i % 2 === 0) && classes.evenRow}>
               <TableCell component="th" scope="row" className={classes.tableCell}>{row.name}</TableCell>
               <TableCell align="right" className={classes.tableCell}>{row.days}</TableCell>
               <TableCell align="right" className={classes.tableCell}>{row.week}</TableCell>

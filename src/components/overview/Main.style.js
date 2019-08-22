@@ -16,7 +16,7 @@ const styles = {
     fontSize: '25px',
     marginTop: '30px',
   },
-  oddRow: {
+  evenRow: {
     backgroundColor: 'lightgray',
   },
 };
