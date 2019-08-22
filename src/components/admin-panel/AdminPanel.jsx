@@ -27,6 +27,7 @@ import styles from './AdminPanel.style';
 import ExitButton from '../commons/exit-button/ExitButton';
 import Info, { InfoTypes } from '../commons/info/Info';
 import InfoSnackbar from '../commons/info-snackbar/InfoSnackbar';
+import Footer from '../overview/Footer';
 
 class AdminPanel extends React.PureComponent {
   constructor(props) {
@@ -116,6 +117,7 @@ class AdminPanel extends React.PureComponent {
               {this.getContent()}
             </main>
             <InfoSnackbar />
+            <Footer />
           </div>
         )
     );
