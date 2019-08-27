@@ -14,6 +14,7 @@ import Logo from '../../images/logo.png';
 import * as UserActions from '../../actions/user';
 import * as UserSelectors from '../../selectors/user';
 import styles from './AppMenu.style';
+import TabsOverview from '../tabs/TabsOverview';
 
 class AppMenu extends Component {
   constructor(props) {
@@ -124,6 +125,7 @@ class AppMenu extends Component {
                 {'Winter rent'}
               </Typography>
             </div>
+              <TabsOverview />
             <div>
               {this.isUserLogged()
                 ? (
